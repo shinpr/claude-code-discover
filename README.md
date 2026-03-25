@@ -122,7 +122,7 @@ As you use the recipes, artifacts accumulate in `docs/`:
 ```
 docs/
 ├── product/             # Vision, personas, design principles, learnings
-├── design/              # Blueprint: IA, user flows, content model, brand direction
+│   └── design/          # Blueprint: IA, user flows, content model, brand direction
 ├── discovery/           # Opportunities, hypotheses, prototypes, journeys
 │   └── INDEX.md         # Auto-maintained summary of discovery status
 └── prd/                 # PRDs ready for implementation

@@ -57,7 +57,7 @@ Design decisions without persona/context grounding are assumptions that need val
 
 ## Blueprint Integration
 
-When `docs/design/` exists, blueprint artifacts provide shared structural context (information architecture, brand direction, content model, user flows, AI interaction model). Prototypes reference these artifacts to ensure consistency across multiple hypothesis validations.
+When `docs/product/design/` exists, blueprint artifacts provide shared structural context (information architecture, brand direction, content model, user flows, AI interaction model). Prototypes reference these artifacts to ensure consistency across multiple hypothesis validations.
 
 ## Design in Hypothesis Validation
 

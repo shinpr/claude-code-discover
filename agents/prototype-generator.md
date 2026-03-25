@@ -57,17 +57,17 @@ Read all project files to understand the design context:
 
 #### Blueprint Context (when available)
 
-Read structural design artifacts from `docs/design/` to ensure prototype consistency:
+Read structural design artifacts from `docs/product/design/` to ensure prototype consistency:
 
-5. **Brand direction** (`docs/design/brand-direction.md`) — apply color direction, typography direction, tone & voice, visual density. Overrides ad-hoc aesthetic inference from Step 2
-6. **Information architecture** (`docs/design/information-architecture.md`) — place the prototype's screen within the product's page hierarchy. Include navigation elements consistent with the IA
-7. **User flow** (relevant file from `docs/design/flows/`) — understand the step before and after the prototype's interaction to provide realistic entry/exit context
-8. **Content model** (`docs/design/content-model.md`) — use entity definitions for mock data structure. Ensure mock data attributes and relationships match the content model
-9. **AI interaction model** (`docs/design/ai-interaction-model.md`) — for AI-powered features, follow the defined interaction pattern, display strategy, error taxonomy, and guardrails
+5. **Brand direction** (`docs/product/design/brand-direction.md`) — apply color direction, typography direction, tone & voice, visual density. Overrides ad-hoc aesthetic inference from Step 2
+6. **Information architecture** (`docs/product/design/information-architecture.md`) — place the prototype's screen within the product's page hierarchy. Include navigation elements consistent with the IA
+7. **User flow** (relevant file from `docs/product/design/flows/`) — understand the step before and after the prototype's interaction to provide realistic entry/exit context
+8. **Content model** (`docs/product/design/content-model.md`) — use entity definitions for mock data structure. Ensure mock data attributes and relationships match the content model
+9. **AI interaction model** (`docs/product/design/ai-interaction-model.md`) — for AI-powered features, follow the defined interaction pattern, display strategy, error taxonomy, and guardrails
 
 ### Step 2: Design Direction
 
-Before writing code, determine the aesthetic direction. Apply the 5 axes from `references/prototype-prompt-guide.md` Design Quality section. When `docs/design/brand-direction.md` exists, use this mapping to derive each axis:
+Before writing code, determine the aesthetic direction. Apply the 5 axes from `references/prototype-prompt-guide.md` Design Quality section. When `docs/product/design/brand-direction.md` exists, use this mapping to derive each axis:
 
 | Axis | Source from brand-direction.md |
 |------|-------------------------------|

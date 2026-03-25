@@ -29,9 +29,9 @@ Before generating, read the relevant project files to understand the full contex
 
 These files drive every design decision. A prototype built without reading them validates nothing.
 
-### Blueprint Context (include when `docs/design/` exists)
+### Blueprint Context (include when `docs/product/design/` exists)
 
-Read all available artifacts from `docs/design/` (information architecture, brand direction, user flows, content model, AI interaction model). When present, brand direction overrides ad-hoc aesthetic inference from design principles.
+Read all available artifacts from `docs/product/design/` (information architecture, brand direction, user flows, content model, AI interaction model). When present, brand direction overrides ad-hoc aesthetic inference from design principles.
 
 ### Additional Context (include when available)
 

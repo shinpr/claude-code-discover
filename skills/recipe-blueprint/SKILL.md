@@ -4,7 +4,7 @@ description: Define structural design foundation — information architecture, u
 disable-model-invocation: true
 ---
 
-**Context**: Create or update structural design artifacts in `docs/design/` that provide shared context for prototype generation and downstream UI specification. Blueprint bridges the gap between "what problems to solve" (discovery) and "what the product looks and works like" (prototypes).
+**Context**: Create or update structural design artifacts in `docs/product/design/` that provide shared context for prototype generation and downstream UI specification. Blueprint bridges the gap between "what problems to solve" (discovery) and "what the product looks and works like" (prototypes).
 
 ## Orchestrator Definition
 
@@ -32,7 +32,7 @@ Input (validated opportunities / discovery outputs / strategic update)
     ↓
 7. AI Interaction Model → Interaction patterns, capability boundaries, guardrails (if applicable) [Stop: User confirms design direction]
     ↓
-Output: docs/design/ artifacts
+Output: docs/product/design/ artifacts
 ```
 
 ## Execution Decision Flow
@@ -58,7 +58,7 @@ Input: $ARGUMENTS
 
 | Situation | Mode | Action |
 |-----------|------|--------|
-| No `docs/design/` exists | Create | Full blueprint definition |
+| No `docs/product/design/` exists | Create | Full blueprint definition |
 | Blueprint exists, new Opportunities discovered | Update | Extend IA, flows, content model for new scope |
 | Blueprint exists, new learnings in `docs/product/learnings.md` | Update | Revise based on new learnings |
 | Existing codebase | Create/Update | Invoke codebase-analyzer for current architecture understanding |
@@ -163,13 +163,13 @@ Use blueprint-standards skill `references/ai-interaction-model-template.md` to d
 
 ### 8. File Output
 
-After user approval, write all artifacts to `docs/design/`:
+After user approval, write all artifacts to `docs/product/design/`:
 
-- `docs/design/information-architecture.md`
-- `docs/design/content-model.md`
-- `docs/design/brand-direction.md`
-- `docs/design/ai-interaction-model.md` (if applicable)
-- `docs/design/flows/flow-{name}.md` (one file per flow)
+- `docs/product/design/information-architecture.md`
+- `docs/product/design/content-model.md`
+- `docs/product/design/brand-direction.md`
+- `docs/product/design/ai-interaction-model.md` (if applicable)
+- `docs/product/design/flows/flow-{name}.md` (one file per flow)
 
 ## Sub-agent Usage
 
@@ -194,4 +194,4 @@ After user approval, write all artifacts to `docs/design/`:
 - [ ] Brand direction defined with design principle traceability
 - [ ] AI interaction model defined (if applicable)
 - [ ] User confirmed design direction
-- [ ] All artifacts written to `docs/design/`
+- [ ] All artifacts written to `docs/product/design/`

@@ -35,7 +35,7 @@ docs/product/personas/              ← Who uses it
 docs/discovery/opportunities/       ← What problems to solve
 docs/discovery/hypotheses/          ← How to solve them
                 ↓
-docs/design/                        ← Blueprint (structural design)
+docs/product/design/                        ← Blueprint (structural design)
                 ↓
 docs/discovery/prototypes/          ← Tangible validation artifacts
                 ↓
