@@ -61,7 +61,7 @@ See business-context skill `references/business-model-canvas.md`, `references/va
 
 ### 3. User Context Analysis
 
-- **Personas**: Reference existing personas (`docs/product/personas/`) or delegate to recipe-persona for full persona work
+- **Personas**: Reference existing personas (`docs/product/personas/`). If no persona files exist, create them first
 - **JTBD**: Identify functional, social, and emotional jobs from VPC Customer Profile
 - **Journey Mapping**: Create journey maps using `references/journey-template.md` to visualize pain points and opportunities
 
@@ -116,7 +116,7 @@ After user approval:
 ## Scope Boundaries
 
 **Included**: Opportunity discovery, hypothesis generation, market research, journey mapping
-**Not included**: Hypothesis validation (→ recipe-validate), PRD creation (→ recipe-define), persona deep-dive (→ recipe-persona)
+**Not included**: Hypothesis validation, PRD creation, persona deep-dive
 
 ## Completion Criteria
 

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Purpose
 
-Provide structured frameworks for understanding the business environment surrounding product decisions. These frameworks help assess **Viability risk** (see product-principles skill) and identify Opportunities through market gaps.
+Provide structured frameworks for understanding the business environment surrounding product decisions. These frameworks help assess **Viability risk** and identify Opportunities through market gaps.
 
 ## When to Use Each Framework
 

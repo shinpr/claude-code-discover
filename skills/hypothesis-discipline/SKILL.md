@@ -12,7 +12,7 @@ A hypothesis is not a guess — it is a **structured statement with clear valida
 
 ## Hypothesis Characteristics
 
-- Hypotheses exist at **every level** of the OST hierarchy (see product-principles skill)
+- Hypotheses exist at **every level** of the OST hierarchy (Outcome → Opportunity → Solution → Assumption)
 - Each hypothesis has a **target level** attribute indicating which OST level it addresses
 - Hypotheses follow an **ADR-style lifecycle** — a single file tracks the full journey from draft to conclusion
 - **Rejected and invalidated hypotheses are never deleted** — they are learning assets
@@ -34,7 +34,7 @@ The authoritative schema is defined in `references/hypothesis-template.md`. Key 
 - `id`: HYPO-NNN
 - `level`: outcome / opportunity / solution / assumption
 - `status`: draft / testing / validated / invalidated / inconclusive / adopted / rejected / timeout
-- `confidence`: per-risk scores (value, usability, feasibility, viability) on 0-10 scale (see product-principles skill for Confidence Meter definition)
+- `confidence`: per-risk scores (value, usability, feasibility, viability) on 0-10 scale
 - `time-budget` and `deadline`: validation time constraints
 
 ## Validation Criteria Requirements

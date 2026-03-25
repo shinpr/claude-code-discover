@@ -126,7 +126,7 @@ When a hypothesis reaches its deadline without conclusion:
 ## Scope Boundaries
 
 **Included**: Hypothesis validation design, validation execution, result recording
-**Not included**: Hypothesis generation (→ recipe-discover), PRD creation (→ recipe-define), reflection/distillation (→ recipe-reflect)
+**Not included**: Hypothesis generation, PRD creation, reflection/distillation
 
 ## Completion Criteria
 

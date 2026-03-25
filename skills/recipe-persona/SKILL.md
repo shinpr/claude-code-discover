@@ -98,7 +98,7 @@ After user approval:
 ## Scope Boundaries
 
 **Included**: Persona creation, persona update, integration with VPC and code analysis
-**Not included**: Journey mapping (→ recipe-discover), user story writing (→ recipe-define)
+**Not included**: Journey mapping, user story writing
 
 ## Completion Criteria
 

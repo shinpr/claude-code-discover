@@ -48,7 +48,7 @@ Assess whether hypotheses are "validated enough" for PRD creation:
 - All key hypotheses validated enough → Proceed to PRD drafting
 - Some hypotheses below threshold → Present to user with options:
   - Lower threshold (add risk mitigation like feature flags)
-  - Validate further (→ recipe-validate)
+  - Validate further (return to hypothesis validation)
   - Proceed with documented remaining risks
 
 ### 2. PRD Drafting
@@ -121,7 +121,7 @@ The extensions are additive — they don't replace or modify the core sections. 
 ## Scope Boundaries
 
 **Included**: PRD creation, user story generation, quality review
-**Not included**: Hypothesis validation (→ recipe-validate), Design Doc/ADR creation, implementation
+**Not included**: Hypothesis validation, Design Doc/ADR creation, implementation
 
 ## Completion Criteria
 

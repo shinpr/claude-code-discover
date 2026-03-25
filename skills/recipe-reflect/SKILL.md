@@ -110,7 +110,7 @@ Update `docs/discovery/INDEX.md` with:
 ## Scope Boundaries
 
 **Included**: Result recording, knowledge distillation, Tier promotion, INDEX.md maintenance
-**Not included**: Hypothesis validation (→ recipe-validate), new hypothesis generation (→ recipe-discover)
+**Not included**: Hypothesis validation, new hypothesis generation
 
 ## Completion Criteria
 

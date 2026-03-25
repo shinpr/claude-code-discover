@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## Purpose
 
-Canonical reference for PRD quality — shared by both authoring (recipe-define) and review (prd-reviewer) workflows. Ensures the author and reviewer apply the same standards.
+Canonical reference for PRD quality — shared by both authoring and review workflows. Ensures the author and reviewer apply the same standards.
 
 ## Reference Selection
 
@@ -18,9 +18,9 @@ Canonical reference for PRD quality — shared by both authoring (recipe-define)
 | Writing or reviewing acceptance criteria | `references/acceptance-criteria.md` |
 | Assessing story readiness or drafting user stories | `references/user-story-guide.md` |
 
-## Relationship to product-principles
+## Relationship to Core Frameworks
 
-4 Risks framework, Confidence Meter (0-10), and OST hierarchy are **defined** in product-principles. This skill operationalizes them in the PRD context — templates, thresholds, and format. For authoritative definitions, always defer to product-principles.
+4 Risks framework, Confidence Meter (0-10), and OST hierarchy are foundational concepts. This skill operationalizes them in the PRD context — templates, thresholds, and format.
 
 ## PRD Structure
 

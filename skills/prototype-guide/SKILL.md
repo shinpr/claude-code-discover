@@ -29,9 +29,13 @@ Before generating, read the relevant project files to understand the full contex
 
 These files drive every design decision. A prototype built without reading them validates nothing.
 
+### Blueprint Context (include when `docs/design/` exists)
+
+Read all available artifacts from `docs/design/` (information architecture, brand direction, user flows, content model, AI interaction model). When present, brand direction overrides ad-hoc aesthetic inference from design principles.
+
 ### Additional Context (include when available)
 
-5. **State Design** — which states to demonstrate (see product-principles skill)
+5. **State Design** — which states to demonstrate (Loading / Empty / Error / Partial / Success)
 6. **Accessibility Requirements** — WCAG 2.2 AA baseline
 7. **Existing Components** — use codebase-analyzer to identify reusable components if a codebase exists
 8. **Journey Position** — where in the user journey this interaction occurs

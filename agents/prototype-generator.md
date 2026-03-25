@@ -55,9 +55,29 @@ Read all project files to understand the design context:
 
 **Gate: All 4 files read successfully → proceed. Any missing → report and request path.**
 
+#### Blueprint Context (when available)
+
+Read structural design artifacts from `docs/design/` to ensure prototype consistency:
+
+5. **Brand direction** (`docs/design/brand-direction.md`) — apply color direction, typography direction, tone & voice, visual density. Overrides ad-hoc aesthetic inference from Step 2
+6. **Information architecture** (`docs/design/information-architecture.md`) — place the prototype's screen within the product's page hierarchy. Include navigation elements consistent with the IA
+7. **User flow** (relevant file from `docs/design/flows/`) — understand the step before and after the prototype's interaction to provide realistic entry/exit context
+8. **Content model** (`docs/design/content-model.md`) — use entity definitions for mock data structure. Ensure mock data attributes and relationships match the content model
+9. **AI interaction model** (`docs/design/ai-interaction-model.md`) — for AI-powered features, follow the defined interaction pattern, display strategy, error taxonomy, and guardrails
+
 ### Step 2: Design Direction
 
-Before writing code, determine the aesthetic direction based on the context files. Apply the 5 axes from `references/prototype-prompt-guide.md` Design Quality section:
+Before writing code, determine the aesthetic direction. Apply the 5 axes from `references/prototype-prompt-guide.md` Design Quality section. When `docs/design/brand-direction.md` exists, use this mapping to derive each axis:
+
+| Axis | Source from brand-direction.md |
+|------|-------------------------------|
+| **Typography** | Typography Direction (heading/body/UI intentions + language consideration) |
+| **Color** | Color Direction (primary/surface/accent families) |
+| **Motion** | Motion Tendency (transitions, micro-interactions, loading states) |
+| **Spatial** | Visual Density (whitespace, information density, surface elevation) |
+| **Texture** | Visual Density (surface elevation) + Color Direction (surface warmth) |
+
+When brand-direction does not exist, infer all 5 axes from design principles and vision.
 
 1. **Typography**: Select a Google Fonts pairing that fits the product's audience and language
 2. **Color**: Define a palette with primary action color, success, error, and surface tones

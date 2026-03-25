@@ -85,12 +85,12 @@ Define current cycle priorities:
 After user approval:
 - Write or update `docs/product/vision.md`
 - Write or update `docs/product/design-principles.md`
-- Initialize `docs/product/learnings.md` if it doesn't exist (empty, ready for recipe-reflect)
+- Initialize `docs/product/learnings.md` if it doesn't exist (empty, populated through reflection cycles)
 
 ## Scope Boundaries
 
 **Included**: Vision definition, outcome structure, NSM, design principles, strategic priorities
-**Not included**: Opportunity discovery (→ recipe-discover), persona definition (→ recipe-persona), reflection/distillation (→ recipe-reflect)
+**Not included**: Opportunity discovery, persona definition, reflection/distillation
 
 ## Completion Criteria
 

@@ -26,7 +26,7 @@ Design principles are **product-specific guardrails** that guide all design deci
 
 ## State Design
 
-See product-principles skill for the authoritative State Design definition (Loading / Empty / Error / Partial / Success).
+State Design defines five states every user-facing interaction must account for: Loading / Empty / Error / Partial / Success.
 
 In practice:
 - PRDs should specify behavior for all states in acceptance criteria
@@ -55,13 +55,17 @@ When creating or updating personas, use `references/persona-template.md` for the
 
 Design decisions without persona/context grounding are assumptions that need validation.
 
+## Blueprint Integration
+
+When `docs/design/` exists, blueprint artifacts provide shared structural context (information architecture, brand direction, content model, user flows, AI interaction model). Prototypes reference these artifacts to ensure consistency across multiple hypothesis validations.
+
 ## Design in Hypothesis Validation
 
 When validating Usability risk through prototypes:
 1. Define what "usable" means for this specific user story (tied to persona/context)
 2. Identify the critical interaction path to test
 3. Specify success criteria (task completion rate, time-on-task, error rate)
-4. Generate prototype with design context injected (see prototype-guide skill)
+4. Generate prototype with design context injected (design principles, persona, vision, blueprint artifacts)
 5. Record results with specific UX learnings
 
 ## Key Principles for Daily Decisions
