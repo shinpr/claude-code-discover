@@ -1,6 +1,6 @@
 {
-  "name": "discover",
-  "version": "0.1.0",
+  "name": "claude-code-discover",
+  "version": "0.1.1",
   "description": "Structure product context in your repo — hypotheses, validation, and PRDs that flow into implementation",
   "author": {
     "name": "shinpr",
