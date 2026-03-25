@@ -34,12 +34,12 @@ Each recipe is a step in this cycle. Run them in order or jump to where you need
 
 | Recipe | What it does |
 |--------|-------------|
-| `/discover:recipe-vision` | Define product vision, outcomes, and North Star Metric |
-| `/discover:recipe-persona` | Create personas with JTBD, pains/gains, and behavioral data |
-| `/discover:recipe-discover` | Structure your hypotheses into Opportunities with validation plans |
-| `/discover:recipe-validate` | Decompose assumptions, design falsifiable tests, generate HTML prototypes |
-| `/discover:recipe-reflect` | Extract learnings, promote knowledge across the hierarchy |
-| `/discover:recipe-define` | Generate a PRD from validated hypotheses with confidence scores |
+| `/claude-code-discover:recipe-vision` | Define product vision, outcomes, and North Star Metric |
+| `/claude-code-discover:recipe-persona` | Create personas with JTBD, pains/gains, and behavioral data |
+| `/claude-code-discover:recipe-discover` | Structure your hypotheses into Opportunities with validation plans |
+| `/claude-code-discover:recipe-validate` | Decompose assumptions, design falsifiable tests, generate HTML prototypes |
+| `/claude-code-discover:recipe-reflect` | Extract learnings, promote knowledge across the hierarchy |
+| `/claude-code-discover:recipe-define` | Generate a PRD from validated hypotheses with confidence scores |
 
 ### What each recipe produces
 
@@ -67,7 +67,7 @@ The PRD that `recipe-define` produces follows the standard structure that [claud
 
 ```bash
 # Discovery phase (this plugin)
-/discover:recipe-define → docs/prd/feature-prd.md
+/claude-code-discover:recipe-define → docs/prd/feature-prd.md
 
 # Implementation phase (dev-workflows)
 /dev-workflows:recipe-implement "docs/prd/feature-prd.md"
@@ -87,13 +87,13 @@ claude
 /plugin marketplace add shinpr/claude-code-discover
 
 # Install plugin
-/plugin install discover@claude-code-discover
+/plugin install claude-code-discover@claude-code-discover
 
 # Reload plugins
 /reload-plugins
 
 # Start discovering
-/discover:recipe-vision <your product>
+/claude-code-discover:recipe-vision <your product>
 ```
 
 ### With claude-code-workflows
