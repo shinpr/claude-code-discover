@@ -67,7 +67,22 @@ Read structural design artifacts from `docs/product/design/` to ensure prototype
 
 ### Step 2: Design Direction
 
-Before writing code, determine the aesthetic direction. Apply the 5 axes from `references/prototype-prompt-guide.md` Design Quality section. When `docs/product/design/brand-direction.md` exists, use this mapping to derive each axis:
+Before writing code, determine the aesthetic direction. The source depends on what exists in `docs/product/design/brand-direction.md`:
+
+#### Path A: Visual Tokens exist (preferred)
+
+When `brand-direction.md` contains a **Visual Tokens** section (source: `auto-derived` or `expert-refined`), use the token values directly as CSS custom properties:
+
+- Copy color tokens (`--color-primary`, `--color-surface`, etc.) as-is
+- Copy typography tokens (`--font-heading`, `--font-body`, etc.) as-is
+- Copy spacing tokens (`--space-unit`, `--radius-*`, `--shadow-*`) as-is
+- Motion and texture axes are not covered by Visual Tokens; derive motion from the Motion Tendency section and texture from the Visual Density (surface elevation) + Color Direction (surface warmth) sections
+
+This path produces consistent visuals across all prototypes sharing the same brand-direction.
+
+#### Path B: Brand direction exists without Visual Tokens
+
+When `brand-direction.md` exists but has no Visual Tokens section, use the directional sections to derive each axis:
 
 | Axis | Source from brand-direction.md |
 |------|-------------------------------|
@@ -77,6 +92,8 @@ Before writing code, determine the aesthetic direction. Apply the 5 axes from `r
 | **Spatial** | Visual Density (whitespace, information density, surface elevation) |
 | **Texture** | Visual Density (surface elevation) + Color Direction (surface warmth) |
 
+#### Path C: No brand direction
+
 When brand-direction does not exist, infer all 5 axes from design principles and vision.
 
 1. **Typography**: Select a Google Fonts pairing that fits the product's audience and language
@@ -85,7 +102,7 @@ When brand-direction does not exist, infer all 5 axes from design principles and
 4. **Spatial**: Determine layout density, whitespace rhythm, card elevation
 5. **Texture**: Define surface differentiation, border treatment, background warmth
 
-Record these decisions as CSS custom properties. When brand-direction was the source, trace comments to brand-direction entries. When design principles and vision were the source (no brand-direction), trace comments to design principles.
+Record these decisions as CSS custom properties. Trace comments to: Visual Tokens (Path A), brand-direction entries (Path B), or design principles (Path C).
 
 ### Step 3: Mock Data Design
 

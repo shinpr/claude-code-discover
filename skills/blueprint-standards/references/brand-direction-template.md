@@ -25,7 +25,7 @@
 | Success | {positive feedback} | {color family} | Standard |
 | Error | {negative feedback} | {color family} | Standard |
 
-This is **directional**, not a final token system. Exact hex values are determined during UI Spec.
+This is **directional**, not a final token system. Concrete values for prototype consistency are derived in Visual Tokens below. Final production values are determined during UI Spec.
 
 ### Typography Direction
 
@@ -60,6 +60,54 @@ Products whose visual approach aligns with the intended direction:
 | Product | What to Reference | What to Avoid |
 |---------|------------------|---------------|
 | {product} | {specific aspect} | {specific aspect} |
+
+### Visual Tokens
+
+Concrete values derived from the direction above. Auto-generated during blueprint, optionally refined by a design expert via `recipe-refine-visuals`.
+
+**Source**: {`auto-derived` | `expert-refined`}
+
+#### Color Tokens
+
+| Token | Value | Derived From |
+|-------|-------|-------------|
+| `--color-primary` | {hex} | Color Direction → Primary |
+| `--color-primary-hover` | {hex} | Primary darkened 10% |
+| `--color-surface` | {hex} | Color Direction → Surface |
+| `--color-surface-elevated` | {hex} | Surface lightened/darkened for elevation |
+| `--color-accent` | {hex} | Color Direction → Accent |
+| `--color-text` | {hex} | Contrast against surface |
+| `--color-text-secondary` | {hex} | Reduced emphasis text |
+| `--color-success` | {hex} | Color Direction → Success |
+| `--color-error` | {hex} | Color Direction → Error |
+| `--color-border` | {hex} | Surface-derived, low opacity |
+
+#### Typography Tokens
+
+| Token | Value | Derived From |
+|-------|-------|-------------|
+| `--font-heading` | {font family} | Typography Direction → Heading |
+| `--font-body` | {font family} | Typography Direction → Body |
+| `--font-ui` | {font family} | Typography Direction → UI / Label |
+| `--font-size-base` | {px/rem} | Visual Density → Information density |
+| `--font-weight-normal` | {weight} | Body readability |
+| `--font-weight-bold` | {weight} | Heading emphasis |
+| `--line-height-body` | {ratio} | Body readability |
+
+#### Spacing Tokens
+
+| Token | Value | Derived From |
+|-------|-------|-------------|
+| `--space-unit` | {px} | Visual Density → Whitespace |
+| `--space-xs` | {px} | unit × 0.5 |
+| `--space-sm` | {px} | unit × 1 |
+| `--space-md` | {px} | unit × 2 |
+| `--space-lg` | {px} | unit × 3 |
+| `--space-xl` | {px} | unit × 5 |
+| `--radius-sm` | {px} | Visual Density → Surface elevation |
+| `--radius-md` | {px} | Visual Density → Surface elevation |
+| `--shadow-sm` | {value} | Visual Density → Card elevation |
+| `--shadow-md` | {value} | Visual Density → Card elevation |
 
 ### Brand Direction Decisions Log
 

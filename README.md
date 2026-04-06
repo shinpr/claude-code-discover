@@ -23,7 +23,7 @@ Vision & Personas        ← who you're building for and why
       ↓
   Opportunities          ← your hypotheses structured with validation plans
       ↓
-  Blueprint              ← IA, user flows, content model, brand direction
+  Blueprint              ← IA, user flows, content model, brand direction + visual tokens
       ↓
   Hypothesis Files       ← testable assumptions with success/failure criteria
       ↓
@@ -39,7 +39,8 @@ Each recipe is a step in this cycle. Run them in order or jump to where you need
 | `/discover:recipe-vision` | Define product vision, outcomes, and North Star Metric |
 | `/discover:recipe-persona` | Create personas with JTBD, pains/gains, and behavioral data |
 | `/discover:recipe-discover` | Structure your hypotheses into Opportunities with validation plans |
-| `/discover:recipe-blueprint` | Define structural design foundation — IA, user flows, content model, brand direction, AI interaction model |
+| `/discover:recipe-blueprint` | Define structural design foundation — IA, user flows, content model, brand direction with visual tokens, AI interaction model |
+| `/discover:recipe-refine-visuals` | *(Optional)* Design expert refines auto-derived visual tokens in brand direction |
 | `/discover:recipe-validate` | Decompose assumptions, design falsifiable tests, generate HTML prototypes |
 | `/discover:recipe-reflect` | Extract learnings, promote knowledge across the hierarchy |
 | `/discover:recipe-define` | Generate a PRD from validated hypotheses with confidence scores |
@@ -47,7 +48,7 @@ Each recipe is a step in this cycle. Run them in order or jump to where you need
 ### What each recipe produces
 
 - **Hypothesis file**: Markdown with assumption statement, success/failure criteria, confidence scores per risk dimension, time budget, and validation results
-- **Blueprint artifacts**: Information architecture, user flows, content model, brand direction, and AI interaction model — shared structural context that prototypes reference for consistency
+- **Blueprint artifacts**: Information architecture, user flows, content model, brand direction (with auto-derived visual tokens), and AI interaction model — shared structural context that prototypes reference for consistency. Visual tokens (colors, typography, spacing) ensure prototype-to-prototype visual consistency
 - **Prototype**: Single self-contained HTML file (~800-1200 lines) that opens in a browser. Deterministic mock data, all UI states implemented, design context applied from blueprint and project files
 - **PRD**: 200-400 line document with user stories (each with 4 Risks confidence table), EARS-format acceptance criteria, unvalidated assumptions section, and references to hypothesis files
 

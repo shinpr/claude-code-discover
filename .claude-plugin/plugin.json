@@ -1,6 +1,6 @@
 {
   "name": "discover",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Structure product context in your repo — hypotheses, validation, and PRDs that flow into implementation",
   "author": {
     "name": "shinpr",

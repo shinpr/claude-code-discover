@@ -136,8 +136,16 @@ Use blueprint-standards skill `references/brand-direction-template.md` to define
 3. **Typography direction**: Heading, body, UI font style intentions with language considerations
 4. **Visual density**: Whitespace, information density, surface elevation — informed by persona context
 5. **Reference products**: Products whose visual approach aligns, with specific aspects to reference and avoid
+6. **Visual Tokens (auto-derived)**: Derive concrete values from the direction defined above:
+   - **Color tokens**: Select specific hex values from Reference Products' palettes and the Color Direction families. Use WebSearch to inspect Reference Products' public sites when no color values are stated in the Color Direction
+   - **Typography tokens**: Select Google Fonts families that match the Typography Direction intentions and language considerations
+   - **Spacing tokens**: Determine base unit from the Visual Density → Whitespace value (generous → 8px, moderate → 6px, compact → 4px) and derive scale
+   - Mark source as `auto-derived` in the template
+   - These tokens ensure prototype consistency. They are not final production values — those are determined during UI Spec
 
 Reference the competitive landscape research (if available in `research/`) for visual benchmarking.
+
+> **Note**: Design experts can refine Visual Tokens after blueprint completion using `recipe-refine-visuals`. The refinement updates the same `brand-direction.md` file.
 
 ### 7. AI Interaction Model
 
@@ -156,6 +164,7 @@ Use blueprint-standards skill `references/ai-interaction-model-template.md` to d
 **[STOP — BLOCKING]** Present brand direction and AI interaction model to user for confirmation:
 - Tone & voice positioning
 - Color and typography direction
+- Visual Tokens (auto-derived color, typography, spacing values)
 - AI interaction pattern decisions
 - Capability boundaries and guardrails
 
@@ -180,7 +189,7 @@ After user approval, write all artifacts to `docs/product/design/`:
 ## Scope Boundaries
 
 **Included**: Information architecture, user flows, content model, brand direction, AI interaction model, MVP scope synthesis
-**Not included**: Opportunity discovery, hypothesis validation, pixel-level design specifications (UI Spec scope), component APIs and design token values (UI Spec scope), PRD creation
+**Not included**: Opportunity discovery, hypothesis validation, pixel-level design specifications (UI Spec scope), component APIs and final production token values (UI Spec scope), PRD creation
 
 ## Completion Criteria
 
@@ -192,6 +201,7 @@ After user approval, write all artifacts to `docs/product/design/`:
 - [ ] Core user flows defined (5-10 flows)
 - [ ] User confirmed structural design
 - [ ] Brand direction defined with design principle traceability
+- [ ] Visual Tokens auto-derived from brand direction
 - [ ] AI interaction model defined (if applicable)
 - [ ] User confirmed design direction
 - [ ] All artifacts written to `docs/product/design/`

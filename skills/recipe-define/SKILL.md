@@ -57,10 +57,15 @@ Use prd-standards skill `references/prd-template.md` to create the PRD:
 
 1. **Overview**: Link to Opportunity and validated hypotheses
 2. **User Stories**: Apply 4 Risks assessment per story (see step 3)
-3. **Functional Requirements**: Derive from validated hypotheses with EARS-format ACs (see prd-standards skill `references/acceptance-criteria.md`)
-4. **Success Criteria**: Tie to Product Outcomes from `docs/product/vision.md`
-5. **Technical Dependencies**: For each external API, library, or service, verify current availability and status with WebSearch before including in the PRD
-6. **Assumptions (Unvalidated)**: Explicitly list hypotheses NOT yet validated that the PRD proceeds with
+3. **Functional Requirements**: Derive from validated hypotheses with EARS-format ACs (see prd-standards skill `references/acceptance-criteria.md`). Assign stable AC IDs (AC-001, AC-002, ...) sequentially across all requirements — IDs are global to the PRD, not reset per requirement
+4. **Design Context**: Populate from project design artifacts:
+   - **Design Principles**: Copy from `docs/product/design-principles.md`
+   - **Tone & Voice**: Copy from `docs/product/design/brand-direction.md` (if exists)
+   - **Design Guardrails**: Derive Do's/Don'ts from design principles — specific patterns to follow, and anti-patterns with their preferred alternatives
+   - **Visual Reference**: Link to `brand-direction.md` and relevant prototype files
+5. **Success Criteria**: Tie to Product Outcomes from `docs/product/vision.md`
+6. **Technical Dependencies**: For each external API, library, or service, verify current availability and status with WebSearch before including in the PRD
+7. **Assumptions (Unvalidated)**: Explicitly list hypotheses NOT yet validated that the PRD proceeds with
 
 ### 3. User Story Generation
 
@@ -112,8 +117,8 @@ After user approval:
 ## PRD Structure
 
 The PRD output follows a standard structure:
-- **Core sections**: Overview, User Stories, Functional Requirements, Non-Functional Requirements, Success Criteria, Technical Considerations
-- **Discovery extensions**: Hypothesis & validation references, 4 Risks confidence per user story, unvalidated assumptions section
+- **Core sections**: Overview, User Stories, Functional Requirements, Design Context, Non-Functional Requirements, Success Criteria, Technical Considerations
+- **Discovery extensions**: Hypothesis & validation references, 4 Risks confidence per user story, design context (principles, tone, guardrails, visual reference), unvalidated assumptions section
 - **Storage**: `docs/prd/`
 
 The extensions are additive — they don't replace or modify the core sections. This means the PRD can be consumed by any downstream workflow that expects the standard structure.
