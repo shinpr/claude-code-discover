@@ -66,7 +66,7 @@ then the system shall display cached results with a "Results may be outdated" ba
 
 ## State-Aware ACs
 
-Every user-facing AC should consider relevant states:
+Every user-facing requirement records each state as `required` or `not_applicable` with a scope-based reason. Write an AC for every required state:
 
 | State | AC Pattern |
 |-------|-----------|
@@ -80,21 +80,21 @@ Every user-facing AC should consider relevant states:
 
 ### Characteristics
 - **Testable**: Can be verified with a clear pass/fail
-- **Specific**: No ambiguity about expected behavior
+- **Specific**: One observable interpretation of expected behavior
 - **Independent**: Each AC tests one behavior
 - **Complete**: Covers the full behavior including edge cases
 
-### Do
+### Required Form
 - Use concrete values ("within 2 seconds", "maximum 50 characters")
 - Specify error handling and recovery
 - Include accessibility requirements where relevant
 - Reference design states (loading, empty, error)
 
-### Don't
-- Use vague terms ("quickly", "user-friendly", "intuitive")
-- Describe implementation details ("using REST API", "with Redux")
-- Combine multiple behaviors in one AC
-- Forget edge cases and error states
+### Transform Before Use
+- Replace vague terms ("quickly", "user-friendly", "intuitive") with an observable threshold or behavior
+- Translate implementation details ("using REST API", "with Redux") into the user-visible or contract boundary they serve
+- Split multiple behaviors into independently verifiable ACs
+- Add only edge and error behavior that can occur within the requirement's state dispositions
 
 ## AC in PRD Format
 
@@ -127,4 +127,4 @@ then the system shall disable all non-essential animations.
 Each AC should be traceable:
 - **User Story** → AC tests a specific aspect of the story's value
 - **4 Risks** → ACs collectively cover all four risk dimensions
-- **Design States** → ACs specify behavior for each relevant state
+- **Design States** → the requirement records all five dispositions and ACs specify behavior for each required state

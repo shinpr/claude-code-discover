@@ -27,7 +27,7 @@ Specific implementation produces testable prototypes.
 
 ### Describe Interactions as State Transitions
 
-Every interactive element has states. Implement them explicitly:
+Every interactive element has observable state behavior. Implement the states that can occur in the tested path and record the remaining state dispositions:
 - Default state
 - Hover / focus state
 - Loading state (with animation)
@@ -40,37 +40,21 @@ Each prototype tests one hypothesis. If multiple things need testing, generate s
 
 ## Prototype Structure
 
-### Required Sections in the HTML
+### Minimum Observable Structure
 
-1. **Header**: Product name + core value proposition (from vision.md)
-2. **Primary interaction area**: The flow under test
-3. **Supporting context**: Elements that demonstrate the product's value (e.g., social proof, related data)
+Implement the interaction and source-backed entry/exit context needed to observe the hypothesis. Add product chrome, value-proposition copy, social proof, or related data only when a real user in the tested context would see it and it affects interpretation of the result.
 
 ### State Coverage
 
-Implement all states relevant to the hypothesis under test. At minimum:
-- Default / empty state
-- Loading state (with animation)
-- Success state
-- Error state (with recovery)
-
-Additional states when relevant:
-- Partial data state
-- Warning / validation state
+Apply the authoritative State Design rule from product-principles: record Loading, Empty, Error, Partial, and Success as `required` or `not_applicable` with a reason. Implement Success and every failure or absence state whose occurrence or recovery can distinguish the hypothesis's success, failure, or inconclusive criteria.
 
 ### Design Quality
 
-Prototypes must feel like real products. Apply these 5 axes:
-
-1. **Typography**: Select a Google Fonts pairing that fits the product's audience and language. Use weight variation (400/600/700) for hierarchy.
-2. **Color**: Define a cohesive palette using CSS custom properties. Use gradients on primary actions, warm surface tones, and intentional accent placement.
-3. **Motion**: Orchestrate entrance animations with staggered timing and spring easing. State transitions should have snappy feedback.
-4. **Spatial**: Use generous whitespace. Card surfaces should feel elevated with layered shadows (multiple box-shadow values).
-5. **Texture**: Add subtle depth through soft borders (1px with low-opacity color), background warmth, and surface differentiation.
+Prototypes must be legible, accessible, and coherent with approved product evidence. Apply supplied visual decisions directly. Where evidence is silent, choose minimal readable typography, semantic color, and spatial hierarchy. Add motion or surface treatment only when it communicates a tested state or approved brand behavior; respect reduced-motion preferences. Resolve only visual properties that affect interpretation of the test.
 
 ### Mock Data Guidelines
 
-- Simulate realistic API delays (500-1000ms)
+- Simulate a deterministic delay only when loading behavior is required by the tested path
 - Use data that matches the product's domain and language
 - Handle edge cases in input (flexible parsing over strict validation)
 - Include enough data to demonstrate the interaction pattern
@@ -82,7 +66,7 @@ Prototypes must feel like real products. Apply these 5 axes:
 - User flows (step-by-step journeys)
 - Visual design (colors, fonts, spacing)
 - Mock data (inline JavaScript objects)
-- State transitions and animations
+- State transitions required to observe the hypothesis; animation only when it communicates that transition
 - Keyboard navigation and accessibility attributes
 
 **Replace with mocks:**
@@ -101,11 +85,11 @@ docs/discovery/prototypes/hypo-{id}-prototype.html
 
 ## Quality Checklist
 
-- [ ] Design principles file was read and reflected in the prototype
-- [ ] Persona file was read and the UI targets that persona's context
+- [ ] The product decisions that control the tested interaction were read from their source artifacts and reflected in the prototype
+- [ ] The UI targets the evidenced persona or user context without invented behavior
 - [ ] Hypothesis success/failure criteria are testable through the prototype
 - [ ] User flow is implemented step-by-step (not separate pages)
-- [ ] All relevant states are implemented with transitions
+- [ ] All five states have a disposition and every required state is implemented with its transition
 - [ ] Mock data is realistic and in the product's language
 - [ ] Accessibility: keyboard navigable, WCAG AA contrast, aria attributes
 - [ ] Single self-contained HTML file, opens in browser without build step

@@ -15,7 +15,7 @@ A hypothesis is not a guess — it is a **structured statement with clear valida
 - Hypotheses exist at **every level** of the OST hierarchy (Outcome → Opportunity → Solution → Assumption)
 - Each hypothesis has a **target level** attribute indicating which OST level it addresses
 - Hypotheses follow an **ADR-style lifecycle** — a single file tracks the full journey from draft to conclusion
-- **Rejected and invalidated hypotheses are never deleted** — they are learning assets
+- **Rejected and invalidated hypotheses remain in their lifecycle file** as learning assets
 
 ## Hypothesis Lifecycle
 
@@ -53,7 +53,7 @@ Every hypothesis **must** define before testing begins:
 - A **deadline** sets the hard cutoff date
 - When deadline passes without conclusion → status becomes `timeout`
 - Timeout forces a decision: extend (with justification), pivot, or abandon
-- **Never let a hypothesis run indefinitely** — unbounded exploration wastes resources
+- **Bound every validation** with a time budget and deadline so exploration ends in an explicit decision
 
 ## Confidence Update Rules
 
@@ -74,10 +74,10 @@ When a hypothesis reaches conclusion (validated/invalidated/inconclusive/adopted
 
 ## Key Disciplines
 
-- **Separate creation from evaluation**: Don't judge hypotheses while generating them
+- **Separate creation from evaluation**: Generate candidate hypotheses before evaluating them
 - **Seek disconfirming evidence**: Actively look for reasons the hypothesis might be wrong
-- **One hypothesis, one test**: Don't bundle multiple hypotheses into a single validation
-- **Record everything**: Even "obvious" conclusions need recorded reasoning
+- **One hypothesis, one test**: Each validation produces an interpretable result for one hypothesis
+- **Record decision evidence**: Preserve conclusions, evidence, and reasoning that can change confidence, the parent Opportunity, a downstream decision, or future validation. Omit working narration and baseline knowledge with no consumer
 - **Rejected ≠ worthless**: A rejected hypothesis teaches what doesn't work and why
 - **Inconclusive is honest**: When evidence is insufficient, say so instead of forcing a verdict
 

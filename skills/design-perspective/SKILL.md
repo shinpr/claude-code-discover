@@ -20,17 +20,17 @@ Design is not a phase — it is a **perspective applied across all product proce
 
 ## Design Principles Reference
 
-Always reference `docs/product/design-principles.md` for this product's design principles (3-5 principles).
+Reference only the product-specific principles from `docs/product/design-principles.md` that can change the current design decision.
 
 Design principles are **product-specific guardrails** that guide all design decisions. They are not generic best practices but choices that reflect this product's values and trade-offs.
 
 ## State Design
 
-State Design defines five states every user-facing interaction must account for: Loading / Empty / Error / Partial / Success.
+State Design requires every user-facing interaction to record Loading, Empty, Error, Partial, and Success as `required` or `not_applicable` with a reason.
 
 In practice:
-- PRDs should specify behavior for all states in acceptance criteria
-- Prototypes should demonstrate at minimum: empty, success, and error states
+- PRDs specify behavior for every required state and preserve explicit reasons for states that do not apply
+- Prototypes implement the states needed to test the hypothesis and report the disposition of all five states
 - User stories addressing Usability risk should consider all relevant states
 
 ## Accessibility Standards
@@ -63,7 +63,7 @@ When `docs/product/design/` exists, blueprint artifacts provide shared structura
 
 When validating Usability risk through prototypes:
 1. Define what "usable" means for this specific user story (tied to persona/context)
-2. Identify the critical interaction path to test
+2. Identify the interaction path that exposes the hypothesis's success and failure criteria
 3. Specify success criteria (task completion rate, time-on-task, error rate)
 4. Generate prototype with design context injected (design principles, persona, vision, blueprint artifacts)
 5. Record results with specific UX learnings
@@ -71,7 +71,7 @@ When validating Usability risk through prototypes:
 ## Key Principles for Daily Decisions
 
 - **Design principles first**: Check product design principles before making UX decisions
-- **All states matter**: A feature isn't designed until all states are considered
+- **All state decisions matter**: A feature is not designed until all five states are implemented or explicitly shown not to apply
 - **Accessibility is not optional**: WCAG 2.2 AA is the baseline, not a stretch goal
 - **Context over aesthetics**: A beautiful design that ignores user context fails the Usability risk
 - **Test with real scenarios**: Validate UX with persona-grounded scenarios, not abstract tasks

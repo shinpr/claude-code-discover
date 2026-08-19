@@ -45,7 +45,7 @@ Input: $ARGUMENTS
 Use `references/vision-template.md` to structure the vision:
 
 #### New Product (Create Mode)
-1. **Product Vision**: What does this product aspire to become? (2-3 sentences)
+1. **Product Vision**: What does this product aspire to become? Use the shortest statement that preserves the decision
 2. **Design Vision**: How should the product feel to users?
 3. **Business Outcomes**: What business results does the product contribute to?
 4. **Product Outcomes**: What team-controllable product goals drive those business results?
@@ -59,7 +59,7 @@ Use `references/vision-template.md` to structure the vision:
 
 ### 3. Design Principles
 
-Define or review 3-5 product-specific design principles:
+Define or review the smallest non-overlapping set of product-specific design principles needed to resolve recurring trade-offs:
 - Each principle should resolve a specific design trade-off
 - Principles guide all design decisions across the product
 - Write to `docs/product/design-principles.md`
@@ -85,7 +85,7 @@ Define current cycle priorities:
 After user approval:
 - Write or update `docs/product/vision.md`
 - Write or update `docs/product/design-principles.md`
-- Initialize `docs/product/learnings.md` if it doesn't exist (empty, populated through reflection cycles)
+- Create `docs/product/learnings.md` when the first learning is ready to record
 
 ## Scope Boundaries
 
@@ -97,7 +97,7 @@ After user approval:
 - [ ] Context assessed (create vs. update)
 - [ ] Vision defined with outcome structure
 - [ ] NSM defined with rationale
-- [ ] Design principles defined (3-5 principles)
+- [ ] Design principles contain only decision-relevant, non-overlapping trade-offs
 - [ ] Strategic priorities set for current cycle
 - [ ] User confirmed vision
 - [ ] Files written to `docs/product/`

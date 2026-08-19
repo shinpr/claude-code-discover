@@ -34,7 +34,7 @@ A discovery-driven PRD follows a standard structure with additive extensions. Se
 - Success Criteria (tied to Product Outcomes)
 - Technical Considerations
 
-**Discovery extensions** (additive, never replace core sections):
+**Discovery extensions** preserve the decisions carried by core sections while adding:
 - Hypothesis & validation references in Overview
 - 4 Risks confidence per user story
 - Unvalidated assumptions section in Technical Considerations
@@ -56,5 +56,5 @@ All functional requirements use EARS-format acceptance criteria. See `references
 Key rules:
 - Use When (event-driven), While (state-driven), or If-Then (conditional) patterns
 - Each AC is testable with a clear pass/fail
-- User-facing ACs cover relevant states (loading, empty, error, partial, success)
+- User-facing requirements record loading, empty, error, partial, and success as `required` or `not_applicable` with a reason; ACs cover every required state
 - Accessibility ACs included for UI features

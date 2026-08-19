@@ -4,27 +4,32 @@ description: Orchestrate PRD creation from validated hypotheses — standard PRD
 disable-model-invocation: true
 ---
 
-**Context**: Transform validated hypotheses into a PRD with 4 Risks confidence scores, hypothesis traceability, and user stories. The PRD follows a standard structure that can be consumed by downstream implementation workflows (e.g., claude-code-workflows).
+**Context**: Transform validated hypotheses into a reviewed PRD that preserves product evidence, exposes remaining risk, and can be consumed by downstream implementation workflows.
 
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Delegate review** to prd-reviewer (via Agent tool, subagent_type: "discover:prd-reviewer") for bias-free quality assessment
-2. **Follow the definition flow** defined below
-3. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+1. **Explicit user authorization**: The user explicitly instructs and authorizes the prd-reviewer call named in this recipe. Invoke it for every PRD before user approval; the orchestrator does not replace it with self-review
+2. **Mechanical specialist handoff**: Pass only `target_path` and, on a rerun, the complete `prior_feedback` array declared by prd-reviewer. Preserve paths, issue objects, IDs, and evidence unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+3. **Complete finding coverage**: Record one evidence-backed disposition for every reviewer issue before correction or progression
+4. **Follow the definition flow** below and stop at the final user approval gate
+
+The authorization, mechanical-handoff, and no-paraphrase rules are intentional redundancy against model and system defaults that substitute self-review or fluent restatements for an approved specialist result. Retain them until fresh execution evidence shows the failure no longer occurs.
 
 ## Workflow Overview
 
 ```
 Input (validated hypotheses + Opportunity context)
     ↓
-1. Readiness Assessment → Check hypothesis confidence levels
+1. Readiness Assessment → Check cost × risk × reversibility
     ↓
-2. PRD Drafting → Using prd-template.md with discovery extensions
+2. PRD Drafting → Write the draft to its target path
     ↓
-3. User Story Generation → 4 Risks per story [Stop: User reviews PRD draft]
+3. Independent Review → prd-reviewer always runs
     ↓
-4. Quality Review → prd-reviewer assesses the PRD [Stop: User reviews feedback]
+4. Review Resolution → Apply or evidence-backed decline
+    ↓
+5. User Approval → Approve the reviewed PRD once
     ↓
 Output: docs/prd/[feature-name]-prd.md
 ```
@@ -35,105 +40,95 @@ Output: docs/prd/[feature-name]-prd.md
 
 Input: $ARGUMENTS
 
-Assess whether hypotheses are "validated enough" for PRD creation:
+Read the relevant Opportunity and hypothesis files. For each hypothesis included in the PRD:
 
-1. Read relevant Opportunity and hypothesis files
-2. For each hypothesis intended for the PRD:
-   - Check confidence scores against thresholds (see prd-standards skill `references/user-story-guide.md`)
-   - Assess cost x risk x reversibility
-   - Determine: validated enough / needs more validation
-3. See product-principles skill `references/mvp-definition.md` for scope determination
+1. Check confidence evidence using prd-standards `references/user-story-guide.md`
+2. Assess cost × risk × reversibility
+3. Determine `validated enough` or `needs more validation`
+4. Keep proceed, further validation, scope reduction, and explicit residual risk as valid results; choose further validation only when its evidence can change readiness or scope
 
-**Decision**:
-- All key hypotheses validated enough → Proceed to PRD drafting
-- Some hypotheses below threshold → Present to user with options:
-  - Lower threshold (add risk mitigation like feature flags)
-  - Validate further (return to hypothesis validation)
-  - Proceed with documented remaining risks
+Use product-principles `references/mvp-definition.md` to determine the smallest included capability set, explicit exclusions, and observable proof. A ranking aid is optional and applies only when credible candidates remain tied after direct boundary analysis.
+
+Resolve the current outcome and included scope from confirmed product sources, their declared precedence, and cited evidence. Repository-local document structure and other reversible drafting choices remain with the workflow. Stop only when confirmed obligations are mutually exclusive and selecting the governing obligation requires a product choice absent from those sources; present the exact conflicting statements and the PRD decision they block.
 
 ### 2. PRD Drafting
 
-Use prd-standards skill `references/prd-template.md` to create the PRD:
+Use prd-standards `references/prd-template.md` and write the draft to `docs/prd/[feature-name]-prd.md` so the reviewer reads the artifact directly.
 
-1. **Overview**: Link to Opportunity and validated hypotheses
-2. **User Stories**: Apply 4 Risks assessment per story (see step 3)
-3. **Functional Requirements**: Derive from validated hypotheses with EARS-format ACs (see prd-standards skill `references/acceptance-criteria.md`). Assign stable AC IDs (AC-001, AC-002, ...) sequentially across all requirements — IDs are global to the PRD, not reset per requirement
-4. **Design Context**: Populate from project design artifacts:
-   - **Design Principles**: Copy from `docs/product/design-principles.md`
-   - **Tone & Voice**: Copy from `docs/product/design/brand-direction.md` (if exists)
-   - **Design Guardrails**: Derive Do's/Don'ts from design principles — specific patterns to follow, and anti-patterns with their preferred alternatives
-   - **Visual Reference**: Link to `brand-direction.md` and relevant prototype files
-5. **Success Criteria**: Tie to Product Outcomes from `docs/product/vision.md`
-6. **Technical Dependencies**: For each external API, library, or service, verify current availability and status with WebSearch before including in the PRD
-7. **Assumptions (Unvalidated)**: Explicitly list hypotheses NOT yet validated that the PRD proceeds with
+The PRD includes:
 
-### 3. User Story Generation
+1. **Overview**: Current outcome, Opportunity, cited hypotheses, and explicit exclusions
+2. **User Stories**: Persona-grounded stories with all four Risks, evidence or explicit unknowns, remaining risk, and readiness rationale
+3. **Functional Requirements**: Stable AC IDs and observable EARS-format behavior
+4. **State Coverage**: For each user-facing requirement, mark Loading, Empty, Error, Partial, and Success as `required` or `not_applicable` with a scope-based reason
+5. **Design Context**: Reference existing design artifacts; copy only decisions the implementation consumer needs
+6. **Success Criteria**: Trace to Product Outcomes
+7. **Technical Considerations**: Include current dependencies, constraints, and unvalidated assumptions only when they can change implementation or verification
 
-For each user story, follow prd-standards skill `references/user-story-guide.md`:
+Verify an external API, library, or service with WebSearch only when a current availability or compatibility claim controls PRD scope, feasibility, or verification. Record the authoritative source and stop research when that decision is supported.
 
-1. Write in persona-grounded format (As a [persona name], I want to...)
-2. Assess 4 Risks confidence with evidence
-3. Determine delivery readiness per story
-4. Document remaining risks per story
+### 3. Independent Review
 
-**[STOP — BLOCKING]** Present PRD draft to user for review:
-- Complete PRD draft
-- User stories with 4 Risks confidence summary
-- Highlighted remaining risks and unvalidated assumptions
-- MVP scope recommendation (Must Have / Should Have / Could Have)
+Invoke prd-reviewer using exactly:
 
-**CANNOT proceed to quality review until user explicitly approves the draft.**
+```text
+target_path: docs/prd/[feature-name]-prd.md
+```
 
-### 4. Quality Review
+The reviewer reads the PRD and its sources directly and returns its exact JSON contract. Do not recreate, pre-interpret, or summarize its review.
 
-**Invoke prd-reviewer** using Agent tool (subagent_type: "discover:prd-reviewer") for bias-free assessment:
-- prd-reviewer operates in a separate context
-- It checks: completeness, internal consistency, evidence backing
-- It identifies gaps the author might have missed
+When the verdict is `rejected`, return the reported conflict to Readiness Assessment. Re-check source precedence, confirmed outcomes, explicit exclusions, and cited evidence. Resume drafting when they determine one coherent boundary. Stop only for the unresolved pair of confirmed obligations defined in Step 1.
 
-**[STOP — BLOCKING]** Present prd-reviewer feedback to user:
-- prd-reviewer's assessment
-- Required changes (if any)
-- Approval recommendation
+### 4. Review Resolution
 
-**CANNOT finalize PRD until user explicitly approves after reviewing feedback.**
+For every reviewer issue, inspect the cited PRD content, evidence, and governing product sources, then record exactly one disposition:
 
-If changes required:
-1. Apply changes to the PRD
-2. Re-run prd-reviewer if changes are significant
-3. Present updated PRD for final approval
+| Disposition | Condition |
+|---|---|
+| `apply` | Leaving the PRD unchanged would contradict the confirmed outcome or evidence, state an unsupported claim as fact, leave implementation non-executable, or leave required behavior non-verifiable |
+| `decline` | The PRD still satisfies the confirmed outcome and required downstream boundary; the issue is template-only, optional hardening, added scope, a reversed exclusion, duplicate proof, or unsupported reviewer preference |
 
-### 5. File Output
+For each issue preserve the complete reviewer object unchanged and add only its disposition, plus governing reason and evidence for a decline. An orchestrator-authored paraphrase is not a correction requirement.
 
-After user approval:
-- Write PRD to `docs/prd/[feature-name]-prd.md`
+After every issue has an `apply` or `decline` disposition, apply the `apply` corrections inside the confirmed PRD scope. Then rerun prd-reviewer with the original `target_path` and a `prior_feedback` entry for every original issue:
 
-## Sub-agent Usage
+```text
+target_path: docs/prd/[feature-name]-prd.md
+prior_feedback: [{issue: <complete unchanged reviewer issue object>, disposition, reason?, evidence}]
+```
 
-| Agent | When | Why (context separation benefit) |
-|-------|------|----------------------------------|
-| prd-reviewer (subagent_type: "discover:prd-reviewer") | PRD quality review | Eliminates author's self-review bias |
+Every prior ID must return once as `resolved`, `withdrawn`, or `maintained`:
 
-## PRD Structure
+- `resolved` and `withdrawn` complete the item
+- a maintained `apply` returns through correction using the complete original issue and reconciliation evidence; after the same issue survives two correction attempts, report it as incomplete instead of manufacturing further work
+- a maintained `decline` remains in the reviewer's `issues` and keeps the reviewer verdict at `needs_revision`; retain the evidence-backed decline, skip another correction loop, and present the disagreement at final approval
 
-The PRD output follows a standard structure:
-- **Core sections**: Overview, User Stories, Functional Requirements, Design Context, Non-Functional Requirements, Success Criteria, Technical Considerations
-- **Discovery extensions**: Hypothesis & validation references, 4 Risks confidence per user story, design context (principles, tone, guardrails, visual reference), unvalidated assumptions section
-- **Storage**: `docs/prd/`
+Review Resolution converges when every issue is resolved, withdrawn, or retained as an evidence-backed decline and every new issue has a disposition. When retained declines are the only current issues, proceed to final approval with the reviewer verdict at `needs_revision` and list each disagreement in the approval presentation.
 
-The extensions are additive — they don't replace or modify the core sections. This means the PRD can be consumed by any downstream workflow that expects the standard structure.
+### 5. User Approval
+
+**[STOP — BLOCKING]** Present the reviewed PRD once:
+
+- PRD target path and current outcome/scope
+- 4 Risks and remaining-risk summary
+- prd-reviewer verdict and coverage
+- applied corrections
+- evidence-backed declined findings, if any
+
+**CANNOT finalize the PRD until the user explicitly approves it.** If the user changes the outcome, scope, or exclusion, resume from Step 1 with the complete changed decision. Otherwise keep the reviewed file unchanged.
 
 ## Scope Boundaries
 
-**Included**: PRD creation, user story generation, quality review
-**Not included**: Hypothesis validation, Design Doc/ADR creation, implementation
+**Included**: PRD creation, user story generation, mandatory independent review, review resolution, final user approval
+**Not included**: Hypothesis validation, Design Doc/ADR creation, implementation, release or production operations
 
 ## Completion Criteria
 
-- [ ] Hypothesis readiness assessed
-- [ ] PRD drafted with hypothesis refs, 4 Risks, remaining risks
-- [ ] User stories include 4 Risks confidence per story
-- [ ] User reviewed PRD draft
-- [ ] prd-reviewer assessed quality
-- [ ] User approved final PRD
-- [ ] PRD written to `docs/prd/`
+- [ ] Hypothesis readiness assessed by cost × risk × reversibility
+- [ ] PRD draft written to its target path with evidence and explicit exclusions
+- [ ] Every user story includes all four Risks and remaining risk
+- [ ] Every user-facing requirement accounts for all five states as required or not applicable with reason
+- [ ] prd-reviewer ran against the artifact path
+- [ ] Every reviewer issue has a traceable disposition and reconciliation result
+- [ ] User approved the reviewed PRD
+- [ ] Final PRD remains at `docs/prd/`

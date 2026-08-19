@@ -2,115 +2,40 @@
 
 ## Product: {product-name}
 
-### Design Vision
+Record only decisions that a prototype or downstream design consumer needs. Omit sections without a current decision, and surface any outcome-relevant unknown instead of completing it with invented direction.
 
-{1-2 sentences from docs/product/vision.md Design Vision section — how the product should feel}
+### Design Intent
 
-### Tone & Voice
+{Shortest statement of how the product should feel and which approved product evidence controls that choice.}
 
-| Dimension | Position | Rationale (design principle) |
-|-----------|----------|------------------------------|
-| Formal ↔ Casual | {position} | {which principle drives this} |
-| Serious ↔ Playful | {position} | {which principle drives this} |
-| Expert ↔ Approachable | {position} | {which principle drives this} |
-| Technical ↔ Plain | {position} | {which principle drives this} |
+### Decision-Relevant Direction
 
-### Color Direction
+| Property | Direction | Governing Evidence | Consumer / Effect |
+|----------|-----------|--------------------|-------------------|
+| {tone, color role, type hierarchy, density, motion, texture, or other} | {chosen direction} | {design principle, persona, vision, or validated finding} | {prototype or downstream decision this changes} |
 
-| Role | Intention | Reference | Traced To |
-|------|-----------|-----------|-----------|
-| Primary | {what action/meaning} | {color family or reference} | {design principle} |
-| Surface | {background feel} | {warm/cool/neutral} | {design principle} |
-| Accent | {emphasis/highlight} | {color family or reference} | {design principle} |
-| Success | {positive feedback} | {color family} | Standard |
-| Error | {negative feedback} | {color family} | Standard |
+Use semantic roles and trade-offs rather than decorative prescriptions. Accessibility requirements are boundaries, not an aesthetic direction.
 
-This is **directional**, not a final token system. Concrete values for prototype consistency are derived in Visual Tokens below. Final production values are determined during UI Spec.
+### References — Only When Used
 
-### Typography Direction
+| Reference | Specific aspect to use | Specific aspect to avoid | Decision affected |
+|-----------|------------------------|--------------------------|-------------------|
+| {source product or artifact} | {aspect} | {aspect} | {current decision} |
 
-| Role | Intention | Reference |
-|------|-----------|-----------|
-| Heading | {personality, weight} | {font family or style reference} |
-| Body | {readability, density} | {font family or style reference} |
-| UI / Label | {clarity, compactness} | {font family or style reference} |
+Browse for a reference only when it can change a current visual decision.
 
-**Language consideration**: {product's primary language and implications for font selection}
+### Concrete Tokens — Only When a Consumer Requires Them
 
-### Motion Tendency
-
-| Dimension | Direction | Rationale |
-|-----------|-----------|-----------|
-| Transitions | {none / subtle fade / spring animations} | {tone & voice alignment} |
-| Micro-interactions | {none / hover feedback only / expressive on all interactions} | {persona context — expertise, device} |
-| Loading states | {static spinner / skeleton screens / progressive reveal} | {perceived performance priority} |
-
-### Visual Density
-
-| Dimension | Direction | Rationale |
-|-----------|-----------|-----------|
-| Whitespace | {generous / moderate / compact} | {persona context — device, environment} |
-| Information density | {sparse / balanced / dense} | {persona expertise level} |
-| Card / Surface elevation | {flat / subtle / layered} | {design principle} |
-
-### Reference Products
-
-Products whose visual approach aligns with the intended direction:
-
-| Product | What to Reference | What to Avoid |
-|---------|------------------|---------------|
-| {product} | {specific aspect} | {specific aspect} |
-
-### Visual Tokens
-
-Concrete values derived from the direction above. Auto-generated during blueprint, optionally refined by a design expert via `recipe-refine-visuals`.
-
-**Source**: {`auto-derived` | `expert-refined`}
-
-#### Color Tokens
+**Consumer**: {prototype, UI specification, or other named consumer}
 
 | Token | Value | Derived From |
 |-------|-------|-------------|
-| `--color-primary` | {hex} | Color Direction → Primary |
-| `--color-primary-hover` | {hex} | Primary darkened 10% |
-| `--color-surface` | {hex} | Color Direction → Surface |
-| `--color-surface-elevated` | {hex} | Surface lightened/darkened for elevation |
-| `--color-accent` | {hex} | Color Direction → Accent |
-| `--color-text` | {hex} | Contrast against surface |
-| `--color-text-secondary` | {hex} | Reduced emphasis text |
-| `--color-success` | {hex} | Color Direction → Success |
-| `--color-error` | {hex} | Color Direction → Error |
-| `--color-border` | {hex} | Surface-derived, low opacity |
+| {semantic token} | {concrete value} | {approved direction or existing design system} |
 
-#### Typography Tokens
+Omit this section when directional decisions are sufficient. A named consumer requiring reproducible values is the entry condition for a concrete color, typography, spacing, radius, or shadow system.
 
-| Token | Value | Derived From |
-|-------|-------|-------------|
-| `--font-heading` | {font family} | Typography Direction → Heading |
-| `--font-body` | {font family} | Typography Direction → Body |
-| `--font-ui` | {font family} | Typography Direction → UI / Label |
-| `--font-size-base` | {px/rem} | Visual Density → Information density |
-| `--font-weight-normal` | {weight} | Body readability |
-| `--font-weight-bold` | {weight} | Heading emphasis |
-| `--line-height-body` | {ratio} | Body readability |
+### Decisions Log
 
-#### Spacing Tokens
-
-| Token | Value | Derived From |
-|-------|-------|-------------|
-| `--space-unit` | {px} | Visual Density → Whitespace |
-| `--space-xs` | {px} | unit × 0.5 |
-| `--space-sm` | {px} | unit × 1 |
-| `--space-md` | {px} | unit × 2 |
-| `--space-lg` | {px} | unit × 3 |
-| `--space-xl` | {px} | unit × 5 |
-| `--radius-sm` | {px} | Visual Density → Surface elevation |
-| `--radius-md` | {px} | Visual Density → Surface elevation |
-| `--shadow-sm` | {value} | Visual Density → Card elevation |
-| `--shadow-md` | {value} | Visual Density → Card elevation |
-
-### Brand Direction Decisions Log
-
-| Decision | Options Considered | Chosen | Rationale |
-|----------|-------------------|--------|-----------|
-| {decision} | {options} | {chosen} | {rationale} |
+| Decision | Chosen | Governing Evidence | Explicit Non-Decision |
+|----------|--------|--------------------|-----------------------|
+| {decision} | {choice} | {source} | {related choice deliberately left to a later consumer} |

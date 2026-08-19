@@ -3,122 +3,94 @@
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Plugin-purple)](https://claude.ai/code)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A Claude Code plugin that structures product context in your repo before implementation begins. Hypotheses, validation results, and PRDs live alongside your code — so when Claude builds your feature, it has access to rejected alternatives, unvalidated assumptions, and the evidence behind each decision.
+A Claude Code plugin that turns a feature idea or product question into an evidence-backed product requirements document (PRD) before implementation begins. It helps you decide what to build, test the assumptions that could change that decision, and carry the evidence into implementation.
+
+Use it to:
+
+- turn user research, product ideas, or an existing codebase into Opportunities and testable hypotheses
+- validate value, usability, feasibility, and viability with a method suited to the risk
+- define shared product structure when prototypes or downstream design need it
+- produce a reviewed PRD with explicit scope, exclusions, remaining assumptions, and traceable evidence
+
+The resulting artifacts live under `docs/` beside the code, so rejected alternatives and unresolved risks remain available when implementation starts.
 
 Works standalone, or paired with [claude-code-workflows](https://github.com/shinpr/claude-code-workflows) for a full discovery-to-implementation cycle:
 
 ```
-[claude-code-discover]  →  PRD + Prototypes  →  [claude-code-workflows]
-   Discovery phase                                Implementation phase
+[claude-code-discover]  →  Reviewed PRD + validation evidence  →  [claude-code-workflows]
+   Discovery                                                     Implementation
 ```
 
-## The Problem
+## Quick Start
 
-When you ask an AI coding assistant to build a feature, it generates code without knowing what alternatives were ruled out, which assumptions are untested, or what user research shaped the requirements. Discovery artifacts typically live in Notion, Figma, or Slack — invisible to your coding tools. This plugin brings them into the repo where Claude can read them.
-
-## What It Does
-
-```
-Vision & Personas        ← who you're building for and why
-      ↓
-  Opportunities          ← your hypotheses structured with validation plans
-      ↓
-  Blueprint              ← IA, user flows, content model, brand direction + visual tokens
-      ↓
-  Hypothesis Files       ← testable assumptions with success/failure criteria
-      ↓
-  Validation             ← assumption decomposition + HTML prototypes
-      ↓
-     PRD                 ← each user story traced to evidence
-```
-
-Each recipe is a step in this cycle. Run them in order or jump to where you need:
-
-| Recipe | What it does |
-|--------|-------------|
-| `/discover:recipe-vision` | Define product vision, outcomes, and North Star Metric |
-| `/discover:recipe-persona` | Create personas with JTBD, pains/gains, and behavioral data |
-| `/discover:recipe-discover` | Structure your hypotheses into Opportunities with validation plans |
-| `/discover:recipe-blueprint` | Define structural design foundation — IA, user flows, content model, brand direction with visual tokens, AI interaction model |
-| `/discover:recipe-refine-visuals` | *(Optional)* Design expert refines auto-derived visual tokens in brand direction |
-| `/discover:recipe-validate` | Decompose assumptions, design falsifiable tests, generate HTML prototypes |
-| `/discover:recipe-reflect` | Extract learnings, promote knowledge across the hierarchy |
-| `/discover:recipe-define` | Generate a PRD from validated hypotheses with confidence scores |
-
-### What each recipe produces
-
-- **Hypothesis file**: Markdown with assumption statement, success/failure criteria, confidence scores per risk dimension, time budget, and validation results
-- **Blueprint artifacts**: Information architecture, user flows, content model, brand direction (with auto-derived visual tokens), and AI interaction model — shared structural context that prototypes reference for consistency. Visual tokens (colors, typography, spacing) ensure prototype-to-prototype visual consistency
-- **Prototype**: Single self-contained HTML file (~800-1200 lines) that opens in a browser. Deterministic mock data, all UI states implemented, design context applied from blueprint and project files
-- **PRD**: 200-400 line document with user stories (each with 4 Risks confidence table), EARS-format acceptance criteria, unvalidated assumptions section, and references to hypothesis files
-
-## How Validation Works
-
-Each validation produces:
-- Assumption breakdown (ranked by risk type and level)
-- Test design per assumption (smallest test that could disprove it)
-- HTML prototype (for user testing)
-
-Two agents work in separate contexts:
-
-1. **hypothesis-verifier** decomposes your hypothesis into assumptions, ranks them by risk, and designs the smallest test that could disprove each one — without seeing your expectations
-2. **prototype-generator** reads your design principles, persona, hypothesis files, and blueprint artifacts (when available), then generates a self-contained HTML prototype with deterministic mock data and all UI states
-
-The context separation is deliberate. The verifier designs tests that can fail. The prototype generator builds a product UI without test infrastructure leaking in.
-
-## Connecting to Implementation
-
-The PRD that `recipe-define` produces follows the standard structure that [claude-code-workflows](https://github.com/shinpr/claude-code-workflows) expects. Discovery extensions (hypothesis references, 4 Risks confidence per user story, unvalidated assumptions) are additive — they provide context without breaking compatibility. Prototypes generated during validation can be passed to the UI Spec designer as design references.
-
-```bash
-# Discovery phase (this plugin)
-/discover:recipe-define → docs/prd/feature-prd.md
-
-# Implementation phase (dev-workflows)
-# UI Spec designer accepts PRD + optional prototype as input
-/dev-workflows:recipe-implement "docs/prd/feature-prd.md"
-```
-
-The implementation workflow picks up the PRD, runs requirement analysis, creates design docs, and proceeds through the full development lifecycle with the discovery context preserved.
-
-## Installation
-
-> Requires [Claude Code](https://claude.ai/code)
+> Requires Claude Code with plugin marketplace and Skills support.
 
 ```bash
 # Start Claude Code
 claude
 
-# Install the marketplace
+# Add the marketplace and install the plugin
 /plugin marketplace add shinpr/claude-code-discover
-
-# Install plugin
 /plugin install discover@claude-code-discover
-
-# Reload plugins
 /reload-plugins
 
-# Start discovering
-/discover:recipe-vision <your product>
+# Start from a user problem, feature idea, or existing evidence
+/discover:recipe-discover "Describe the problem or feature idea"
 ```
 
-### With claude-code-workflows
+For a new product or strategic reset, start with `/discover:recipe-vision` instead. You can also begin from an existing Opportunity or hypothesis; the recipes are entry points, not a mandatory sequence.
 
-Install dev-workflows to get the full cycle from discovery to implementation. For projects with a frontend, install both backend and frontend plugins — dev-workflows handles backend logic and orchestration, while dev-workflows-frontend adds UI Spec generation and React-specific task execution:
+## Choose Where to Start
+
+```
+Idea or existing evidence
+          ↓
+Discover → Opportunities + hypotheses
+          ↓
+     Validate by risk ↔ Blueprint when shared structure is needed
+          ↓
+ Reflect completed evidence or Define a reviewed PRD
+```
+
+| Recipe | Use it when | Result |
+|--------|-------------|--------|
+| `/discover:recipe-vision` | You are starting a product or revisiting its direction | Vision, outcomes, and product principles |
+| `/discover:recipe-persona` | You need a grounded view of who uses the product and in what context | Evidence-backed personas |
+| `/discover:recipe-discover` | You have a problem, idea, research, or an existing product to examine | Opportunities, hypotheses, and validation priorities |
+| `/discover:recipe-validate` | A hypothesis could change readiness or scope | Validation evidence and an updated hypothesis |
+| `/discover:recipe-blueprint` | Prototypes or downstream design need shared product structure | IA, user flows, content model, and brand direction |
+| `/discover:recipe-refine-visuals` | A prototype or downstream design workflow needs reproducible visual values | Concrete tokens in `brand-direction.md` |
+| `/discover:recipe-reflect` | Validation results or product evidence should become reusable learning | Updated evidence, learnings, and discovery index |
+| `/discover:recipe-define` | You are ready to make an implementation decision | An independently reviewed PRD |
+
+## How Validation Works
+
+Validation starts by identifying the assumption most likely to change the current product decision, then selects the smallest useful test for that uncertainty.
+
+| Risk | Typical validation |
+|------|--------------------|
+| **Value** | Market research, interviews, competitive analysis, or a demand test |
+| **Usability** | A self-contained HTML prototype and user testing |
+| **Feasibility** | Repository analysis, dependency review, or an isolated code spike |
+| **Viability** | Business-model, financial, or regulatory analysis |
+
+Every validation updates the hypothesis with its result and evidence. A prototype is produced only when the selected usability test needs one.
+
+## Connecting to Implementation
+
+`recipe-define` compares the proposed work's cost, risk, and reversibility with the available evidence. It asks for more validation only when the result could change implementation readiness or scope. It then writes the PRD to `docs/prd/` and runs an independent review before asking for approval. Prototypes from usability validation can accompany the PRD as design references.
+
+The PRD can be handed to [claude-code-workflows](https://github.com/shinpr/claude-code-workflows) for design and implementation:
 
 ```bash
-/plugin marketplace add shinpr/claude-code-workflows
-
-# Backend or general development
-/plugin install dev-workflows@claude-code-workflows
-
-# Frontend (install alongside dev-workflows for fullstack)
-/plugin install dev-workflows-frontend@claude-code-workflows
+/dev-workflows:recipe-implement "docs/prd/feature-prd.md"
 ```
+
+See the linked project for current installation instructions and workflow options.
 
 ## Repo Structure
 
-As you use the recipes, artifacts accumulate in `docs/`:
+Recipes create or update the relevant files under `docs/`:
 
 ```
 docs/
@@ -131,19 +103,15 @@ docs/
 
 ## Agents
 
-Five specialized agents handle tasks where context separation matters:
+Five agents run in separate contexts for independent analysis:
 
 | Agent | What it does | Why it runs in a separate context |
 |-------|-------------|----------------------------------|
-| `prd-reviewer` | Checks PRD completeness, consistency, and technical currency of dependencies | Catches gaps the author misses. Verifies external APIs are still available via web search |
-| `codebase-analyzer` | Maps existing features, user roles, and architecture from code | Reports facts without hypothesis bias coloring the analysis |
-| `hypothesis-verifier` | Decomposes hypotheses into assumptions, designs falsifiable tests | Designs tests that can actually fail, without seeing the author's expectations |
+| `prd-reviewer` | Checks each PRD against its outcome, evidence, scope, and downstream needs | Re-checks evidence and boundaries outside the authoring conversation |
+| `codebase-analyzer` | Maps decision-relevant features, user roles, and architecture from code | Separates what the product currently does from evidence about what users need |
+| `hypothesis-verifier` | Decomposes hypotheses into assumptions and designs falsifiable tests | Challenges the hypothesis outside the authoring conversation before validation begins |
 | `knowledge-distiller` | Extracts patterns across multiple hypothesis results | Finds cross-cutting learnings without being anchored to any single hypothesis |
 | `prototype-generator` | Generates HTML prototypes from design context files | Builds product UIs isolated from test design details |
-
-## Requirements
-
-- Claude Code 1.0.33+
 
 ## License
 

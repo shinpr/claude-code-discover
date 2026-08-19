@@ -9,7 +9,7 @@ Guide for structured reflection at three levels: PRD unit, Opportunity unit, and
 - **Reflect on the artifact, not in a separate place**: Results are appended to the target file (hypothesis, Opportunity, vision.md)
 - **ADR-style lifecycle**: Each artifact carries its full history
 - **Every outcome is a learning**: Success and failure both generate knowledge
-- **Distill, don't just record**: Use knowledge-distiller to extract patterns from individual results
+- **Distill outcomes**: Use knowledge-distiller to extract cross-result patterns and conditions
 
 ## Reflection Levels
 
@@ -35,8 +35,8 @@ Guide for structured reflection at three levels: PRD unit, Opportunity unit, and
 4. Check if any Tier 2 learnings qualify for Tier 1 promotion
 5. Update related hypotheses' status if Opportunity understanding changed
 
-### Level 3: Vision Reflection (periodic / milestone)
-**Trigger**: After a significant PRD is delivered, quarterly review, or strategic pivot
+### Level 3: Vision Reflection
+**Trigger**: New cross-Opportunity evidence can change a Product Outcome, NSM, strategic priority, or Tier 1 learning used by a current decision
 **Target file**: `docs/product/vision.md` and `docs/product/learnings.md`
 
 **Process**:
@@ -48,7 +48,7 @@ Guide for structured reflection at three levels: PRD unit, Opportunity unit, and
 
 ## Distillation Quality Criteria
 
-See product-principles skill for authoritative definitions of the Knowledge Pyramid and distillation criteria (3+ Rule, Cross-Segment Consistency, Contradiction Handling, Freshness Tags). knowledge-distiller enforces these criteria when proposing promotions.
+See product-principles skill for authoritative definitions of the Knowledge Pyramid and distillation criteria (Independent Evidence, Context Coverage, Contradiction Handling, Freshness Tags). knowledge-distiller enforces these criteria when proposing promotions.
 
 ## INDEX.md Update
 

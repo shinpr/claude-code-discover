@@ -10,8 +10,8 @@ disable-model-invocation: true
 
 1. **Hypothesis Until Proven**: Every assumption is a hypothesis until validated with evidence. Treat unvalidated ideas as hypotheses, not facts
 2. **Value Traceability**: From hypothesis to validation to user story to PRD to implementation to test — maintain traceability across the entire chain
-3. **Feedback Accumulation**: Every outcome (including failures) is a learning asset. Never delete invalidated hypotheses — they inform future decisions
-4. **Validated Enough, Not Perfect**: Don't wait for perfect validation. Use cost x risk x reversibility to determine sufficient confidence
+3. **Feedback Accumulation**: Every outcome (including failures) remains a learning asset. Preserve invalidated hypotheses for future decisions
+4. **Validated Enough**: Use cost x risk x reversibility to determine the sufficient confidence threshold
 5. **Artifacts Over Notes**: Intermediate analysis (market research, competitive landscape, brainstorming) is conducted within the conversation and synthesized into the designated artifact. Each recipe defines its output locations
 
 ## Opportunity Solution Tree (OST) Hierarchy
@@ -82,17 +82,17 @@ Knowledge is organized in three tiers to manage context as hypotheses accumulate
 | **Tier 2** | Opportunity-level learnings | Each Opportunity file's "Tier 2 Learnings" section | When working on that Opportunity |
 | **Tier 3** | Individual hypothesis files | `docs/discovery/hypotheses/` | On demand |
 
-Tier 1 learnings are validated patterns derived from 3+ independent hypotheses. Treat them as established principles until re-validated.
+Tier 1 learnings are validated patterns supported by independent evidence across the contexts in which the principle claims to hold. Treat them as established only within those recorded conditions.
 
 Distillation criteria (enforced by knowledge-distiller):
-- **3+ Rule**: 3+ independent hypotheses required for Tier 1 promotion
-- **Cross-segment consistency**: Must hold across 2+ user segments/contexts
-- **Contradiction handling**: Conflicting evidence recorded with conditions, never discarded
-- **Freshness tags**: All Tier 1 learnings get `last-validated` dates; 6-12 months without re-validation triggers review
+- **Independent evidence**: Promotion requires more than one retelling of the same observation; evidence independence and quality matter more than a fixed count
+- **Context coverage**: Evidence must cover the segments or conditions named by the proposed learning; additional segment research requires a current decision it can change
+- **Contradiction handling**: Conflicting evidence remains recorded with its conditions
+- **Freshness tags**: Tier 1 learnings record `last-validated`; re-check when a changed environment or current decision makes staleness consequential, not merely because a timer elapsed
 
 ## State Design (Authoritative Definition)
 
-Every user-facing interaction must account for these states:
+Every user-facing interaction must account for each state as `required` or `not_applicable`. A `not_applicable` result includes the scope or behavior reason so omission remains visible without manufacturing irrelevant UI work:
 
 | State | Description |
 |-------|-------------|
@@ -102,21 +102,21 @@ Every user-facing interaction must account for these states:
 | **Partial** | Some data available, some not — show available, indicate missing |
 | **Success** | Normal state with data — primary design focus |
 
-PRDs should specify behavior for all states in acceptance criteria. Prototypes should demonstrate at minimum: empty, success, and error states.
+PRDs record all five states for each user-facing requirement and specify behavior for every required state. Prototypes implement Success and every failure or absence state whose occurrence or recovery can distinguish the hypothesis's success, failure, or inconclusive criteria; they record every other state as `not_applicable` with a reason.
 
 ## Key Principles for Daily Decisions
 
-- **3+ Solutions Test**: If an Opportunity can't generate 3+ different Solutions, it may actually be a Solution disguised as an Opportunity (Torres principle). See `references/opportunity-template.md` for Opportunity file structure
-- **Don't Kill the Product**: Never sever the connection to business outcomes, but use NSM to balance against pure metric-chasing pressure
+- **Solution-Framing Check**: Seek meaningfully different solution classes to test whether an Opportunity is solution-shaped. Stop when further alternatives cannot change that framing judgment. See `references/opportunity-template.md` for Opportunity file structure
+- **Outcome Connection**: Preserve the connection to business outcomes while using NSM to balance pure metric-chasing pressure
 - **Design is a Perspective, Not a Phase**: Design thinking applies across all processes — discovery, validation, definition, delivery, and reflection
 - **Cycle, Not Phases**: Discovery → Validation → Definition → Delivery → Reflection is a continuous cycle. Start from anywhere
-- **MVP Scoping**: When transitioning validated hypotheses to PRD, use `references/mvp-definition.md` for prioritization (MoSCoW/RICE) and scope reduction techniques
+- **MVP Scoping**: When transitioning validated hypotheses to a PRD or blueprint, use `references/mvp-definition.md` for the inclusion boundary, explicit exclusions, observable proof, and scope reduction. Use an optional ranking aid only when direct boundary analysis leaves credible candidates tied
 
 ## Common Pitfalls (Why These Principles Exist)
 
 These principles exist to counter natural tendencies in product thinking:
 
-- **3+ Solutions Test** counters the tendency to treat the first Solution idea as the Opportunity itself. When only one Solution comes to mind, the framing is likely too narrow
+- **Solution-Framing Check** counters the tendency to treat the first Solution idea as the Opportunity itself without turning brainstorming volume into required work
 - **Confidence Meter (0-10)** counters all-or-nothing thinking about validation. The threshold varies by cost x risk x reversibility because not everything needs the same evidence level
-- **Knowledge Pyramid tiers** counter both context overload (loading every hypothesis) and knowledge loss (forgetting past learnings). The 3+ rule for Tier 1 promotion ensures principles are grounded, not anecdotal
+- **Knowledge Pyramid tiers** counter both context overload and knowledge loss. Independent, condition-matched evidence keeps Tier 1 principles grounded without treating observation counts as proof quality
 - **State Design** counters the tendency to design only for the happy path. Acceptance criteria that cover only Success state miss the states users encounter most during onboarding

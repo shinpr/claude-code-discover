@@ -1,16 +1,15 @@
 ---
 name: recipe-refine-visuals
-description: Optional side-workflow for design experts to refine auto-derived Visual Tokens in brand-direction.md with professional judgment
+description: Optional side-workflow for design experts to refine Concrete Tokens in brand-direction.md when a named downstream consumer needs reproducible values
 disable-model-invocation: true
 ---
 
-**Context**: Refine the Visual Tokens section of `docs/product/design/brand-direction.md` with design expertise. This recipe reads the existing brand direction (including auto-derived tokens from `recipe-blueprint`) and lets a design expert override specific values with professional judgment. The output is the same `brand-direction.md` file — downstream consumers (prototype-generator, UI Spec) read it without knowing which path produced the tokens.
+**Context**: Refine the concrete tokens used by a named prototype or downstream design consumer. The output remains `docs/product/design/brand-direction.md` so consumers read one approved source.
 
 ## When to Use
 
-- After `recipe-blueprint` has completed and `brand-direction.md` exists with auto-derived Visual Tokens
-- When a design expert is available and wants to refine the visual system
-- **This recipe is entirely optional** — auto-derived tokens are sufficient for prototype generation
+- `brand-direction.md` contains concrete tokens, or the user names a consumer that now requires them
+- A design expert wants to refine the values that affect that consumer
 
 ## Orchestrator Definition
 
@@ -21,66 +20,63 @@ disable-model-invocation: true
 ## Workflow Overview
 
 ```
-Input (existing brand-direction.md with auto-derived tokens)
+Input (brand-direction.md + named token consumer)
     ↓
 1. Context Reading → Read brand direction + design principles + personas
     ↓
-2. Token Review → Present current tokens with their derivation rationale
+2. Token Review → Present only Concrete Tokens that affect the named consumer
     ↓
-3. Expert Refinement → User specifies overrides [Stop: User confirms changes]
+3. Expert Refinement → Expert retains or refines consumer-relevant values [Stop: User confirms result]
     ↓
-Output: Updated Visual Tokens in docs/product/design/brand-direction.md
+Output: Updated Concrete Tokens in docs/product/design/brand-direction.md
 ```
 
 ## Execution Decision Flow
 
 ### 1. Context Reading
 
-**Gate: `docs/product/design/brand-direction.md` must exist with a Visual Tokens section. If missing → inform user to run `recipe-blueprint` first.**
+**Gate: Approved brand direction and a named consumer requiring concrete values must be inspectable. Existing tokens may be refined; absent tokens may be added only for that consumer. Return the exact missing decision when either input is unavailable.**
 
 Read:
-- `docs/product/design/brand-direction.md` — current direction and auto-derived tokens
+- `docs/product/design/brand-direction.md` — Design Intent, Decision-Relevant Direction, and current Concrete Tokens when present
 - `docs/product/design-principles.md` — trade-off context
 - `docs/product/personas/` — audience context
-- Reference Products listed in brand-direction — use WebSearch to inspect their current design if needed
+- A referenced product only when its current design can change a token under review
 
 ### 2. Token Review
 
-Present the current Visual Tokens organized by category, showing:
+Present the current or required tokens that affect the named consumer, showing:
 - Current value and its derivation source
-- How it relates to the directional sections above it
+- How it traces to a Decision-Relevant Direction row or other governing evidence
 - Any inconsistencies between tokens (e.g., contrast ratio issues between text and surface colors)
 
-Highlight areas where expert judgment would have the most impact:
-- Color harmony and palette coherence
-- Font pairing quality
-- Spacing scale appropriateness for the product's density target
+Stop the review when remaining token changes cannot affect accessibility, approved direction, or the named consumer.
 
 ### 3. Expert Refinement
 
-Guide the expert through each token category:
+Guide the expert through only the token categories selected for refinement:
 
 #### Color Tokens
 - Present current palette as a visual summary (hex values with role labels)
 - Ask: which values to keep, which to override
-- Validate contrast ratios: `--color-text` against `--color-surface` must meet WCAG AA (4.5:1 for body text)
+- Validate applicable text and surface token pairs against the WCAG AA contrast boundary
 - Validate color harmony across the full palette
 
 #### Typography Tokens
-- Present current font selections with Google Fonts links
-- Ask: alternative font pairings, size adjustments, weight preferences
+- Present current font selections with their source and language availability
+- Ask for font, size, or weight changes that affect the consumer
 - Validate: heading/body contrast is sufficient for hierarchy
 - Validate: selected fonts support the product's language(s)
 
 #### Spacing Tokens
 - Present current scale with the base unit
-- Ask: base unit adjustment, scale ratio preferences
+- Ask for spacing changes that affect the consumer
 - Validate: scale produces enough differentiation between levels
 
 For each override, record the expert's rationale in the Decisions Log.
 
 **[STOP — BLOCKING]** Present the refined token set to user for confirmation:
-- Side-by-side comparison: auto-derived vs. expert-refined values
+- Side-by-side comparison: previous vs. proposed values
 - Rationale for each change
 - Contrast and harmony validation results
 
@@ -89,21 +85,23 @@ For each override, record the expert's rationale in the Decisions Log.
 ### 4. File Update
 
 After user approval:
-- Update the Visual Tokens section in `docs/product/design/brand-direction.md`
-- Change Source field from `auto-derived` to `expert-refined`
-- Add override entries to the Brand Direction Decisions Log
+- Keep `brand-direction.md` unchanged when the expert confirms the current tokens already satisfy the named consumer
+- When values change:
+  - Update or add the `Concrete Tokens — Only When a Consumer Requires Them` section in `docs/product/design/brand-direction.md`
+  - Record `expert-refined` and the governing direction in each refined token's `Derived From` value
+  - Add override entries to the `Decisions Log`
 
 ## Scope Boundaries
 
-**Included**: Visual Token refinement (colors, typography, spacing) within the existing brand-direction.md
-**Not included**: Changing directional sections (Tone & Voice, Color Direction, etc.), adding new sections, component-level specifications, responsive breakpoints
+**Included**: Consumer-required Concrete Token refinement within the existing brand-direction.md
+**Not included**: Changing Design Intent or Decision-Relevant Direction, component-level specifications, responsive breakpoints
 
 ## Completion Criteria
 
-- [ ] Existing brand-direction.md read with auto-derived tokens
-- [ ] Current tokens reviewed with derivation context
-- [ ] Expert overrides collected with rationale
-- [ ] Contrast and harmony validated
+- [ ] Brand direction and named token consumer inspected
+- [ ] Only consumer-relevant tokens reviewed with derivation context
+- [ ] Expert decisions recorded with rationale; an evidence-backed no-change result remains valid
+- [ ] Applicable accessibility and coherence checks pass for the selected token categories
 - [ ] User confirmed refined tokens
-- [ ] brand-direction.md updated with source marked as `expert-refined`
-- [ ] Decisions logged in Brand Direction Decisions Log
+- [ ] Changed Concrete Tokens carry `expert-refined` provenance in `Derived From`
+- [ ] Changed decisions are logged in `Decisions Log`

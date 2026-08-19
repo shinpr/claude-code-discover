@@ -9,9 +9,12 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Delegate analysis work** to sub-agents (via Agent tool) when context separation benefits accuracy
-2. **Follow the discovery flow** defined below
-3. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+1. **Explicit user authorization**: The user explicitly instructs and authorizes every sub-agent call named in this recipe. Invoke each named specialist whenever its stated condition applies; the orchestrator does not replace that call with its own analysis
+2. **Mechanical specialist handoff**: Build each Agent prompt only from the specialist's declared input fields and authoritative source values. Preserve those values unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+3. **Follow the discovery flow** defined below
+4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+
+The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
 
 ## Workflow Overview
 
@@ -42,7 +45,7 @@ Input: $ARGUMENTS
 | Situation | Action |
 |-----------|--------|
 | Greenfield (no existing product) | Full business + user analysis |
-| Existing codebase | Invoke codebase-analyzer first for objective fact-gathering |
+| Existing codebase | Invoke codebase-analyzer first with `analysis_mode: feature_discovery` and `governing_context: $ARGUMENTS` |
 | Specific market opportunity | Focus on market analysis + VPC |
 | User feedback / support tickets | Focus on user analysis + journey mapping |
 | Vision exists (`docs/product/vision.md`) | Align discovery with Product Outcomes |
@@ -57,27 +60,27 @@ When business context is needed, use the business-context skill frameworks:
 
 See business-context skill `references/business-model-canvas.md`, `references/value-proposition-canvas.md`, and `references/market-analysis.md` for detailed frameworks.
 
-**Web search**: Use WebSearch tool for market research — industry reports, competitor analysis, trend data. Market research benefits from hypothesis context (unlike code analysis).
+**Web search**: Use WebSearch only for market facts that can change an Opportunity, its impact, or validation priority. Record sources and distinguish observed facts from inference.
 
 ### 3. User Context Analysis
 
-- **Personas**: Reference existing personas (`docs/product/personas/`). If no persona files exist, stop and inform the user that persona files are required before discovery can proceed
+- **Personas**: Prefer existing personas (`docs/product/personas/`). When no persona file exists, use equivalent supplied user evidence if it determines the current jobs, pains, and context; mark unsupported persona claims as assumptions. Stop only when the missing decision changes whether an Opportunity exists, which user it concerns, its outcome effect, or its priority
 - **JTBD**: Identify functional, social, and emotional jobs from VPC Customer Profile
-- **Journey Mapping**: Create journey maps using `references/journey-template.md` to visualize pain points and opportunities
+- **Journey Mapping**: Use `references/journey-template.md` when sequence, handoff, or journey-stage evidence can change Opportunity identification. Reuse an existing map or omit it when no discovery decision depends on a new map
 
 ### 4. Opportunity Identification
 
 Synthesize business and user analysis into Opportunities:
 
 1. Draft Opportunity files using product-principles skill `references/opportunity-template.md`
-2. **3+ Solutions Test**: For each Opportunity, verify 3+ meaningfully different Solutions exist. If not, it may be a Solution disguised as an Opportunity
+2. **Solution-framing check**: Try to identify meaningfully different solution classes. If the framing permits only one credible implementation, inspect whether it is a Solution disguised as an Opportunity. A numeric alternative count is neither required work nor a blocking gate
 3. Link Opportunities to Product Outcomes (if vision exists)
 4. Assess impact (frequency x severity x breadth)
 
 **[STOP — BLOCKING]** Present Opportunities to user for confirmation:
 - Opportunity summaries with impact assessment
 - Evidence supporting each Opportunity
-- 3+ Solutions test results
+- Solution-framing evidence and any remaining ambiguity
 - Recommended priority order
 
 **CANNOT proceed to Step 5 until user explicitly confirms, modifies, or rejects Opportunities.**
@@ -111,7 +114,7 @@ After user approval:
 
 | Agent | When | Why (context separation benefit) |
 |-------|------|----------------------------------|
-| codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") | Existing codebase exists | Objective fact-gathering without hypothesis bias |
+| codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") | Existing codebase exists | Independent repository evidence without converting implementation into product claims |
 
 ## Scope Boundaries
 
@@ -122,7 +125,7 @@ After user approval:
 
 - [ ] Starting context assessed
 - [ ] Business and/or user analysis completed (as appropriate)
-- [ ] Opportunities identified with 3+ Solutions test passed
+- [ ] Opportunity framing checked without manufacturing alternatives to meet a count
 - [ ] User confirmed Opportunities
 - [ ] Hypotheses generated with validation methods and time budgets
 - [ ] User reviewed hypotheses

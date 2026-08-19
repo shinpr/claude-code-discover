@@ -14,24 +14,25 @@ Prototypes are **hypothesis validation tools**, not final implementations. They 
 
 Generate a **single self-contained HTML file** in `docs/discovery/prototypes/`. The file must:
 - Open directly in a browser (double-click) with no build step
-- Use Tailwind CSS via CDN and Google Fonts for typography
 - Include all CSS and JavaScript inline
 - Use mock data instead of real APIs
 
+Choose the smallest browser-native implementation that makes the validation boundary observable. Use an external CSS or font resource only when a supplied design decision requires it and the prototype remains directly openable; a library choice is not part of the validation outcome.
+
 ## Design Context Injection
 
-Before generating, read the relevant project files to understand the full context:
+Before generating, read the target hypothesis and the source artifacts whose decisions can change the tested flow:
 
 1. **Design Principles** — read `docs/product/design-principles.md`
 2. **Persona** — read relevant file from `docs/product/personas/`
 3. **Hypothesis Under Test** — read the target hypothesis file from `docs/discovery/hypotheses/`
 4. **Vision** — read `docs/product/vision.md` for tone and value proposition
 
-These files drive every design decision. A prototype built without reading them validates nothing.
+Prefer these canonical paths but accept equivalent supplied evidence. These sources drive only the decisions they actually govern. Use their content directly; do not replace missing evidence with plausible product prose. Inspect another artifact only when it can change the tested interaction.
 
 ### Blueprint Context (include when `docs/product/design/` exists)
 
-Read all available artifacts from `docs/product/design/` (information architecture, brand direction, user flows, content model, AI interaction model). When present, brand direction overrides ad-hoc aesthetic inference from design principles.
+Read only artifacts from `docs/product/design/` that can change the tested navigation, entities, flow, interaction, or visual direction. When present and relevant, an approved brand decision overrides ad-hoc aesthetic inference.
 
 ### Additional Context (include when available)
 
@@ -50,14 +51,14 @@ How to connect prototypes with your design system depends on your setup:
 
 ## Key Principles
 
-- **Prototype to learn, not to ship**: Don't over-invest in polish
+- **Prototype to learn**: Stop polishing when the hypothesis is observable and the UI is credible enough to interpret the result
 - **Context from files, not assumptions**: Read the project files rather than inventing context
 - **One hypothesis per prototype**: Keep focused on a single question
-- **One pattern per prototype**: When multiple patterns need validation, generate a separate prototype for each
+- **One validation question per prototype**: One artifact is sufficient unless the hypothesis explicitly requires a pattern comparison
 - **Flows, not just screens**: Implement step-by-step user flows, not isolated UI states
-- **States, not just features**: Implement all relevant state transitions (loading, error, empty, success)
+- **States, not just features**: Apply the authoritative State Design rule from product-principles and the prototype implementation boundary in `references/prototype-prompt-guide.md`
 - **Concrete data**: Use realistic sample data and actual UI copy in the product's language
-- **Save everything**: Prototypes, screenshots, and learnings go to `docs/discovery/prototypes/`
-- **Iterate, don't restart**: Build on previous prototypes
+- **Save validation evidence**: Store the prototype and evidence required to interpret its result; add a screenshot or auxiliary artifact only for a named validation consumer
+- **Iterate from evidence**: Reuse a previous prototype when it preserves the current validation boundary
 
 For detailed construction patterns, state design guidance, and scope boundaries, see `references/prototype-prompt-guide.md`.
