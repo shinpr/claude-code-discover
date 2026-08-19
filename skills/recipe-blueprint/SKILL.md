@@ -9,9 +9,12 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Delegate analysis work** to sub-agents (via Agent tool) when context separation benefits accuracy
-2. **Follow the blueprint flow** defined below
-3. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+1. **Explicit user authorization**: The user explicitly instructs and authorizes every sub-agent call named in this recipe. Invoke each named specialist whenever its stated condition applies; the orchestrator does not replace that call with its own analysis
+2. **Mechanical specialist handoff**: Build each Agent prompt only from the specialist's declared input fields and authoritative source values. Preserve those values unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+3. **Follow the blueprint flow** defined below
+4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+
+The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
 
 ## Workflow Overview
 
@@ -26,7 +29,7 @@ Input (validated opportunities / discovery outputs / strategic update)
     ↓
 4. Content Model → Entity types, relationships, states
     ↓
-5. Core User Flows → 5-10 primary flows across personas [Stop: User confirms structure]
+5. Core User Flows → Smallest set covering the core value loop and confirmed structural boundaries [Stop: User confirms structure]
     ↓
 6. Brand Direction → Visual tone, color/typography direction, reference products
     ↓
@@ -54,27 +57,24 @@ Input: $ARGUMENTS
 | `docs/discovery/journeys/` | Journey maps (if available) |
 | `docs/product/learnings.md` | Tier 1 learnings from reflection cycles |
 
-**Gate: Vision, design principles, and at least one persona file must exist. At least one Opportunity must be identified (draft status is sufficient — validation is not required). If missing → inform user which prerequisite files are needed before proceeding.**
+**Gate: The product vision, design trade-offs, target-user context, and at least one identified Opportunity must be inspectable. Prefer the canonical files above, and treat equivalent supplied or repository evidence as satisfying the same decision. Stop only when a missing product decision changes the IA, content model, user flow, included capability, or brand direction.**
 
 | Situation | Mode | Action |
 |-----------|------|--------|
 | No `docs/product/design/` exists | Create | Full blueprint definition |
 | Blueprint exists, new Opportunities discovered | Update | Extend IA, flows, content model for new scope |
 | Blueprint exists, new learnings in `docs/product/learnings.md` | Update | Revise based on new learnings |
-| Existing codebase | Create/Update | Invoke codebase-analyzer for current architecture understanding |
+| Existing codebase | Create/Update | Invoke codebase-analyzer with `analysis_mode: structural_design` and the relevant Opportunity or blueprint update request as `governing_context` |
 
 ### 2. MVP Scope Definition
 
-Synthesize validated opportunities and hypotheses into a feature scope:
+Use product-principles `references/mvp-definition.md` to select the smallest feature scope that preserves the confirmed outcome, core value loop, required boundary, and observable proof:
 
-1. List all validated and in-progress Opportunities with their confidence scores
-2. Map each Opportunity to candidate features (from hypothesis Solutions)
-3. Apply MVP prioritization — see product-principles skill `references/mvp-definition.md` for MoSCoW/RICE frameworks
-4. Produce a feature priority matrix:
-   - **Must Have**: Validated Opportunities with confidence 5+ across Value and Usability
-   - **Should Have**: Validated Opportunities with confidence 3-4
-   - **Could Have**: Opportunities with partial validation
-   - **Won't Have (this cycle)**: Explicitly deferred scope
+1. Inspect only Opportunities and hypotheses that can change the current blueprint
+2. Map their candidate capabilities against existing behavior
+3. Record the evidence, outcome effect, rough cost, risk, and reversibility for each inclusion
+4. Record explicit exclusions and why removing each included capability would break the MVP boundary
+5. Use a ranking framework only if credible candidates remain tied and the ranking can change scope
 
 Record the scope in the IA artifact header (Step 3).
 
@@ -108,12 +108,14 @@ Use blueprint-standards skill `references/content-model-template.md` to define t
 
 ### 5. Core User Flows
 
-Use blueprint-standards skill `references/flow-template.md` to define 5-10 primary flows:
+Use blueprint-standards skill `references/flow-template.md` to define the smallest flow set that covers the confirmed MVP structure:
 
 1. Identify the highest-impact flows from validated Opportunities and journey maps
 2. Write each flow from a specific persona's perspective
 3. Include decision points, error scenarios, and alternative paths
 4. Reference IA pages — each step maps to a page in the site map
+
+Create a flow only when it changes navigation, entity/state behavior, a persona-specific path, or observable validation. Record each confirmed MVP Opportunity as covered by a flow or as not requiring a distinct flow with a reason. The flow set stops when these boundaries are covered.
 
 Prioritize flows that:
 - Cover the core value loop (the primary reason users return)
@@ -123,29 +125,15 @@ Prioritize flows that:
 **[STOP — BLOCKING]** Present content model and user flows to user for confirmation:
 - Entity overview with relationships
 - Core flow list with persona assignments
-- Flow details for the top 3 highest-priority flows
+- Flow details sized by the confirmed structural boundaries
 
 **CANNOT proceed to Step 6 until user explicitly confirms the structural design.**
 
 ### 6. Brand Direction
 
-Use blueprint-standards skill `references/brand-direction-template.md` to define visual direction:
+Use blueprint-standards skill `references/brand-direction-template.md` to record only visual decisions a prototype or downstream design consumer needs. Start with tone, semantic color, readable type hierarchy, and density when those decisions are not already supplied. Add motion, texture, reference products, or concrete tokens only when product evidence or a real consumer makes them decision-relevant. Browse or derive a token system only when it can change a current decision for that consumer.
 
-1. **Tone & Voice**: Position along key dimensions (formal↔casual, expert↔approachable), traced to design principles
-2. **Color direction**: Primary, surface, accent color families with intentional rationale — directional, not final hex values
-3. **Typography direction**: Heading, body, UI font style intentions with language considerations
-4. **Visual density**: Whitespace, information density, surface elevation — informed by persona context
-5. **Reference products**: Products whose visual approach aligns, with specific aspects to reference and avoid
-6. **Visual Tokens (auto-derived)**: Derive concrete values from the direction defined above:
-   - **Color tokens**: Select specific hex values from Reference Products' palettes and the Color Direction families. Use WebSearch to inspect Reference Products' public sites when no color values are stated in the Color Direction
-   - **Typography tokens**: Select Google Fonts families that match the Typography Direction intentions and language considerations
-   - **Spacing tokens**: Determine base unit from the Visual Density → Whitespace value (generous → 8px, moderate → 6px, compact → 4px) and derive scale
-   - Mark source as `auto-derived` in the template
-   - These tokens ensure prototype consistency. They are not final production values — those are determined during UI Spec
-
-Reference the competitive landscape research (if available in `research/`) for visual benchmarking.
-
-> **Note**: Design experts can refine Visual Tokens after blueprint completion using `recipe-refine-visuals`. The refinement updates the same `brand-direction.md` file.
+> **Note**: When a named downstream consumer requires concrete values, design experts can add or refine Concrete Tokens using `recipe-refine-visuals`. The refinement updates the same `brand-direction.md` file.
 
 ### 7. AI Interaction Model
 
@@ -163,8 +151,8 @@ Use blueprint-standards skill `references/ai-interaction-model-template.md` to d
 
 **[STOP — BLOCKING]** Present brand direction and AI interaction model to user for confirmation:
 - Tone & voice positioning
-- Color and typography direction
-- Visual Tokens (auto-derived color, typography, spacing values)
+- Current decision-relevant visual direction
+- Concrete tokens only when a downstream consumer requires reproducible values
 - AI interaction pattern decisions
 - Capability boundaries and guardrails
 
@@ -172,7 +160,7 @@ Use blueprint-standards skill `references/ai-interaction-model-template.md` to d
 
 ### 8. File Output
 
-After user approval, write all artifacts to `docs/product/design/`:
+After user approval, write the confirmed artifact set to `docs/product/design/`:
 
 - `docs/product/design/information-architecture.md`
 - `docs/product/design/content-model.md`
@@ -184,7 +172,7 @@ After user approval, write all artifacts to `docs/product/design/`:
 
 | Agent | When | Why (context separation benefit) |
 |-------|------|----------------------------------|
-| codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") | Existing codebase exists | Objective assessment of current architecture, routes, and components without hypothesis bias |
+| codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") | Existing codebase exists | Independent evidence about current architecture, routes, and components |
 
 ## Scope Boundaries
 
@@ -198,10 +186,10 @@ After user approval, write all artifacts to `docs/product/design/`:
 - [ ] Information architecture defined with Opportunity traceability
 - [ ] User confirmed IA
 - [ ] Content model defined with entity relationships
-- [ ] Core user flows defined (5-10 flows)
+- [ ] Core user flows cover the core value loop and each structurally distinct confirmed MVP path without a fixed count
 - [ ] User confirmed structural design
 - [ ] Brand direction defined with design principle traceability
-- [ ] Visual Tokens auto-derived from brand direction
+- [ ] Any concrete tokens have an identified consumer and trace to the approved direction
 - [ ] AI interaction model defined (if applicable)
 - [ ] User confirmed design direction
 - [ ] All artifacts written to `docs/product/design/`

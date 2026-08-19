@@ -24,13 +24,15 @@ What evidence supports this Opportunity?
 
 > If no evidence exists yet, this Opportunity is a hypothesis. Create a hypothesis file to validate it.
 
-## 3+ Solutions Test (Torres Principle)
+## Solution-Framing Check (Torres Principle)
 
-Can you generate 3+ meaningfully different Solutions for this Opportunity? If not, you may be describing a Solution, not an Opportunity.
+What meaningfully different solution classes does this framing permit? If only one credible implementation fits, inspect whether this is a Solution rather than an Opportunity. The check stops once additional alternatives cannot change that judgment.
 
-1. [Solution idea 1 — brief description]
-2. [Solution idea 2 — brief description]
-3. [Solution idea 3 — brief description]
+| Solution Class | Why It Is Structurally Different |
+|----------------|----------------------------------|
+| [credible class, when useful to the framing check] | [difference in mechanism or user path] |
+
+**Framing judgment**: [Opportunity-shaped / Solution-shaped / unresolved, with evidence]
 
 ## Impact Assessment
 

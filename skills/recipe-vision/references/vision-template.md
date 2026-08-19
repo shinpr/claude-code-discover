@@ -46,7 +46,7 @@ The single metric that connects Product Outcomes to Business Outcomes.
 | 2 | PO-2 | OPP-005 | [active / planned] |
 
 ### Strategic Bets
-[Hypotheses at the Outcome level — things we believe will drive significant progress but haven't fully validated]
+[Outcome-level hypotheses — claims expected to change an observable Product Outcome and still requiring evidence]
 
 | Bet | Hypothesis | Confidence | Validation Plan |
 |-----|-----------|------------|-----------------|
@@ -56,11 +56,9 @@ The single metric that connects Product Outcomes to Business Outcomes.
 
 Reference: `docs/product/design-principles.md`
 
-[List the 3-5 product-specific design principles that guide all design decisions]
+[List the smallest non-overlapping set of product-specific principles needed to resolve recurring trade-offs]
 
 1. **[Principle name]** — [Brief explanation of the trade-off this principle resolves]
-2. **[Principle name]** — [Brief explanation]
-3. **[Principle name]** — [Brief explanation]
 
 ## Key Learnings (Tier 1 Reference)
 

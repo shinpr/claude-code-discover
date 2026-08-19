@@ -4,14 +4,17 @@ description: Orchestrate hypothesis validation through type-appropriate methods 
 disable-model-invocation: true
 ---
 
-**Context**: Validate hypotheses using appropriate methods based on risk type. Invoke hypothesis-verifier for bias-free validation design. Record results in hypothesis files.
+**Context**: Validate hypotheses using appropriate methods based on risk type. Always invoke hypothesis-verifier for an independent disconfirming pass. Record results in hypothesis files.
 
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Delegate verification design** to hypothesis-verifier (via Agent tool, subagent_type: "discover:hypothesis-verifier") for bias-free assessment
-2. **Follow the validation flow** defined below
-3. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+1. **Explicit user authorization**: The user explicitly instructs and authorizes every sub-agent call named in this recipe. Invoke hypothesis-verifier for every validation and invoke each method specialist whenever its stated condition applies; the orchestrator does not replace those calls with its own work
+2. **Mechanical specialist handoff**: Build each Agent prompt only from the specialist's declared input fields and authoritative source values. Preserve paths and values unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+3. **Follow the validation flow** defined below
+4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+
+The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
 
 ## Workflow Overview
 
@@ -44,8 +47,8 @@ Read the target hypothesis file(s). Understand:
 
 ### 2. Validation Design
 
-**Invoke hypothesis-verifier** using Agent tool (subagent_type: "discover:hypothesis-verifier") to design the validation:
-- hypothesis-verifier operates in a separate context to prevent confirmation bias
+**Invoke hypothesis-verifier** using Agent tool (subagent_type: "discover:hypothesis-verifier") with `hypothesis_path: <target hypothesis path>` to design the validation:
+- hypothesis-verifier operates in a separate context to preserve an independent disconfirming pass
 - It designs the test without knowing the orchestrator's expectations
 - It defines success/failure criteria independently
 
@@ -70,15 +73,15 @@ Execute validation based on the risk type and method:
 
 #### Prototype Generation (for Usability validation)
 Invoke prototype-generator using Agent tool (subagent_type: "discover:prototype-generator"):
-1. Pass the hypothesis file path and output path in the prompt
+1. Pass only `hypothesis_path` and `output_path` using their canonical path values
 2. prototype-generator operates in a **separate context** — it reads design context files independently and produces a natural product UI
-3. When multiple patterns need validation, invoke prototype-generator separately for each pattern
+3. Use one prototype unless the confirmed hypothesis explicitly compares patterns
 4. Output: `docs/discovery/prototypes/hypo-{id}-prototype.html` (or `hypo-{id}-{pattern}-prototype.html` for multiple)
 5. User opens in browser for verification
 
 #### Worktree Code Spike (for Feasibility validation)
 When validating Feasibility through code:
-1. Invoke codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") for current architecture understanding
+1. Invoke codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") with `analysis_mode: feasibility` and the hypothesis path as `governing_context`
 2. Use Agent tool with `isolation: "worktree"` to run a code spike in an isolated environment
 3. The spike agent implements a minimal proof-of-concept
 4. Results (feasibility assessment, complexity, blockers) are reported back
@@ -119,9 +122,9 @@ When a hypothesis reaches its deadline without conclusion:
 
 | Agent | When | Why (context separation benefit) |
 |-------|------|----------------------------------|
-| hypothesis-verifier (subagent_type: "discover:hypothesis-verifier") | Always (validation design) | Eliminates confirmation bias in test design |
+| hypothesis-verifier (subagent_type: "discover:hypothesis-verifier") | Always (validation design) | Prevents the authoring context from replacing an independent disconfirming pass |
 | prototype-generator (subagent_type: "discover:prototype-generator") | Usability validation | Produces natural product UI without test infrastructure contamination |
-| codebase-analyzer (subagent_type: "discover:codebase-analyzer") | Feasibility validation | Objective code analysis without hypothesis bias |
+| codebase-analyzer (subagent_type: "discover:codebase-analyzer") | Feasibility validation | Independent repository evidence for the feasibility boundary |
 
 ## Scope Boundaries
 
@@ -131,7 +134,7 @@ When a hypothesis reaches its deadline without conclusion:
 ## Completion Criteria
 
 - [ ] Hypothesis assessed and understood
-- [ ] hypothesis-verifier designed the validation (bias-free)
+- [ ] hypothesis-verifier completed the independent disconfirming pass
 - [ ] User confirmed validation design
 - [ ] Validation executed with appropriate method
 - [ ] Hypothesis file updated with results and evidence

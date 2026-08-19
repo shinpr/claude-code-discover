@@ -2,87 +2,59 @@
 
 ## Purpose
 
-Framework for defining Minimum Viable Product scope. Use when transitioning from validated hypotheses to PRD — determining what to build first and what to defer.
+Define the smallest current scope that can deliver and observe the confirmed Product Outcome. Use this when validated hypotheses transition into a PRD or structural blueprint.
 
-## MVP Philosophy
+## Inclusion Boundary
 
-**MVP IS**: Minimum features to validate core hypothesis. Fastest path to learning. Starting point for iteration.
+A capability belongs in the MVP when removing it would break at least one of these:
 
-**MVP IS NOT**: A low-quality product. Just the first release. Everything customers might want.
+- the confirmed user outcome or core value loop;
+- an explicit product, accessibility, security, or compatibility boundary;
+- the observable proof needed to decide whether the outcome works; or
+- a dependency required by another included capability.
 
-## Prioritization Frameworks
+Every inclusion records its governing evidence and effect. Every candidate outside this boundary is deferred or excluded with a reason. Reuse and no-change remain valid when existing behavior already satisfies the boundary.
 
-### MoSCoW Method
+## Scope Decision
 
-| Priority | Criteria | MVP Inclusion |
-|----------|----------|---------------|
-| **Must Have** | Core functionality. Without it, product has no value. Directly solves primary pain | YES |
-| **Should Have** | Important but not critical. Enhances experience. Can be added soon after MVP | NO (V1.1) |
-| **Could Have** | Desirable. Low priority. Future enhancement | NO (V1.2+) |
-| **Won't Have** | Explicitly excluded. Not aligned with core value | NO (tracked for future) |
+1. State the current Product Outcome and user context.
+2. Inspect the active Opportunities and hypothesis evidence that can change this outcome.
+3. Identify candidate capabilities and existing behavior that may satisfy them.
+4. For each candidate, assess outcome effect, evidence, rough cost, risk, and reversibility.
+5. Keep the smallest set that preserves the inclusion boundary.
+6. Record explicit exclusions and remaining assumptions.
+7. Define the observable result that will show the MVP boundary is satisfied.
 
-### RICE Score
+Resolve candidate choices from the confirmed outcome, governing evidence, rough cost, risk, and reversibility. When several candidates satisfy the same boundary, select the smallest lower-cost reversible set and record the rationale. Reversible implementation choices remain with the downstream workflow. Stop only when confirmed governing obligations are mutually exclusive and their declared precedence and evidence leave the governing obligation unresolved; report the exact conflict and the scope decision it blocks.
 
-**RICE = (Reach x Impact x Confidence) / Effort**
+## Optional Ranking Aids
 
-| Factor | Scale | Description |
-|--------|-------|-------------|
-| Reach | Users per time period | How many users affected |
-| Impact | 0.25 / 0.5 / 1 / 2 / 3 | Minimal / Low / Medium / High / Massive |
-| Confidence | 50% / 80% / 100% | Low / Medium / High — maps to hypothesis confidence |
-| Effort | Person-months | Time and resources required |
+MoSCoW, RICE, or ICE may help when credible candidates remain tied after direct boundary analysis. Use one only when its result can change inclusion or order, and record the evidence behind its inputs. The score is decision support rather than an inclusion gate.
 
-### ICE Score (Simplified)
+## Scope Reduction Options
 
-**ICE = Impact x Confidence x Ease**
+Use the first option that preserves the observable outcome:
 
-Each factor scored 1-10. Simpler than RICE, useful for quick prioritization.
+- reuse existing behavior;
+- remove a candidate outside the inclusion boundary;
+- narrow the user context or use case to the confirmed evidence;
+- replace automation with a reversible manual step when the test remains valid;
+- reduce implementation depth while preserving the public and user-visible contract.
 
-## MVP Scoping Process
+## Validation Patterns
 
-1. **Identify core problem** — What is the primary pain point? (from validated Opportunities)
-2. **Define success criteria** — What metrics indicate success? (from Product Outcome)
-3. **List all potential features** — From validated hypotheses and Solutions
-4. **Apply MoSCoW** — Be ruthless: when in doubt, Should Have or lower
-5. **Validate scope** — Can this be built in reasonable time? Does it deliver core value?
-6. **Define roadmap** — MVP → V1.1 → V1.2 → V2.0
+Choose a pattern only when it is the smallest proof for the active uncertainty:
 
-## Scope Reduction Techniques
+| Pattern | Proof Boundary |
+|---------|----------------|
+| **Concierge** | Demand or workflow value before automation |
+| **Wizard of Oz** | User interaction before backend investment |
+| **Single capability** | One core value loop without adjacent scope |
+| **Landing page** | Interest or problem recognition before product implementation |
 
-- **Remove features**: Question every feature. Remove if not critical
-- **Simplify features**: Reduce complexity. Manual processes initially. Limited use cases first
-- **Narrow target**: Smaller user segment. Specific use case. Geographic limitation
+## Completion Check
 
-## MVP Patterns
-
-| Pattern | Description | When to Use |
-|---------|-------------|-------------|
-| **Concierge** | Manual delivery of service | Validate demand before automation |
-| **Wizard of Oz** | Automated frontend, manual backend | Validate UX before full build |
-| **Single-Feature** | One core feature done well | Validate feature-market fit |
-| **Landing Page** | Describe value, measure interest | Validate problem before building |
-
-## Connection to nautilus Concepts
-
-- **Must Have** features come from **adopted hypotheses** with sufficient confidence
-- **Confidence scores** from hypothesis validation directly inform RICE's Confidence factor
-- **4 Risks** assessment determines which features need more validation vs. are ready for MVP
-- PRD's user stories should only include features that are **validated enough** per the Confidence Meter
-
-## Anti-Patterns
-
-- **Feature creep**: Adding "just one more feature"
-- **Perfectionism**: Making MVP too polished
-- **No hypothesis**: Building without clear validation goal
-- **Kitchen sink MVP**: Trying to serve everyone
-- **Scope too large**: MVP takes too long to build
-
-## Quality Checklist
-
-- [ ] Core hypothesis clearly stated
-- [ ] Core value identified from validated evidence
-- [ ] Features prioritized using MoSCoW or RICE
-- [ ] Must Haves are truly essential (challenge each one)
-- [ ] Success metrics defined and tied to Product Outcome
-- [ ] MVP scope achievable in target timeframe
-- [ ] Clear path from MVP to full product
+- The MVP has one current observable outcome.
+- Every included capability has evidence and a named effect on that outcome or its required boundary.
+- Existing behavior, exclusions, and residual assumptions are explicit.
+- The scope stops where additional work cannot change the current outcome or its proof.

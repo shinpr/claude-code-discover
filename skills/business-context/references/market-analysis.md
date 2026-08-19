@@ -76,7 +76,7 @@ Industry analysis, competitor websites, user reviews, technology developments
 - **Market gaps** → Opportunity identification (underserved needs)
 
 ### Red Flags
-- No clear market need (problem not significant enough)
+- Observed frequency, severity, and breadth cannot support the claimed Opportunity effect
 - Saturated market (too many strong competitors)
 - Shrinking market (declining demand)
 - High barriers to entry

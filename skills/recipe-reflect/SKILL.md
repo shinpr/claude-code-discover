@@ -9,9 +9,12 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Delegate distillation** to knowledge-distiller (via Agent tool, subagent_type: "discover:knowledge-distiller") for unbiased pattern extraction
-2. **Follow the reflection flow** defined below
-3. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+1. **Explicit user authorization**: The user explicitly instructs and authorizes the knowledge-distiller call named in this recipe. Invoke it for every Level 2 or Level 3 reflection; the orchestrator does not replace it with its own distillation
+2. **Mechanical specialist handoff**: Pass only the specialist's declared `scope_type`, `opportunity_ids`, and `hypothesis_paths` fields using source values unchanged. Do not summarize, paraphrase, supplement, or turn them into narrative instructions
+3. **Follow the reflection flow** defined below
+4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+
+The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
 
 ## Workflow Overview
 
@@ -64,8 +67,8 @@ Input: $ARGUMENTS
 
 ### 3. Knowledge Distillation
 
-**Invoke knowledge-distiller** using Agent tool (subagent_type: "discover:knowledge-distiller") for pattern extraction:
-- knowledge-distiller operates in a separate context to avoid individual hypothesis bias
+**Invoke knowledge-distiller** using Agent tool (subagent_type: "discover:knowledge-distiller") with exact `scope_type`, `opportunity_ids`, and `hypothesis_paths` fields for pattern extraction:
+- knowledge-distiller operates in a separate context so orchestrator synthesis does not replace direct source inspection
 - It analyzes multiple hypotheses to find patterns, contradictions, and trends
 - It proposes Tier 2 learnings (for Opportunity) or Tier 1 promotions (for Vision)
 - It enforces distillation quality criteria (per product-principles skill)
@@ -89,8 +92,8 @@ After user approval:
 #### Tier 2 → Tier 1
 - Write to `docs/product/learnings.md`
 - Include freshness tag (`last-validated: YYYY-MM-DD`)
-- Include supporting hypothesis references (3+ required)
-- Include cross-segment evidence
+- Include independent supporting evidence strong enough for a product-level rule
+- State the exact segments or conditions covered by that evidence
 
 ### 5. Index Update
 

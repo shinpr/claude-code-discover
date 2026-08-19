@@ -23,7 +23,7 @@ Vision & Personas        ← who you're building for and why
       ↓
   Opportunities          ← your hypotheses structured with validation plans
       ↓
-  Blueprint              ← IA, user flows, content model, brand direction + visual tokens
+  Blueprint              ← IA, user flows, content model, decision-relevant brand direction
       ↓
   Hypothesis Files       ← testable assumptions with success/failure criteria
       ↓
@@ -39,8 +39,8 @@ Each recipe is a step in this cycle. Run them in order or jump to where you need
 | `/discover:recipe-vision` | Define product vision, outcomes, and North Star Metric |
 | `/discover:recipe-persona` | Create personas with JTBD, pains/gains, and behavioral data |
 | `/discover:recipe-discover` | Structure your hypotheses into Opportunities with validation plans |
-| `/discover:recipe-blueprint` | Define structural design foundation — IA, user flows, content model, brand direction with visual tokens, AI interaction model |
-| `/discover:recipe-refine-visuals` | *(Optional)* Design expert refines auto-derived visual tokens in brand direction |
+| `/discover:recipe-blueprint` | Define structural design foundation — IA, user flows, content model, brand direction, and applicable AI interaction model |
+| `/discover:recipe-refine-visuals` | *(Optional)* Design expert refines concrete visual tokens when a downstream consumer needs them |
 | `/discover:recipe-validate` | Decompose assumptions, design falsifiable tests, generate HTML prototypes |
 | `/discover:recipe-reflect` | Extract learnings, promote knowledge across the hierarchy |
 | `/discover:recipe-define` | Generate a PRD from validated hypotheses with confidence scores |
@@ -48,21 +48,21 @@ Each recipe is a step in this cycle. Run them in order or jump to where you need
 ### What each recipe produces
 
 - **Hypothesis file**: Markdown with assumption statement, success/failure criteria, confidence scores per risk dimension, time budget, and validation results
-- **Blueprint artifacts**: Information architecture, user flows, content model, brand direction (with auto-derived visual tokens), and AI interaction model — shared structural context that prototypes reference for consistency. Visual tokens (colors, typography, spacing) ensure prototype-to-prototype visual consistency
-- **Prototype**: Single self-contained HTML file (~800-1200 lines) that opens in a browser. Deterministic mock data, all UI states implemented, design context applied from blueprint and project files
-- **PRD**: 200-400 line document with user stories (each with 4 Risks confidence table), EARS-format acceptance criteria, unvalidated assumptions section, and references to hypothesis files
+- **Blueprint artifacts**: Information architecture, user flows, content model, decision-relevant brand direction, and an AI interaction model when applicable. Concrete visual tokens are included only for a consumer that needs reproducible values
+- **Prototype**: Single self-contained HTML file that opens in a browser. Deterministic mock data, explicit disposition of all UI states, every hypothesis-relevant state implemented, and design context applied from blueprint and project files
+- **PRD**: Independently reviewed document with user stories (each with 4 Risks confidence), observable acceptance criteria, explicit residual assumptions, and traceable evidence
 
 ## How Validation Works
 
 Each validation produces:
-- Assumption breakdown (ranked by risk type and level)
-- Test design per assumption (smallest test that could disprove it)
+- Assumption breakdown with the current decision each assumption can change
+- One selected test for the assumption whose disproof can change current readiness or scope
 - HTML prototype (for user testing)
 
 Two agents work in separate contexts:
 
-1. **hypothesis-verifier** decomposes your hypothesis into assumptions, ranks them by risk, and designs the smallest test that could disprove each one — without seeing your expectations
-2. **prototype-generator** reads your design principles, persona, hypothesis files, and blueprint artifacts (when available), then generates a self-contained HTML prototype with deterministic mock data and all UI states
+1. **hypothesis-verifier** independently reads the hypothesis artifact, decomposes it into assumptions, and designs the smallest test that can change the current decision
+2. **prototype-generator** reads the source artifacts that control the tested flow, then generates a self-contained HTML prototype with deterministic mock data and explicit state coverage
 
 The context separation is deliberate. The verifier designs tests that can fail. The prototype generator builds a product UI without test infrastructure leaking in.
 
@@ -136,7 +136,7 @@ Five specialized agents handle tasks where context separation matters:
 | Agent | What it does | Why it runs in a separate context |
 |-------|-------------|----------------------------------|
 | `prd-reviewer` | Checks PRD completeness, consistency, and technical currency of dependencies | Catches gaps the author misses. Verifies external APIs are still available via web search |
-| `codebase-analyzer` | Maps existing features, user roles, and architecture from code | Reports facts without hypothesis bias coloring the analysis |
+| `codebase-analyzer` | Maps decision-relevant features, user roles, and architecture from code | Returns repository-observed facts in a separate evidence pass without turning implementation into user-demand prose |
 | `hypothesis-verifier` | Decomposes hypotheses into assumptions, designs falsifiable tests | Designs tests that can actually fail, without seeing the author's expectations |
 | `knowledge-distiller` | Extracts patterns across multiple hypothesis results | Finds cross-cutting learnings without being anchored to any single hypothesis |
 | `prototype-generator` | Generates HTML prototypes from design context files | Builds product UIs isolated from test design details |

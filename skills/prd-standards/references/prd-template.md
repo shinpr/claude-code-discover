@@ -47,9 +47,7 @@ So that [expected value/benefit]
 [Repeat the same structure]
 
 ### Use Cases
-1. [Specific usage scenario 1]
-2. [Specific usage scenario 2]
-3. [Specific usage scenario 3]
+[Include only scenarios that add execution or verification context not already supplied by the stories and acceptance criteria; otherwise omit this subsection]
 
 ## Functional Requirements
 
@@ -57,21 +55,21 @@ So that [expected value/benefit]
 - [ ] Requirement 1: [Detailed description]
   - AC-001: [Acceptance criteria — EARS format: When/While/If-then]
   - AC-002: [Additional acceptance criteria if needed]
-  - States: [Loading / Empty / Error / Partial / Success — note which are relevant and expected behavior]
+  - State Coverage: [Loading / Empty / Error / Partial / Success — mark each required or not_applicable; include expected behavior or the not-applicable reason]
 - [ ] Requirement 2: [Detailed description]
   - AC-003: [Acceptance criteria]
-  - States: [Loading / Empty / Error / Partial / Success — note which are relevant and expected behavior]
+  - State Coverage: [Loading / Empty / Error / Partial / Success — mark each required or not_applicable; include expected behavior or the not-applicable reason]
 - [ ] Requirement 3: [Detailed description]
   - AC-004: [Acceptance criteria]
-  - States: [Loading / Empty / Error / Partial / Success — note which are relevant and expected behavior]
+  - State Coverage: [Loading / Empty / Error / Partial / Success — mark each required or not_applicable; include expected behavior or the not-applicable reason]
 
 ### Nice to Have
 - [ ] Requirement 1: [Detailed description]
   - AC-005: [Acceptance criteria]
-  - States: [If user-facing, note relevant Loading / Empty / Error / Partial / Success behavior]
+  - State Coverage: [If user-facing, record all five states and define every required behavior]
 - [ ] Requirement 2: [Detailed description]
   - AC-006: [Acceptance criteria]
-  - States: [If user-facing, note relevant Loading / Empty / Error / Partial / Success behavior]
+  - State Coverage: [If user-facing, record all five states and define every required behavior]
 
 ### Out of Scope
 - Item 1: [Description and reason]
@@ -83,35 +81,34 @@ Context for downstream UI specification. Prototypes show concrete examples; this
 
 ### Design Principles
 
-[Copy 3-5 principles from `docs/product/design-principles.md` — each resolves a specific design trade-off]
+[Include only principles from `docs/product/design-principles.md` that resolve an implementation-relevant trade-off. Omit this subsection when none applies.]
 
-1. **[Principle name]**: [Trade-off resolution and rationale]
-2. **[Principle name]**: [Trade-off resolution and rationale]
-3. **[Principle name]**: [Trade-off resolution and rationale]
+- **[Principle name]**: [Implementation-relevant trade-off resolution and rationale]
 
-### Tone & Voice
+### Decision-Relevant Direction
 
-| Dimension | Position | Rationale |
-|-----------|----------|-----------|
-| Formal ↔ Casual | [position] | [rationale] |
-| Serious ↔ Playful | [position] | [rationale] |
-| Expert ↔ Approachable | [position] | [rationale] |
-| Technical ↔ Plain | [position] | [rationale] |
+[Copy only rows from `docs/product/design/brand-direction.md` whose Consumer / Effect changes implementation. Preserve the approved direction and governing evidence. Omit this subsection when none applies.]
+
+| Property | Direction | Governing Evidence | Consumer / Effect |
+|----------|-----------|--------------------|-------------------|
+| [property] | [approved direction] | [source] | [implementation decision affected] |
 
 ### Design Guardrails
 
 **Do:**
 - [Positive pattern traced to a design principle]
 
-**Don't:**
-- [Anti-pattern — state what to do instead, traced to a design principle]
+**Transform:**
+- [Anti-pattern → required alternative, traced to a design principle]
 
 ### Visual Reference
 
-- Brand direction: `docs/product/design/brand-direction.md` (includes Visual Tokens)
+- Brand direction: `docs/product/design/brand-direction.md` (include concrete tokens only when present and relevant)
 - Prototypes: [list relevant prototype files from `docs/discovery/prototypes/`]
 
 ## Non-Functional Requirements
+
+[Include only categories activated by the current outcome, repository/product rules, observable behavior, compatibility contract, or required proof. Omit inactive placeholder categories.]
 
 ### Performance
 - Response Time: [Target value]
@@ -137,17 +134,13 @@ Context for downstream UI specification. Prototypes show concrete examples; this
 ## Success Criteria
 
 ### Quantitative Metrics
-1. [Measurable success metric 1 — tied to Product Outcome]
-2. [Measurable success metric 2]
-3. [Measurable success metric 3]
+[Smallest metric set needed to observe the Product Outcome]
 
 ### Qualitative Metrics
-1. [User experience metric 1]
-2. [User experience metric 2]
+[Only decision-relevant qualitative evidence not covered by quantitative criteria]
 
 ### UI Quality Metrics (when feature includes UI)
-1. [Key operation completion rate / error recovery rate]
-2. [Accessibility audit target score]
+[Only sourced UI quality or accessibility outcomes needed for acceptance]
 
 ## Technical Considerations
 
@@ -167,15 +160,14 @@ Context for downstream UI specification. Prototypes show concrete examples; this
 ### Risks and Mitigation
 | Risk | Impact | Probability | Mitigation |
 |------|--------|-------------|------------|
-| [Risk 1] | High/Medium/Low | High/Medium/Low | [Countermeasure] |
-| [Risk 2] | High/Medium/Low | High/Medium/Low | [Countermeasure] |
+| [Only a current risk whose treatment changes scope, observable behavior, compatibility, or acceptance] | High/Medium/Low | High/Medium/Low | [Smallest sufficient treatment] |
 
 ## Undetermined Items
 
 - [ ] [Question 1]: [Description of options or impacts]
 - [ ] [Question 2]: [Description of options or impacts]
 
-*Discuss with user until this section is empty, then delete after confirmation*
+*Include only decisions whose answer can change the current outcome, included scope, exclusion, or acceptance criterion. Approval blocks only on an unresolved decision in that set; other unknowns remain in their owning section.*
 
 ## Appendix
 

@@ -9,9 +9,12 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Delegate code analysis** to codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") when existing code reveals user behavior
-2. **Follow the persona flow** defined below
-3. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+1. **Explicit user authorization**: The user explicitly instructs and authorizes the codebase-analyzer call named in this recipe. When an existing codebase is present, invoke it; the orchestrator does not replace it with its own analysis
+2. **Mechanical specialist handoff**: Pass only `analysis_mode: user_behavior` and `governing_context: $ARGUMENTS` using the source values unchanged. Do not summarize, paraphrase, supplement, or turn them into narrative instructions
+3. **Follow the persona flow** defined below
+4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+
+The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
 
 ## Workflow Overview
 
@@ -37,13 +40,13 @@ Input: $ARGUMENTS
 |-----------|--------|
 | No personas exist | Create from scratch — gather user research or assumptions |
 | Personas exist, new data available | Update existing personas with new evidence |
-| Existing codebase | Invoke codebase-analyzer for real user behavior insights |
+| Existing codebase | Invoke codebase-analyzer for repository-observable roles, workflows, and behavior-related structures; user demand or usage claims require direct behavioral evidence |
 | Post-interview / post-survey | Update with new primary research |
 
 ### 2. Research Gathering
 
 #### From Existing Code (if applicable)
-**Invoke codebase-analyzer** using Agent tool (subagent_type: "discover:codebase-analyzer") to identify:
+**Invoke codebase-analyzer** using Agent tool (subagent_type: "discover:codebase-analyzer") with `analysis_mode: user_behavior` and `governing_context: $ARGUMENTS` to identify:
 - User roles and permissions in the system
 - User-facing features and workflows
 - Data models related to users
