@@ -5,14 +5,15 @@
 
 A Claude Code plugin that turns a feature idea or product question into an evidence-backed product requirements document (PRD) before implementation begins. It helps you decide what to build, test the assumptions that could change that decision, and carry the evidence into implementation.
 
-Use it to:
+Discovery work stays in your repository so later sessions can pick up the evidence, decisions, and open risks behind the current direction. Each recipe stands alone, so you can start with the question or artifact you already have and run only the part you need.
+
+## What You Can Do
 
 - turn user research, product ideas, or an existing codebase into Opportunities and testable hypotheses
 - validate value, usability, feasibility, and viability with a method suited to the risk
+- generate a self-contained HTML prototype when a usability question needs one
 - define shared product structure when prototypes or downstream design need it
 - produce a reviewed PRD with explicit scope, exclusions, remaining assumptions, and traceable evidence
-
-The resulting artifacts live under `docs/` beside the code, so rejected alternatives and unresolved risks remain available when implementation starts.
 
 Works standalone, or paired with [claude-code-workflows](https://github.com/shinpr/claude-code-workflows) for a full discovery-to-implementation cycle:
 
@@ -33,12 +34,17 @@ claude
 /plugin marketplace add shinpr/claude-code-discover
 /plugin install discover@claude-code-discover
 /reload-plugins
-
-# Start from a user problem, feature idea, or existing evidence
-/discover:recipe-discover "Describe the problem or feature idea"
 ```
 
-For a new product or strategic reset, start with `/discover:recipe-vision` instead. You can also begin from an existing Opportunity or hypothesis; the recipes are entry points, not a mandatory sequence.
+Then start with a plain request:
+
+| Goal | Command |
+|------|---------|
+| Explore a product problem | `/discover:recipe-discover Explore why trial users abandon onboarding` |
+| Validate an existing hypothesis | `/discover:recipe-validate HYPO-001` |
+| Create a PRD | `/discover:recipe-define Create a PRD from the validated onboarding hypotheses` |
+
+For a new product or strategic reset, start with `/discover:recipe-vision` instead. You can also begin from an existing Opportunity or hypothesis.
 
 ## Choose Where to Start
 
@@ -76,6 +82,12 @@ Validation starts by identifying the assumption most likely to change the curren
 
 Every validation updates the hypothesis with its result and evidence. A prototype is produced only when the selected usability test needs one.
 
+## Prototype Generation
+
+For usability hypotheses, `recipe-validate` can generate a single self-contained HTML prototype in `docs/discovery/prototypes/`. It reads the hypothesis and the relevant product, persona, and design context already in the repository, then builds the interaction needed for the test.
+
+The prototype includes its CSS, JavaScript, and mock data in one file. Open it directly in a browser without installing dependencies or running a build.
+
 ## Connecting to Implementation
 
 `recipe-define` compares the proposed work's cost, risk, and reversibility with the available evidence. It asks for more validation only when the result could change implementation readiness or scope. It then writes the PRD to `docs/prd/` and runs an independent review before asking for approval. Prototypes from usability validation can accompany the PRD as design references.
@@ -88,9 +100,11 @@ The PRD can be handed to [claude-code-workflows](https://github.com/shinpr/claud
 
 See the linked project for current installation instructions and workflow options.
 
-## Repo Structure
+## What Stays in the Repository
 
-Recipes create or update the relevant files under `docs/`:
+Recipes create or update the relevant files under `docs/`. Validation results stay with their hypotheses, and PRDs retain links to the Opportunities, evidence, product decisions, and prototypes behind them.
+
+Later sessions can use that record without reconstructing why a decision was made:
 
 ```
 docs/
