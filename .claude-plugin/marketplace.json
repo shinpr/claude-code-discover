@@ -5,13 +5,13 @@
     "url": "https://github.com/shinpr"
   },
   "metadata": {
-    "description": "Structure product context in your repo — hypotheses, validation, and PRDs that flow into implementation"
+    "description": "Discover product opportunities, validate hypotheses, and create evidence-backed PRDs in your repository"
   },
   "plugins": [
     {
       "name": "discover",
       "source": "./",
-      "description": "Structure product context in your repo — hypotheses, validation, and PRDs that flow into implementation",
+      "description": "Discover product opportunities, validate hypotheses, and create evidence-backed PRDs in your repository",
       "category": "product-management",
       "homepage": "https://github.com/shinpr/claude-code-discover"
     }
