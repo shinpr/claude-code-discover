@@ -9,10 +9,9 @@
 [Why is this feature needed? What problem does it solve?]
 
 **Hypothesis & Validation References:**
-- Opportunity: [OPP-NNN](../../../docs/discovery/opportunities/OPP-NNN.md)
+- Opportunity: [OPP-NNN](../discovery/opportunities/OPP-NNN.md)
 - Key hypotheses validated:
-  - [HYPO-NNN](../../../docs/discovery/hypotheses/HYPO-NNN.md) — [status, key finding]
-  - [HYPO-NNN](../../../docs/discovery/hypotheses/HYPO-NNN.md) — [status, key finding]
+  - [HYPO-NNN](../discovery/hypotheses/HYPO-NNN.md) — [status, key finding]
 
 ## User Stories
 
@@ -42,9 +41,7 @@ So that [expected value/benefit]
 **Delivery readiness**: [validated enough / needs more validation]
 **Rationale**: [Why this confidence level is sufficient — cost x risk x reversibility]
 
-#### US-2: [Story Title]
-
-[Repeat the same structure]
+[Repeat only for another independently deliverable unit of value in confirmed scope.]
 
 ### Use Cases
 [Include only scenarios that add execution or verification context not already supplied by the stories and acceptance criteria; otherwise omit this subsection]
@@ -55,25 +52,15 @@ So that [expected value/benefit]
 - [ ] Requirement 1: [Detailed description]
   - AC-001: [Acceptance criteria — EARS format: When/While/If-then]
   - AC-002: [Additional acceptance criteria if needed]
-  - State Coverage: [Loading / Empty / Error / Partial / Success — mark each required or not_applicable; include expected behavior or the not-applicable reason]
-- [ ] Requirement 2: [Detailed description]
-  - AC-003: [Acceptance criteria]
-  - State Coverage: [Loading / Empty / Error / Partial / Success — mark each required or not_applicable; include expected behavior or the not-applicable reason]
-- [ ] Requirement 3: [Detailed description]
-  - AC-004: [Acceptance criteria]
-  - State Coverage: [Loading / Empty / Error / Partial / Success — mark each required or not_applicable; include expected behavior or the not-applicable reason]
+  - State Coverage: [Applicable Loading / Empty / Error / Partial / Success behavior; explain an exclusion only when omission would be ambiguous]
 
-### Nice to Have
-- [ ] Requirement 1: [Detailed description]
-  - AC-005: [Acceptance criteria]
-  - State Coverage: [If user-facing, record all five states and define every required behavior]
-- [ ] Requirement 2: [Detailed description]
-  - AC-006: [Acceptance criteria]
-  - State Coverage: [If user-facing, record all five states and define every required behavior]
+[Add only requirements needed for the confirmed outcome and proof.]
+
+### Later Scope (when explicitly retained)
+- [Candidate capability and why it is outside the current MVP]
 
 ### Out of Scope
 - Item 1: [Description and reason]
-- Item 2: [Description and reason]
 
 ## Design Context
 
@@ -110,26 +97,11 @@ Context for downstream UI specification. Prototypes show concrete examples; this
 
 [Include only categories activated by the current outcome, repository/product rules, observable behavior, compatibility contract, or required proof. Omit inactive placeholder categories.]
 
-### Performance
-- Response Time: [Target value]
-- Throughput: [Target value]
-- Concurrency: [Target value]
+| Category | Requirement | Governing Basis | Observable Proof |
+|----------|-------------|-----------------|------------------|
+| [accessibility / performance / reliability / security / compatibility / other] | [required boundary] | [outcome, product/repository rule, or contract] | [acceptance evidence] |
 
-### Reliability
-- Availability: [Target value]
-- Error Rate: [Target value]
-
-### Security
-- [Security requirements details]
-
-### Scalability
-- [Considerations for future scaling]
-
-### Accessibility (when feature includes UI)
-- Compliance standard: WCAG 2.2 AA
-- Target assistive technologies: [Screen reader, keyboard operation, voice control, etc.]
-- Platform requirements: [e.g., app store review requirements]
-- Known constraints: [e.g., external library limitations]
+For UI, WCAG 2.2 AA remains the baseline; add specific assistive-technology or platform requirements only when the current feature activates them.
 
 ## Success Criteria
 
@@ -155,7 +127,6 @@ Context for downstream UI specification. Prototypes show concrete examples; this
 ### Assumptions (Unvalidated)
 [Hypotheses that are NOT yet validated but the PRD proceeds with. These are explicit risks.]
 - [ ] [Assumption 1 — confidence level, plan to validate]
-- [ ] [Assumption 2 — confidence level, plan to validate]
 
 ### Risks and Mitigation
 | Risk | Impact | Probability | Mitigation |
@@ -165,7 +136,6 @@ Context for downstream UI specification. Prototypes show concrete examples; this
 ## Undetermined Items
 
 - [ ] [Question 1]: [Description of options or impacts]
-- [ ] [Question 2]: [Description of options or impacts]
 
 *Include only decisions whose answer can change the current outcome, included scope, exclusion, or acceptance criterion. Approval blocks only on an unresolved decision in that set; other unknowns remain in their owning section.*
 

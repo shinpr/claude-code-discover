@@ -10,6 +10,8 @@
 
 [1-2 sentence summary of the end-to-end journey]
 
+Populate a dimension only from evidence or a decision-relevant inference; label inference and unknown explicitly.
+
 ## Phases
 
 ### Phase 1: [Phase Name]
@@ -23,39 +25,15 @@
 | **Pain Points** | [Friction, frustration, obstacles] |
 | **Opportunities** | [Where we could improve the experience] |
 
-### Phase 2: [Phase Name]
+[Repeat the phase structure only for additional evidenced stages.]
 
-| Dimension | Detail |
-|-----------|--------|
-| **Actions** | |
-| **Thinking** | |
-| **Feeling** | |
-| **Touchpoints** | |
-| **Pain Points** | |
-| **Opportunities** | |
-
-### Phase 3: [Phase Name]
-
-| Dimension | Detail |
-|-----------|--------|
-| **Actions** | |
-| **Thinking** | |
-| **Feeling** | |
-| **Touchpoints** | |
-| **Pain Points** | |
-| **Opportunities** | |
-
-[Add more phases as needed]
-
-## Emotional Arc
+## Emotional Arc (when evidenced)
 
 [Describe the overall emotional trajectory and key inflection points. Map emotional highs and lows across phases.]
 
 ## Key Insights
 
-1. [Insight about the biggest pain point]
-2. [Insight about an unmet need]
-3. [Insight about an opportunity for improvement]
+- [Decision-relevant insight with evidence]
 
 ## Linked Opportunities
 

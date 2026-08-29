@@ -13,7 +13,7 @@ A capability belongs in the MVP when removing it would break at least one of the
 - the observable proof needed to decide whether the outcome works; or
 - a dependency required by another included capability.
 
-Every inclusion records its governing evidence and effect. Every candidate outside this boundary is deferred or excluded with a reason. Reuse and no-change remain valid when existing behavior already satisfies the boundary.
+Every inclusion records its governing evidence and effect. Record an exclusion when it was previously in scope, remains a credible candidate, or its omission could mislead a downstream consumer. Reuse and no-change remain valid when existing behavior already satisfies the boundary.
 
 ## Scope Decision
 
@@ -22,7 +22,7 @@ Every inclusion records its governing evidence and effect. Every candidate outsi
 3. Identify candidate capabilities and existing behavior that may satisfy them.
 4. For each candidate, assess outcome effect, evidence, rough cost, risk, and reversibility.
 5. Keep the smallest set that preserves the inclusion boundary.
-6. Record explicit exclusions and remaining assumptions.
+6. Record decision-relevant exclusions and remaining assumptions.
 7. Define the observable result that will show the MVP boundary is satisfied.
 
 Resolve candidate choices from the confirmed outcome, governing evidence, rough cost, risk, and reversibility. When several candidates satisfy the same boundary, select the smallest lower-cost reversible set and record the rationale. Reversible implementation choices remain with the downstream workflow. Stop only when confirmed governing obligations are mutually exclusive and their declared precedence and evidence leave the governing obligation unresolved; report the exact conflict and the scope decision it blocks.

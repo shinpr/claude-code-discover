@@ -24,7 +24,7 @@ Blueprint artifacts answer: "What pages exist, how do users move between them, w
 
 ## When Blueprint Artifacts Are Required
 
-Blueprint artifacts provide the structural context that makes prototypes coherent across multiple hypotheses. Create them before generating prototypes.
+Create or update only the artifacts needed to keep shared structure coherent across multiple hypotheses or to supply a decision required by a current prototype or downstream specification. Reuse existing decisions; a prototype can proceed directly when its observable boundary needs no shared structural decision.
 
 ## Relationship to Other Artifacts
 
@@ -51,6 +51,6 @@ docs/prd/                           ← Implementation specification
 
 - **Opportunity-grounded**: Every page in the IA traces to a validated Opportunity or a supporting function
 - **Persona-informed**: Flows are written from the perspective of specific personas
-- **Consistent across prototypes**: Brand direction and IA provide shared context that all prototypes reference
+- **Consistent across prototypes**: Applicable brand and IA decisions provide shared context for prototypes that depend on them
 - **Updatable through reflection**: Blueprint artifacts evolve as new learnings surface in `docs/product/learnings.md`
 - **Minimal viable structure**: Define enough to make prototypes coherent, defer details that require implementation-phase decisions

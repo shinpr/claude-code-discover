@@ -9,34 +9,14 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Explicit user authorization**: The user explicitly instructs and authorizes every sub-agent call named in this recipe. Invoke each named specialist whenever its stated condition applies; the orchestrator does not replace that call with its own analysis
-2. **Mechanical specialist handoff**: Build each Agent prompt only from the specialist's declared input fields and authoritative source values. Preserve those values unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+1. **Required specialist execution**: Invoking this recipe is the user's explicit instruction and authorization to execute every named specialist whose condition applies. Execute each applicable Agent call with its declared `subagent_type` when its prerequisites are met and continue from its returned result; equivalent orchestrator work does not complete that step
+2. **Exact specialist handoff**: The complete Agent prompt consists of all and only the applicable canonical `field: value` entries declared by the specialist's Input Contract. Copy each value unchanged from its authoritative source; serialize path fields as path strings so the specialist reads referenced artifacts directly
 3. **Follow the blueprint flow** defined below
-4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+4. **Approval gates**: At each `[STOP — BLOCKING]`, present the named decision and resume after explicit user confirmation
 
-The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
+## Workflow
 
-## Workflow Overview
-
-```
-Input (validated opportunities / discovery outputs / strategic update)
-    ↓
-1. Context Assessment → Determine scope and mode (create vs. update)
-    ↓
-2. MVP Scope Definition → Feature prioritization from validated hypotheses
-    ↓
-3. Information Architecture → Page structure, navigation, multi-sided layout [Stop: User confirms IA]
-    ↓
-4. Content Model → Entity types, relationships, states
-    ↓
-5. Core User Flows → Smallest set covering the core value loop and confirmed structural boundaries [Stop: User confirms structure]
-    ↓
-6. Brand Direction → Visual tone, color/typography direction, reference products
-    ↓
-7. AI Interaction Model → Interaction patterns, capability boundaries, guardrails (if applicable) [Stop: User confirms design direction]
-    ↓
-Output: docs/product/design/ artifacts
-```
+Assess context and MVP scope → confirm IA → confirm the content model and necessary flows → confirm applicable brand and AI decisions → write the selected artifacts.
 
 ## Execution Decision Flow
 
@@ -44,16 +24,16 @@ Output: docs/product/design/ artifacts
 
 Input: $ARGUMENTS
 
-**Read project context to determine scope:**
+Inspect only sources whose decisions can change the current blueprint:
 
 | File | Extract |
 |------|---------|
 | `docs/product/vision.md` | Product vision, design vision, outcomes, NSM, strategic priorities |
 | `docs/product/design-principles.md` | Trade-off resolutions that constrain all design decisions |
-| `docs/product/personas/` | All persona files — roles, JTBD, pains, behavioral patterns |
+| `docs/product/personas/` | Relevant roles, JTBD, pains, behavioral patterns |
 | `docs/discovery/INDEX.md` | Opportunity and hypothesis status overview |
-| `docs/discovery/opportunities/` | Validated opportunities with impact assessment |
-| `docs/discovery/hypotheses/` | Hypothesis status, confidence scores, learnings |
+| `docs/discovery/opportunities/` | In-scope validated opportunities and impact evidence |
+| `docs/discovery/hypotheses/` | Hypotheses that can change scope or a design decision |
 | `docs/discovery/journeys/` | Journey maps (if available) |
 | `docs/product/learnings.md` | Tier 1 learnings from reflection cycles |
 
@@ -64,7 +44,7 @@ Input: $ARGUMENTS
 | No `docs/product/design/` exists | Create | Full blueprint definition |
 | Blueprint exists, new Opportunities discovered | Update | Extend IA, flows, content model for new scope |
 | Blueprint exists, new learnings in `docs/product/learnings.md` | Update | Revise based on new learnings |
-| Existing codebase | Create/Update | Invoke codebase-analyzer with `analysis_mode: structural_design` and the relevant Opportunity or blueprint update request as `governing_context` |
+| Existing codebase | Create/Update | Invoke codebase-analyzer using Agent tool (`subagent_type: "discover:codebase-analyzer"`) with `analysis_mode: structural_design` and the relevant Opportunity or blueprint update request as `governing_context` |
 
 ### 2. MVP Scope Definition
 
@@ -95,13 +75,13 @@ Use blueprint-standards skill `references/ia-template.md` to structure the IA:
 - Multi-sided structure (if applicable)
 - MVP scope summary
 
-**CANNOT proceed to Step 4 until user explicitly confirms the IA structure.**
+Proceed to Step 4 after the user confirms the IA structure.
 
 ### 4. Content Model
 
-Use blueprint-standards skill `references/content-model-template.md` to define the data structure:
+Use blueprint-standards skill `references/content-model-template.md` to define the entities and relationships needed by the confirmed IA and flows:
 
-1. **Entity inventory**: List all content types the product manages, mapped to Opportunities
+1. **Entity inventory**: List content types required by the confirmed scope, mapped to Opportunities
 2. **Entity definitions**: For each entity, define attributes, relationships, and states
 3. **Entity relationship diagram**: Show how entities connect
 4. **Display contexts**: Where each entity appears in the IA (list view, detail, creation, embedded)
@@ -127,7 +107,7 @@ Prioritize flows that:
 - Core flow list with persona assignments
 - Flow details sized by the confirmed structural boundaries
 
-**CANNOT proceed to Step 6 until user explicitly confirms the structural design.**
+Proceed to Step 6 after the user confirms the structural design.
 
 ### 6. Brand Direction
 
@@ -137,11 +117,11 @@ Use blueprint-standards skill `references/brand-direction-template.md` to record
 
 ### 7. AI Interaction Model
 
-Skip this step if the product has no AI-powered features.
+Apply this step to in-scope AI-powered features.
 
-Use blueprint-standards skill `references/ai-interaction-model-template.md` to define:
+Use blueprint-standards skill `references/ai-interaction-model-template.md` to record only AI decisions required by an in-scope feature or downstream consumer. Candidate decision areas are:
 
-1. **AI features inventory**: Map each AI feature to its user goal, AI role, interaction pattern, and linked Opportunity
+1. **AI features inventory**: Map each in-scope AI feature to its user goal, AI role, interaction pattern, and linked Opportunity
 2. **Interaction pattern decisions**: For each feature — chat vs. form vs. inline vs. hybrid, UI placement, user control model
 3. **Capability boundaries**: What AI reliably handles vs. known limitations, with fallbacks
 4. **Response display strategy**: How to show AI output based on response time (streaming, progressive, staged)
@@ -156,23 +136,17 @@ Use blueprint-standards skill `references/ai-interaction-model-template.md` to d
 - AI interaction pattern decisions
 - Capability boundaries and guardrails
 
-**CANNOT write files until user explicitly confirms the design direction.**
+Write the artifacts after explicit user confirmation of the design direction.
 
 ### 8. File Output
 
-After user approval, write the confirmed artifact set to `docs/product/design/`:
+After user approval, write only changed or newly required artifacts from the confirmed set to `docs/product/design/`; leave sufficient existing artifacts unchanged:
 
-- `docs/product/design/information-architecture.md`
-- `docs/product/design/content-model.md`
-- `docs/product/design/brand-direction.md`
+- `docs/product/design/information-architecture.md` (when selected)
+- `docs/product/design/content-model.md` (when selected)
+- `docs/product/design/brand-direction.md` (when selected)
 - `docs/product/design/ai-interaction-model.md` (if applicable)
-- `docs/product/design/flows/flow-{name}.md` (one file per flow)
-
-## Sub-agent Usage
-
-| Agent | When | Why (context separation benefit) |
-|-------|------|----------------------------------|
-| codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") | Existing codebase exists | Independent evidence about current architecture, routes, and components |
+- `docs/product/design/flows/flow-{name}.md` (one file per selected flow)
 
 ## Scope Boundaries
 
@@ -181,15 +155,6 @@ After user approval, write the confirmed artifact set to `docs/product/design/`:
 
 ## Completion Criteria
 
-- [ ] Project context read (vision, principles, personas, opportunities)
-- [ ] MVP scope synthesized from validated hypotheses
-- [ ] Information architecture defined with Opportunity traceability
-- [ ] User confirmed IA
-- [ ] Content model defined with entity relationships
-- [ ] Core user flows cover the core value loop and each structurally distinct confirmed MVP path without a fixed count
-- [ ] User confirmed structural design
-- [ ] Brand direction defined with design principle traceability
-- [ ] Any concrete tokens have an identified consumer and trace to the approved direction
-- [ ] AI interaction model defined (if applicable)
-- [ ] User confirmed design direction
-- [ ] All artifacts written to `docs/product/design/`
+- [ ] The approved IA, content model, and flows cover the confirmed structural boundaries with Opportunity traceability
+- [ ] Brand, token, and AI decisions exist only where an identified consumer or feature requires them
+- [ ] The user-confirmed artifact set is written to `docs/product/design/`

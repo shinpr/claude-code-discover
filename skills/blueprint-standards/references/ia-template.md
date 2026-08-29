@@ -27,7 +27,7 @@ Organize pages hierarchically. Mark each page with its primary role and target p
 
 ### Navigation Model
 
-Not all pages need navigation. Linear task flows (e.g., onboarding wizard, checkout) should use step indicators instead of full navigation to avoid premature exits.
+Use step indicators for linear task flows such as onboarding or checkout; add navigation where it supports an evidenced route or exit.
 
 | Element | Type | Visible To | Content |
 |---------|------|-----------|---------|

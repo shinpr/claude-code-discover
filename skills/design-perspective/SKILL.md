@@ -26,11 +26,11 @@ Design principles are **product-specific guardrails** that guide all design deci
 
 ## State Design
 
-State Design requires every user-facing interaction to record Loading, Empty, Error, Partial, and Success as `required` or `not_applicable` with a reason.
+State Design checks Loading, Empty, Error, Partial, and Success, then specifies the states that can change observable behavior or verification.
 
 In practice:
-- PRDs specify behavior for every required state and preserve explicit reasons for states that do not apply
-- Prototypes implement the states needed to test the hypothesis and report the disposition of all five states
+- PRDs specify applicable state behavior and preserve an exclusion reason when omission would be ambiguous
+- Prototypes implement the states needed to test the hypothesis
 - User stories addressing Usability risk should consider all relevant states
 
 ## Accessibility Standards
@@ -47,7 +47,7 @@ Accessibility is a **Usability risk** dimension — factor it into confidence sc
 
 ## Persona and Context Integration
 
-When making design decisions, always reference:
+When they can change the current design decision, reference:
 - **Personas** (`docs/product/personas/`) — Who is using this? What's their context, skill level, environment?
 - **Journey Maps** (`docs/discovery/journeys/`) — Where in their journey does this interaction happen?
 
@@ -57,7 +57,7 @@ Design decisions without persona/context grounding are assumptions that need val
 
 ## Blueprint Integration
 
-When `docs/product/design/` exists, blueprint artifacts provide shared structural context (information architecture, brand direction, content model, user flows, AI interaction model). Prototypes reference these artifacts to ensure consistency across multiple hypothesis validations.
+When `docs/product/design/` exists, applicable blueprint artifacts provide shared structural context (information architecture, brand direction, content model, user flows, AI interaction model) for prototypes that depend on those decisions.
 
 ## Design in Hypothesis Validation
 
@@ -68,19 +68,6 @@ When validating Usability risk through prototypes:
 4. Generate prototype with design context injected (design principles, persona, vision, blueprint artifacts)
 5. Record results with specific UX learnings
 
-## Key Principles for Daily Decisions
+## Decision Boundary
 
-- **Design principles first**: Check product design principles before making UX decisions
-- **All state decisions matter**: A feature is not designed until all five states are implemented or explicitly shown not to apply
-- **Accessibility is not optional**: WCAG 2.2 AA is the baseline, not a stretch goal
-- **Context over aesthetics**: A beautiful design that ignores user context fails the Usability risk
-- **Test with real scenarios**: Validate UX with persona-grounded scenarios, not abstract tasks
-
-## Why Design Is a Perspective
-
-Treating design as a phase (something done after requirements and before development) leads to surface-level UI work disconnected from user needs. As a perspective:
-
-- Design thinking applies at Opportunity Discovery (journey maps reveal pain points that metrics miss)
-- Design thinking applies at Validation (prototypes make hypotheses testable before code is written)
-- Design thinking applies at Definition (state design and accessibility in ACs catch gaps that functional specs miss)
-- Design principles are product-specific trade-off resolutions, not generic aesthetics guidelines
+Apply product-specific principles, applicable state behavior, WCAG 2.2 AA, and evidenced user context. Treat any remaining design choice that can change the validation result or user outcome as an explicit assumption.

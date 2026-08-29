@@ -9,30 +9,14 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Explicit user authorization**: The user explicitly instructs and authorizes the prd-reviewer call named in this recipe. Invoke it for every PRD before user approval; the orchestrator does not replace it with self-review
-2. **Mechanical specialist handoff**: Pass only `target_path` and, on a rerun, the complete `prior_feedback` array declared by prd-reviewer. Preserve paths, issue objects, IDs, and evidence unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+1. **Required specialist execution**: Invoking this recipe is the user's explicit instruction and authorization to execute every named specialist whose condition applies. Execute each applicable Agent call with its declared `subagent_type` when its prerequisites are met and continue from its returned result; equivalent orchestrator work does not complete that step
+2. **Exact specialist handoff**: The complete Agent prompt consists of all and only the applicable canonical `field: value` entries declared by the specialist's Input Contract. Copy each value unchanged from its authoritative source; serialize path fields as path strings so the specialist reads referenced artifacts directly
 3. **Complete finding coverage**: Record one evidence-backed disposition for every reviewer issue before correction or progression
 4. **Follow the definition flow** below and stop at the final user approval gate
 
-The authorization, mechanical-handoff, and no-paraphrase rules are intentional redundancy against model and system defaults that substitute self-review or fluent restatements for an approved specialist result. Retain them until fresh execution evidence shows the failure no longer occurs.
+## Workflow
 
-## Workflow Overview
-
-```
-Input (validated hypotheses + Opportunity context)
-    ↓
-1. Readiness Assessment → Check cost × risk × reversibility
-    ↓
-2. PRD Drafting → Write the draft to its target path
-    ↓
-3. Independent Review → prd-reviewer always runs
-    ↓
-4. Review Resolution → Apply or evidence-backed decline
-    ↓
-5. User Approval → Approve the reviewed PRD once
-    ↓
-Output: docs/prd/[feature-name]-prd.md
-```
+Assess readiness → draft the PRD → obtain independent review → resolve each finding → request final user approval.
 
 ## Execution Decision Flow
 
@@ -60,7 +44,7 @@ The PRD includes:
 1. **Overview**: Current outcome, Opportunity, cited hypotheses, and explicit exclusions
 2. **User Stories**: Persona-grounded stories with all four Risks, evidence or explicit unknowns, remaining risk, and readiness rationale
 3. **Functional Requirements**: Stable AC IDs and observable EARS-format behavior
-4. **State Coverage**: For each user-facing requirement, mark Loading, Empty, Error, Partial, and Success as `required` or `not_applicable` with a scope-based reason
+4. **State Coverage**: For each user-facing requirement, specify applicable Loading, Empty, Error, Partial, or Success behavior and explain only ambiguous exclusions
 5. **Design Context**: Reference existing design artifacts; copy only decisions the implementation consumer needs
 6. **Success Criteria**: Trace to Product Outcomes
 7. **Technical Considerations**: Include current dependencies, constraints, and unvalidated assumptions only when they can change implementation or verification
@@ -69,13 +53,11 @@ Verify an external API, library, or service with WebSearch only when a current a
 
 ### 3. Independent Review
 
-Invoke prd-reviewer using exactly:
+Invoke prd-reviewer using Agent tool (`subagent_type: "discover:prd-reviewer"`) exactly with:
 
 ```text
 target_path: docs/prd/[feature-name]-prd.md
 ```
-
-The reviewer reads the PRD and its sources directly and returns its exact JSON contract. Do not recreate, pre-interpret, or summarize its review.
 
 When the verdict is `rejected`, return the reported conflict to Readiness Assessment. Re-check source precedence, confirmed outcomes, explicit exclusions, and cited evidence. Resume drafting when they determine one coherent boundary. Stop only for the unresolved pair of confirmed obligations defined in Step 1.
 
@@ -115,7 +97,7 @@ Review Resolution converges when every issue is resolved, withdrawn, or retained
 - applied corrections
 - evidence-backed declined findings, if any
 
-**CANNOT finalize the PRD until the user explicitly approves it.** If the user changes the outcome, scope, or exclusion, resume from Step 1 with the complete changed decision. Otherwise keep the reviewed file unchanged.
+Finalize after explicit user approval. If the user changes the outcome, scope, or exclusion, resume from Step 1 with the complete changed decision. Otherwise keep the reviewed file unchanged.
 
 ## Scope Boundaries
 
@@ -124,11 +106,6 @@ Review Resolution converges when every issue is resolved, withdrawn, or retained
 
 ## Completion Criteria
 
-- [ ] Hypothesis readiness assessed by cost × risk × reversibility
-- [ ] PRD draft written to its target path with evidence and explicit exclusions
-- [ ] Every user story includes all four Risks and remaining risk
-- [ ] Every user-facing requirement accounts for all five states as required or not applicable with reason
-- [ ] prd-reviewer ran against the artifact path
-- [ ] Every reviewer issue has a traceable disposition and reconciliation result
-- [ ] User approved the reviewed PRD
-- [ ] Final PRD remains at `docs/prd/`
+- [ ] The PRD preserves the confirmed outcome, evidence, exclusions, remaining risk, and observable behavior
+- [ ] prd-reviewer reviewed the artifact path and every issue has a traceable disposition
+- [ ] The user approved the reviewed PRD at its final path

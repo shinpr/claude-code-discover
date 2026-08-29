@@ -28,7 +28,7 @@ Before generating, read the target hypothesis and the source artifacts whose dec
 3. **Hypothesis Under Test** — read the target hypothesis file from `docs/discovery/hypotheses/`
 4. **Vision** — read `docs/product/vision.md` for tone and value proposition
 
-Prefer these canonical paths but accept equivalent supplied evidence. These sources drive only the decisions they actually govern. Use their content directly; do not replace missing evidence with plausible product prose. Inspect another artifact only when it can change the tested interaction.
+Prefer these canonical paths but accept equivalent supplied evidence. Use their content directly, represent missing decision-relevant evidence as unknown, and inspect another artifact only when it can change the tested interaction.
 
 ### Blueprint Context (include when `docs/product/design/` exists)
 

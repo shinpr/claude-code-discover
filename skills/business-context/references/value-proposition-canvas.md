@@ -62,14 +62,13 @@ The goal is **Problem-Solution Fit**: your Value Map addresses the most importan
 **Unlike** [primary competitive alternative]
 **We** [statement of primary differentiation]
 
-## Application in nautilus
+## Application in Discover
 
 ### Connection to OST
 - **Customer Jobs** → surface **Opportunities** (unmet jobs = opportunities)
 - **Pains** → generate **Hypotheses** about what causes friction
 - **Gains** → inform **Solution** design (what would delight users)
-- **Pain Relievers** → validate **Value risk** (do we actually relieve the pain?)
-- **Gain Creators** → validate **Usability risk** (is the experience good enough to create gains?)
+- **Pain Relievers / Gain Creators** → candidate assumptions; classify the risk by the claim and evidence needed to test it
 
 ### Common Patterns
 

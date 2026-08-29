@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 1. **Hypothesis Until Proven**: Every assumption is a hypothesis until validated with evidence. Treat unvalidated ideas as hypotheses, not facts
 2. **Value Traceability**: From hypothesis to validation to user story to PRD to implementation to test — maintain traceability across the entire chain
-3. **Feedback Accumulation**: Every outcome (including failures) remains a learning asset. Preserve invalidated hypotheses for future decisions
+3. **Feedback Accumulation**: Preserve conclusions and evidence that can change a current or plausible future decision, including invalidated hypotheses
 4. **Validated Enough**: Use cost x risk x reversibility to determine the sufficient confidence threshold
 5. **Artifacts Over Notes**: Intermediate analysis (market research, competitive landscape, brainstorming) is conducted within the conversation and synthesized into the designated artifact. Each recipe defines its output locations
 
@@ -64,13 +64,13 @@ Track confidence per risk dimension (0-10):
 
 ### Threshold by Cost x Risk x Reversibility
 
-| Condition | Confidence Needed | Evidence Level |
+| Condition | Calibration Guide | Typical Evidence |
 |-----------|-------------------|----------------|
 | Low-cost, reversible (feature flag, gradual rollout) | 3-4 | Structured evaluation |
 | Medium cost | 5-7 | Data |
 | High-cost, irreversible (platform change, pricing change) | 8+ | Test results |
 
-PRDs must show each user story's **current confidence and remaining risks**. Enable PO/DRI to judge "validated enough for delivery", not just "fully validated".
+PRDs show each user story's **current confidence and remaining risks**. The table calibrates judgment rather than imposing a numeric gate; the required evidence follows cost, risk, reversibility, and the decision at stake.
 
 ## Knowledge Pyramid (Authoritative Definition)
 
@@ -92,7 +92,7 @@ Distillation criteria (enforced by knowledge-distiller):
 
 ## State Design (Authoritative Definition)
 
-Every user-facing interaction must account for each state as `required` or `not_applicable`. A `not_applicable` result includes the scope or behavior reason so omission remains visible without manufacturing irrelevant UI work:
+For each user-facing interaction, specify the states whose occurrence or recovery changes observable behavior or verification. Use these standard states as a coverage prompt, not a required five-row output:
 
 | State | Description |
 |-------|-------------|
@@ -102,7 +102,7 @@ Every user-facing interaction must account for each state as `required` or `not_
 | **Partial** | Some data available, some not — show available, indicate missing |
 | **Success** | Normal state with data — primary design focus |
 
-PRDs record all five states for each user-facing requirement and specify behavior for every required state. Prototypes implement Success and every failure or absence state whose occurrence or recovery can distinguish the hypothesis's success, failure, or inconclusive criteria; they record every other state as `not_applicable` with a reason.
+PRDs specify behavior for each applicable state. Record `not_applicable` only when omitting a plausibly relevant standard state would leave the downstream behavior ambiguous. Prototypes implement the states needed to distinguish the hypothesis's success, failure, or inconclusive criteria.
 
 ## Key Principles for Daily Decisions
 
@@ -111,12 +111,3 @@ PRDs record all five states for each user-facing requirement and specify behavio
 - **Design is a Perspective, Not a Phase**: Design thinking applies across all processes — discovery, validation, definition, delivery, and reflection
 - **Cycle, Not Phases**: Discovery → Validation → Definition → Delivery → Reflection is a continuous cycle. Start from anywhere
 - **MVP Scoping**: When transitioning validated hypotheses to a PRD or blueprint, use `references/mvp-definition.md` for the inclusion boundary, explicit exclusions, observable proof, and scope reduction. Use an optional ranking aid only when direct boundary analysis leaves credible candidates tied
-
-## Common Pitfalls (Why These Principles Exist)
-
-These principles exist to counter natural tendencies in product thinking:
-
-- **Solution-Framing Check** counters the tendency to treat the first Solution idea as the Opportunity itself without turning brainstorming volume into required work
-- **Confidence Meter (0-10)** counters all-or-nothing thinking about validation. The threshold varies by cost x risk x reversibility because not everything needs the same evidence level
-- **Knowledge Pyramid tiers** counter both context overload and knowledge loss. Independent, condition-matched evidence keeps Tier 1 principles grounded without treating observation counts as proof quality
-- **State Design** counters the tendency to design only for the happy path. Acceptance criteria that cover only Success state miss the states users encounter most during onboarding

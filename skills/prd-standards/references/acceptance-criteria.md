@@ -66,7 +66,7 @@ then the system shall display cached results with a "Results may be outdated" ba
 
 ## State-Aware ACs
 
-Every user-facing requirement records each state as `required` or `not_applicable` with a scope-based reason. Write an AC for every required state:
+Check the standard states below and write an AC for each state that can occur and change observable behavior or recovery. Record an exclusion reason only when omission would leave the requirement ambiguous:
 
 | State | AC Pattern |
 |-------|-----------|
@@ -82,13 +82,11 @@ Every user-facing requirement records each state as `required` or `not_applicabl
 - **Testable**: Can be verified with a clear pass/fail
 - **Specific**: One observable interpretation of expected behavior
 - **Independent**: Each AC tests one behavior
-- **Complete**: Covers the full behavior including edge cases
+- **Complete**: Covers the requirement's applicable state and contract boundaries
 
 ### Required Form
-- Use concrete values ("within 2 seconds", "maximum 50 characters")
-- Specify error handling and recovery
-- Include accessibility requirements where relevant
-- Reference design states (loading, empty, error)
+- Use concrete values when supplied by governing evidence; otherwise state the observable boundary or unresolved value
+- Specify error handling, recovery, accessibility, and design states when activated by the requirement
 
 ### Transform Before Use
 - Replace vague terms ("quickly", "user-friendly", "intuitive") with an observable threshold or behavior
@@ -126,5 +124,4 @@ then the system shall disable all non-essential animations.
 
 Each AC should be traceable:
 - **User Story** → AC tests a specific aspect of the story's value
-- **4 Risks** → ACs collectively cover all four risk dimensions
-- **Design States** → the requirement records all five dispositions and ACs specify behavior for each required state
+- **Design States** → ACs specify every applicable state behavior and any decision-relevant exclusion

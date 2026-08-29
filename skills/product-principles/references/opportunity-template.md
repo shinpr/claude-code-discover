@@ -1,6 +1,3 @@
-# Opportunity: [Opportunity Name]
-
-```yaml
 ---
 id: OPP-NNN
 status: draft              # draft / active / addressed / archived
@@ -8,7 +5,8 @@ product-outcome: ""        # linked Product Outcome from vision.md
 created: YYYY-MM-DD
 updated: YYYY-MM-DD
 ---
-```
+
+# Opportunity: [Opportunity Name]
 
 ## Problem Statement
 

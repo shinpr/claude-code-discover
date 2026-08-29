@@ -1,7 +1,7 @@
 {
   "name": "discover",
-  "version": "0.4.0",
-  "description": "Structure product context in your repo — hypotheses, validation, and PRDs that flow into implementation",
+  "version": "0.4.1",
+  "description": "Discover product opportunities, validate hypotheses, and create evidence-backed PRDs in your repository",
   "author": {
     "name": "shinpr",
     "url": "https://github.com/shinpr"

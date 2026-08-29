@@ -10,23 +10,11 @@ disable-model-invocation: true
 
 **Execution Protocol**:
 1. **Follow the vision flow** defined below
-2. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+2. **Approval gate**: At `[STOP — BLOCKING]`, present the vision decision and resume after explicit user confirmation
 
-## Workflow Overview
+## Workflow
 
-```
-Input (new product / strategic update / reflection trigger)
-    ↓
-1. Context Assessment → New vs. Update mode
-    ↓
-2. Vision Definition → Product vision, design vision, outcomes, NSM
-    ↓
-3. Design Principles → Define or review product-specific principles
-    ↓
-4. Strategic Priorities → Current cycle priorities [Stop: User confirms vision]
-    ↓
-Output: docs/product/vision.md + docs/product/design-principles.md
-```
+Assess create/update context → define the outcome structure and necessary principles → confirm current priorities → write vision artifacts.
 
 ## Execution Decision Flow
 
@@ -78,7 +66,7 @@ Define current cycle priorities:
 - Strategic priorities for current cycle
 - Strategic bets with confidence levels
 
-**CANNOT write files until user explicitly confirms.**
+Write the files after explicit user confirmation.
 
 ### 5. File Output
 
@@ -94,10 +82,6 @@ After user approval:
 
 ## Completion Criteria
 
-- [ ] Context assessed (create vs. update)
-- [ ] Vision defined with outcome structure
-- [ ] NSM defined with rationale
-- [ ] Design principles contain only decision-relevant, non-overlapping trade-offs
-- [ ] Strategic priorities set for current cycle
-- [ ] User confirmed vision
-- [ ] Files written to `docs/product/`
+- [ ] The confirmed vision connects Business Outcomes, Product Outcomes, and the NSM
+- [ ] Design principles resolve distinct recurring trade-offs and priorities trace to Product Outcomes
+- [ ] User-confirmed artifacts are written to `docs/product/`

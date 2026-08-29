@@ -18,9 +18,9 @@ Use semantic roles and trade-offs rather than decorative prescriptions. Accessib
 
 ### References — Only When Used
 
-| Reference | Specific aspect to use | Specific aspect to avoid | Decision affected |
-|-----------|------------------------|--------------------------|-------------------|
-| {source product or artifact} | {aspect} | {aspect} | {current decision} |
+| Reference | Applied aspect | Rejected aspect and basis | Decision affected |
+|-----------|----------------|---------------------------|-------------------|
+| {source product or artifact} | {aspect} | {conflicting aspect and governing evidence, when relevant} | {current decision} |
 
 Browse for a reference only when it can change a current visual decision.
 

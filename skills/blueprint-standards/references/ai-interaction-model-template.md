@@ -2,7 +2,7 @@
 
 ## Product: {product-name}
 
-This template is for products that include AI-powered features (LLM chat, generative UI, AI-assisted creation, etc.). Skip this artifact if the product has no AI interaction.
+Apply this template to in-scope AI-powered features. Include a section only when it records a decision needed by the current feature or downstream consumer.
 
 ### AI Features Inventory
 
@@ -12,7 +12,7 @@ This template is for products that include AI-powered features (LLM chat, genera
 
 ### Interaction Pattern Decisions
 
-For each AI feature, define the interaction model:
+For each in-scope AI feature, define the decisions that affect user control or observable behavior:
 
 #### {Feature Name}
 
@@ -40,41 +40,25 @@ Define what the AI reliably handles vs. what it struggles with:
 
 | Scenario | Display Method | Rationale |
 |----------|---------------|-----------|
-| Short response (< 3s) | {spinner / skeleton / instant} | {user expectation} |
-| Long generation (3-30s) | {streaming / progressive / staged reveal} | {perceived performance} |
-| Very long (> 30s) | {background + notification / chunked delivery} | {user can do other things} |
+| {observed or required wait condition} | {instant / progress / streaming / background / other} | {user and system evidence} |
 
 ### Error & Edge Case Taxonomy
 
 | Error Type | User Sees | Recovery Action |
 |-----------|-----------|----------------|
-| Generation failure | {message} | {retry / fallback / manual entry} |
-| Inappropriate output | {message} | {regenerate / report / edit} |
-| Timeout | {message} | {retry / queue / simplify request} |
-| Low confidence output | {message} | {review prompt / accept with warning} |
-| Rate limit | {message} | {wait indicator / queue position} |
+| {failure that can occur in the confirmed interaction} | {observable behavior} | {available recovery} |
 
 ### Human-AI Handoff Pattern
 
-Define the boundary between AI-generated and human-edited content:
-
-```
-[User Input] → [AI Generation] → [Preview/Review] → [User Edit] → [Publish/Save]
-                                        ↑                   │
-                                        └── Re-generate ────┘
-```
+Define the ownership boundary only when AI output enters a human-controlled artifact or decision:
 
 | Phase | Who Controls | What Changes |
 |-------|-------------|-------------|
-| Input | User | Request / prompt |
-| Generation | AI | Draft output |
-| Review | User | Accept / reject / modify |
-| Edit | User | Fine-tune details |
-| Re-generate | User triggers, AI executes | Partial or full regeneration |
+| {phase} | {user / AI / system} | {permitted change and approval boundary} |
 
 ### Transparency & Confidence Communication
 
-Define how the product communicates AI involvement and output reliability to users:
+Record disclosures and reliability signals required by user risk, regulation, or the confirmed product decision:
 
 | Aspect | Decision | Rationale |
 |--------|----------|-----------|
@@ -87,9 +71,7 @@ Define how the product communicates AI involvement and output reliability to use
 
 | Guardrail | Implementation | User-Visible Behavior |
 |-----------|---------------|----------------------|
-| Content safety | {moderation layer / output filtering} | {message when triggered} |
-| Scope limitation | {prompt constraints / output validation} | {what AI refuses to do} |
-| Quality gate | {validation rules / confidence threshold} | {warning or block} |
+| {boundary activated by current risk or policy} | {smallest enforcement mechanism} | {observable behavior} |
 
 ### AI Interaction Decisions Log
 

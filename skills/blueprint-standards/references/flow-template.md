@@ -15,17 +15,19 @@
 | # | Action | Page/Screen | System Response | Next Step |
 |---|--------|-------------|----------------|-----------|
 | 1 | {user action} | {page} | {what happens} | → 2 |
-| 2 | {user action} | {page} | {what happens} | → 3 or → 2a |
-| 2a | {alternative path} | {page} | {what happens} | → 3 |
-| ... | | | | |
+| 2 | {user action} | {page} | {what happens} | {next step or success} |
 
 ### Decision Points
+
+Include decision points that change the route or observable outcome.
 
 | At Step | Condition | Path A | Path B |
 |---------|-----------|--------|--------|
 | {step#} | {condition} | {action → step} | {action → step} |
 
 ### Error Scenarios
+
+Include failures that can occur in the confirmed flow and require user-visible recovery.
 
 | At Step | Error | User Sees | Recovery Path |
 |---------|-------|-----------|--------------|
@@ -34,9 +36,7 @@
 ### Flow Diagram
 
 ```
-[Entry] → [Step 1] → [Step 2] → [Decision?]
-                                    ├─ Yes → [Step 3] → [Success]
-                                    └─ No  → [Step 2a] → [Step 3]
+[Entry] → [required steps and decision branches] → [Success or recovery]
 ```
 
 ### Notes

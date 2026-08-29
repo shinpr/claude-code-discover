@@ -9,26 +9,14 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Explicit user authorization**: The user explicitly instructs and authorizes the codebase-analyzer call named in this recipe. When an existing codebase is present, invoke it; the orchestrator does not replace it with its own analysis
-2. **Mechanical specialist handoff**: Pass only `analysis_mode: user_behavior` and `governing_context: $ARGUMENTS` using the source values unchanged. Do not summarize, paraphrase, supplement, or turn them into narrative instructions
+1. **Required specialist execution**: Invoking this recipe is the user's explicit instruction and authorization to execute every named specialist whose condition applies. Execute each applicable Agent call with its declared `subagent_type` when its prerequisites are met and continue from its returned result; equivalent orchestrator work does not complete that step
+2. **Exact specialist handoff**: The complete Agent prompt consists of all and only the applicable canonical `field: value` entries declared by the specialist's Input Contract. Copy each value unchanged from its authoritative source; serialize path fields as path strings so the specialist reads referenced artifacts directly
 3. **Follow the persona flow** defined below
-4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+4. **Approval gate**: At `[STOP — BLOCKING]`, present the persona decision and resume after explicit user confirmation
 
-The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
+## Workflow
 
-## Workflow Overview
-
-```
-Input (new persona request / persona update / discovery trigger)
-    ↓
-1. Context Assessment → New vs. Update, existing code?
-    ↓
-2. Research Gathering → User data, interviews, analytics, code analysis
-    ↓
-3. Persona Drafting → Using persona-template.md [Stop: User confirms persona]
-    ↓
-Output: docs/product/personas/persona-[name].md
-```
+Assess create/update context → gather available evidence → draft and confirm the persona → write the persona and affected references.
 
 ## Execution Decision Flow
 
@@ -68,7 +56,7 @@ Map Customer Profile from Value Proposition Canvas:
 
 ### 3. Persona Drafting
 
-Use design-perspective skill `references/persona-template.md` to create persona files:
+Use design-perspective skill `references/persona-template.md` to create the smallest persona that distinguishes the current decisions. Populate applicable sections from evidence and mark decision-relevant unknowns:
 
 1. **Demographics**: Role, experience, technical proficiency, industry
 2. **Context**: Environment, frequency, time pressure, adjacent tools
@@ -83,7 +71,7 @@ Use design-perspective skill `references/persona-template.md` to create persona 
 - Assumptions that need validation
 - Connections to existing Opportunities (if any)
 
-**CANNOT write persona file until user explicitly confirms.**
+Write the persona file after explicit user confirmation.
 
 ### 4. File Output
 
@@ -92,12 +80,6 @@ After user approval:
 - Update any Opportunity files that reference this persona
 - Update journey maps if persona context changed
 
-## Sub-agent Usage
-
-| Agent | When | Why (context separation benefit) |
-|-------|------|----------------------------------|
-| codebase-analyzer | Existing codebase with user-facing features | Objective analysis of actual user behavior patterns in code |
-
 ## Scope Boundaries
 
 **Included**: Persona creation, persona update, integration with VPC and code analysis
@@ -105,9 +87,6 @@ After user approval:
 
 ## Completion Criteria
 
-- [ ] Context assessed (create vs. update)
-- [ ] Research gathered (code analysis, user data, market research as available)
-- [ ] Persona drafted with all template sections
-- [ ] Validation status clearly marked (evidence-based vs. assumption)
-- [ ] User confirmed persona
-- [ ] File written to `docs/product/personas/`
+- [ ] The persona separates observed evidence, inference, and assumptions
+- [ ] Its distinctions can change a named product or discovery decision
+- [ ] The user-confirmed file and affected references are updated

@@ -9,28 +9,14 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Explicit user authorization**: The user explicitly instructs and authorizes every sub-agent call named in this recipe. Invoke hypothesis-verifier for every validation and invoke each method specialist whenever its stated condition applies; the orchestrator does not replace those calls with its own work
-2. **Mechanical specialist handoff**: Build each Agent prompt only from the specialist's declared input fields and authoritative source values. Preserve paths and values unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+1. **Required specialist execution**: Invoking this recipe is the user's explicit instruction and authorization to execute every named specialist whose condition applies. Execute each applicable Agent call with its declared `subagent_type` when its prerequisites are met and continue from its returned result; equivalent orchestrator work does not complete that step
+2. **Exact specialist handoff**: The complete Agent prompt consists of all and only the applicable canonical `field: value` entries declared by the specialist's Input Contract or, for a built-in specialist, by the call site's inline contract. Copy each value unchanged from its authoritative source; serialize path fields as path strings so the specialist reads referenced artifacts directly
 3. **Follow the validation flow** defined below
-4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+4. **Approval gates**: At each `[STOP — BLOCKING]`, present the named decision and resume after explicit user confirmation
 
-The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
+## Workflow
 
-## Workflow Overview
-
-```
-Input (hypothesis file or hypothesis ID)
-    ↓
-1. Hypothesis Assessment → Read and understand the hypothesis
-    ↓
-2. Validation Design → hypothesis-verifier designs the test [Stop: User confirms design]
-    ↓
-3. Validation Execution → Type-appropriate method
-    ↓
-4. Result Recording → Update hypothesis file [Stop: User reviews results]
-    ↓
-Output: Updated hypothesis file with validation results
-```
+Assess the hypothesis → independently design and approve the smallest disconfirming test → execute it → record and review the result.
 
 ## Execution Decision Flow
 
@@ -49,7 +35,6 @@ Read the target hypothesis file(s). Understand:
 
 **Invoke hypothesis-verifier** using Agent tool (subagent_type: "discover:hypothesis-verifier") with `hypothesis_path: <target hypothesis path>` to design the validation:
 - hypothesis-verifier operates in a separate context to preserve an independent disconfirming pass
-- It designs the test without knowing the orchestrator's expectations
 - It defines success/failure criteria independently
 
 **[STOP — BLOCKING]** Present validation design to user for confirmation:
@@ -58,7 +43,7 @@ Read the target hypothesis file(s). Understand:
 - Required resources and time estimate
 - Risk of the validation approach itself
 
-**CANNOT proceed to validation execution until user explicitly confirms the design.**
+Execute the validation after the user confirms the design.
 
 ### 3. Validation Execution
 
@@ -74,18 +59,22 @@ Execute validation based on the risk type and method:
 #### Prototype Generation (for Usability validation)
 Invoke prototype-generator using Agent tool (subagent_type: "discover:prototype-generator"):
 1. Pass only `hypothesis_path` and `output_path` using their canonical path values
-2. prototype-generator operates in a **separate context** — it reads design context files independently and produces a natural product UI
+2. prototype-generator operates in a separate context and reads design sources directly
 3. Use one prototype unless the confirmed hypothesis explicitly compares patterns
 4. Output: `docs/discovery/prototypes/hypo-{id}-prototype.html` (or `hypo-{id}-{pattern}-prototype.html` for multiple)
-5. User opens in browser for verification
+5. User opens the completed `output_path` in a browser for verification
 
 #### Worktree Code Spike (for Feasibility validation)
-When validating Feasibility through code:
+When repository inspection cannot resolve a Feasibility decision and executable proof can change the verdict:
 1. Invoke codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") with `analysis_mode: feasibility` and the hypothesis path as `governing_context`
-2. Use Agent tool with `isolation: "worktree"` to run a code spike in an isolated environment
-3. The spike agent implements a minimal proof-of-concept
-4. Results (feasibility assessment, complexity, blockers) are reported back
-5. The worktree is automatically cleaned up — no code persists in the main branch
+2. Invoke a fresh Agent call with `subagent_type: "general-purpose"` and `isolation: "worktree"` using exactly:
+
+   ```text
+   action: execute the smallest disposable code spike that can resolve the target hypothesis's feasibility uncertainty; return feasibility, complexity, blockers, and inspectable evidence
+   hypothesis_path: <canonical hypothesis path>
+   ```
+
+3. The worktree is automatically cleaned up — no code persists in the main branch
 
 #### Market Research (for Value/Viability validation)
 Use WebSearch tool to gather market data. See product-principles skill `references/mvp-definition.md` for scope assessment.
@@ -107,7 +96,7 @@ After validation execution:
 - Key learnings
 - Recommended next actions
 
-**CANNOT proceed to next hypothesis or close the workflow until user explicitly reviews.**
+Proceed to the next hypothesis or close the workflow after the user reviews the result.
 
 ### 5. Timeout Handling
 
@@ -118,14 +107,6 @@ When a hypothesis reaches its deadline without conclusion:
    - **Pivot**: Modify the hypothesis based on partial evidence
    - **Abandon**: Stop validation, record learnings from partial evidence
 
-## Sub-agent Usage
-
-| Agent | When | Why (context separation benefit) |
-|-------|------|----------------------------------|
-| hypothesis-verifier (subagent_type: "discover:hypothesis-verifier") | Always (validation design) | Prevents the authoring context from replacing an independent disconfirming pass |
-| prototype-generator (subagent_type: "discover:prototype-generator") | Usability validation | Produces natural product UI without test infrastructure contamination |
-| codebase-analyzer (subagent_type: "discover:codebase-analyzer") | Feasibility validation | Independent repository evidence for the feasibility boundary |
-
 ## Scope Boundaries
 
 **Included**: Hypothesis validation design, validation execution, result recording
@@ -133,10 +114,6 @@ When a hypothesis reaches its deadline without conclusion:
 
 ## Completion Criteria
 
-- [ ] Hypothesis assessed and understood
-- [ ] hypothesis-verifier completed the independent disconfirming pass
-- [ ] User confirmed validation design
-- [ ] Validation executed with appropriate method
-- [ ] Hypothesis file updated with results and evidence
-- [ ] User reviewed results
-- [ ] Next actions identified
+- [ ] hypothesis-verifier supplied the independent, smallest disconfirming design
+- [ ] The confirmed method produced decision-relevant evidence or an explicit inconclusive result
+- [ ] The hypothesis file records the reviewed result, confidence change, evidence, and next decision

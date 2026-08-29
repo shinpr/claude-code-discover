@@ -9,30 +9,14 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Explicit user authorization**: The user explicitly instructs and authorizes the knowledge-distiller call named in this recipe. Invoke it for every Level 2 or Level 3 reflection; the orchestrator does not replace it with its own distillation
-2. **Mechanical specialist handoff**: Pass only the specialist's declared `scope_type`, `opportunity_ids`, and `hypothesis_paths` fields using source values unchanged. Do not summarize, paraphrase, supplement, or turn them into narrative instructions
+1. **Required specialist execution**: Invoking this recipe is the user's explicit instruction and authorization to execute every named specialist whose condition applies. Execute each applicable Agent call with its declared `subagent_type` when its prerequisites are met and continue from its returned result; equivalent orchestrator work does not complete that step
+2. **Exact specialist handoff**: The complete Agent prompt consists of all and only the applicable canonical `field: value` entries declared by the specialist's Input Contract. Copy each value unchanged from its authoritative source; serialize path fields as path strings so the specialist reads referenced artifacts directly
 3. **Follow the reflection flow** defined below
-4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+4. **Approval gate**: At `[STOP — BLOCKING]`, present the distillation decision and resume after explicit user confirmation
 
-The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
+## Workflow
 
-## Workflow Overview
-
-```
-Input (reflection trigger — hypothesis concluded, Opportunity review, or periodic)
-    ↓
-1. Scope Assessment → Determine reflection level (hypothesis / Opportunity / Vision)
-    ↓
-2. Result Recording → Update target artifacts with outcomes
-    ↓
-3. Knowledge Distillation → knowledge-distiller extracts patterns [Stop: Distillation review]
-    ↓
-4. Knowledge Promotion → Tier 2 → Tier 1 if criteria met
-    ↓
-5. Index Update → Update INDEX.md
-    ↓
-Output: Updated artifacts + learnings + INDEX.md
-```
+Determine the reflection level → record results → independently distill applicable evidence → confirm promotions → update artifacts and index.
 
 ## Execution Decision Flow
 
@@ -57,13 +41,11 @@ Input: $ARGUMENTS
 
 #### Level 2: Opportunity Reflection
 1. Gather all hypotheses under the target Opportunity
-2. Prepare context for knowledge-distiller (hypothesis summaries, results, confidence changes)
 
 #### Level 3: Vision Reflection
 1. Gather cross-Opportunity data
 2. Review Product Outcomes — are targets still correct?
 3. Review NSM — still the right connecting metric?
-4. Prepare context for knowledge-distiller
 
 ### 3. Knowledge Distillation
 
@@ -79,7 +61,7 @@ Input: $ARGUMENTS
 - Contradictions found (these become priority Discovery targets)
 - Tier promotion proposals with supporting evidence
 
-**CANNOT write learnings or promote Tiers until user explicitly confirms.**
+Write learnings and apply Tier promotions after explicit user confirmation.
 
 ### 4. Knowledge Promotion
 
@@ -104,12 +86,6 @@ Update `docs/discovery/INDEX.md` with:
 - Tier 1 learning changes (if any)
 - Last updated timestamp
 
-## Sub-agent Usage
-
-| Agent | When | Why (context separation benefit) |
-|-------|------|----------------------------------|
-| knowledge-distiller (subagent_type: "discover:knowledge-distiller") | Level 2 and Level 3 reflection | Unbiased pattern extraction across individual hypotheses |
-
 ## Scope Boundaries
 
 **Included**: Result recording, knowledge distillation, Tier promotion, INDEX.md maintenance
@@ -117,10 +93,6 @@ Update `docs/discovery/INDEX.md` with:
 
 ## Completion Criteria
 
-- [ ] Reflection level determined
-- [ ] Target artifacts updated with results
-- [ ] knowledge-distiller invoked for pattern extraction (Level 2+)
-- [ ] User reviewed distillation proposals
-- [ ] Tier promotions applied (if approved)
-- [ ] `docs/discovery/INDEX.md` updated
-- [ ] Freshness tags current on modified learnings
+- [ ] Result evidence is recorded at the applicable reflection level
+- [ ] Level 2/3 patterns and promotions come from knowledge-distiller and user confirmation
+- [ ] Modified learnings have current freshness tags and `docs/discovery/INDEX.md` reflects the result

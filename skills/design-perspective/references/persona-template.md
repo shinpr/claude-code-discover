@@ -1,6 +1,3 @@
-# Persona: [Persona Name]
-
-```yaml
 ---
 id: PERSONA-NNN
 status: active             # active / archived
@@ -8,7 +5,10 @@ created: YYYY-MM-DD
 updated: YYYY-MM-DD
 last-validated: YYYY-MM-DD # when was this persona last validated with real user data
 ---
-```
+
+# Persona: [Persona Name]
+
+Retain only distinctions supported by evidence or needed for a named decision. Mark decision-relevant inferences and unknowns explicitly; omit decorative profile detail.
 
 ## Demographics
 
@@ -43,16 +43,12 @@ last-validated: YYYY-MM-DD # when was this persona last validated with real user
 | Pain | Severity | Current Workaround |
 |------|----------|-------------------|
 | [Pain 1] | [Blocking / Frustrating / Minor] | [How they cope today] |
-| [Pain 2] | [Blocking / Frustrating / Minor] | [How they cope today] |
-| [Pain 3] | [Blocking / Frustrating / Minor] | [How they cope today] |
 
 ## Gains
 
 | Gain | Type | Priority |
 |------|------|----------|
 | [Gain 1] | [Required / Expected / Desired / Unexpected] | [High / Medium / Low] |
-| [Gain 2] | [Required / Expected / Desired / Unexpected] | [High / Medium / Low] |
-| [Gain 3] | [Required / Expected / Desired / Unexpected] | [High / Medium / Low] |
 
 ## Behavioral Patterns
 
@@ -61,11 +57,9 @@ last-validated: YYYY-MM-DD # when was this persona last validated with real user
 - **Information sources**: [Where do they learn about new tools/solutions?]
 - **Buying behavior**: [Self-serve / Needs demo / Committee decision]
 
-## Quotes (Real or Representative)
+## Evidence Quotes (when available)
 
-> "[A quote that captures this persona's mindset or frustration]"
-
-> "[Another representative quote]"
+> "[Verbatim quote with source]"
 
 ## Related Opportunities
 
@@ -77,7 +71,7 @@ last-validated: YYYY-MM-DD # when was this persona last validated with real user
 
 - **Based on**: [N interviews / analytics data / survey responses / assumption]
 - **Confidence**: [High — based on direct user research / Medium — inferred from data / Low — assumption]
-- **Next validation**: [When and how to re-validate this persona]
+- **Next validation**: [Evidence needed for a current decision, or none]
 
 ---
 
