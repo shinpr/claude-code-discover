@@ -1,8 +1,10 @@
 # Product Vision & Strategy
 
+Populate only outcomes, metrics, principles, and priorities that govern a current decision. Preserve a decision-relevant missing value as unknown.
+
 ## Product Vision
 
-[2-3 sentence aspirational statement of what this product will become and why it matters]
+[Shortest aspirational statement that preserves what this product will become and why it matters]
 
 ## Design Vision
 
@@ -16,7 +18,6 @@ Business results that the product contributes to.
 | ID | Business Outcome | Current | Target | Timeframe |
 |----|-----------------|---------|--------|-----------|
 | BO-1 | [e.g., Reduce churn rate] | [current value] | [target value] | [by when] |
-| BO-2 | [e.g., Grow ARR] | [current value] | [target value] | [by when] |
 
 ### Product Outcomes
 Team-controllable product goals that drive Business Outcomes.
@@ -24,7 +25,6 @@ Team-controllable product goals that drive Business Outcomes.
 | ID | Product Outcome | Current | Target | Timeframe | Contributes to |
 |----|----------------|---------|--------|-----------|----------------|
 | PO-1 | [e.g., Onboarding completion rate] | [current] | [target] | [by when] | BO-1 |
-| PO-2 | [e.g., Search success rate] | [current] | [target] | [by when] | BO-1, BO-2 |
 
 ### North Star Metric (NSM)
 
@@ -34,7 +34,7 @@ The single metric that connects Product Outcomes to Business Outcomes.
 - **Current**: [current value]
 - **Target**: [target value]
 - **Why this metric**: [How it reflects both user value and business value]
-- **Leading indicators**: [Metrics that predict NSM movement]
+- **Leading indicators**: [Only metrics used by a current decision]
 
 ## Strategic Priorities
 
@@ -43,7 +43,6 @@ The single metric that connects Product Outcomes to Business Outcomes.
 | Priority | Product Outcome | Key Opportunities | Status |
 |----------|----------------|-------------------|--------|
 | 1 | PO-1 | OPP-001, OPP-003 | [active / planned] |
-| 2 | PO-2 | OPP-005 | [active / planned] |
 
 ### Strategic Bets
 [Outcome-level hypotheses — claims expected to change an observable Product Outcome and still requiring evidence]
@@ -71,7 +70,6 @@ See `docs/product/learnings.md` for distilled product knowledge.
 | Date | Change | Trigger |
 |------|--------|---------|
 | YYYY-MM-DD | Initial vision | Product kickoff |
-| YYYY-MM-DD | [Change] | [What prompted the update — e.g., "Q1 reflection via recipe-reflect"] |
 
 ---
 

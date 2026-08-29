@@ -69,7 +69,7 @@ When a hypothesis reaches conclusion (validated/invalidated/inconclusive/adopted
 1. **Record the result** in the hypothesis file with evidence
 2. **Update confidence scores** with final values
 3. **Link to evidence** (data, screenshots, prototype results, interview notes)
-4. **Extract learnings** — what did we learn regardless of the outcome?
+4. **Record decision learning** — conclusions and evidence that can change confidence, the Opportunity, or a downstream decision
 5. **Update the parent Opportunity** if the result changes its understanding
 
 ## Key Disciplines
@@ -80,13 +80,3 @@ When a hypothesis reaches conclusion (validated/invalidated/inconclusive/adopted
 - **Record decision evidence**: Preserve conclusions, evidence, and reasoning that can change confidence, the parent Opportunity, a downstream decision, or future validation. Omit working narration and baseline knowledge with no consumer
 - **Rejected ≠ worthless**: A rejected hypothesis teaches what doesn't work and why
 - **Inconclusive is honest**: When evidence is insufficient, say so instead of forcing a verdict
-
-## Why These Disciplines Matter
-
-Each discipline exists to counter a specific cognitive tendency:
-
-- **Separate creation from evaluation** counters premature judgment that kills divergent thinking
-- **Seek disconfirming evidence** counters the natural pull toward confirming what we already believe
-- **One hypothesis, one test** counters the temptation to bundle tests, which makes results uninterpretable
-- **Time budgets with hard cutoffs** counter unbounded exploration — a hypothesis without a deadline is an excuse to avoid decisions
-- **Confidence can go down** counters the assumption that validation is always forward progress. Negative evidence is equally valuable

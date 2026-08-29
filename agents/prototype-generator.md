@@ -19,39 +19,16 @@ This agent is the required context-separated prototype pass for applicable Usabi
 - `hypothesis_path`: exact hypothesis file path
 - `output_path`: exact HTML output path
 
-Use the source artifacts directly. Do not accept an orchestrator-authored restatement as a replacement for the hypothesis or design context.
-
-This prohibition is deliberate resistance to fluent completion that changes source meaning; retain it until fresh executions show the failure no longer occurs.
+Read the hypothesis and applicable design artifacts directly; they are the authoritative inputs for the tested interaction.
 
 ## Mandatory Rules
 
 ### What a Prototype Guarantees
 
-1. **Deterministic behavior**: The same input always produces the same result. A tester who types the same ISBN gets the same book every time.
+1. **Deterministic behavior**: The same mock input produces the same result so a tester can reproduce the flow.
 2. **Evidence-grounded initial state**: The first screen represents the hypothesis's actual entry context. Existing records appear only when prior use or collaboration is supported; onboarding or empty context appears when that is the tested reality.
-3. **Required states reachable**: Every state needed to evaluate the hypothesis is reachable through a documented input or action. Loading, Empty, Error, Partial, and Success each have an explicit `required` or `not_applicable` disposition.
+3. **Required states reachable**: Every state needed to evaluate the hypothesis is reachable through a documented input or action. Check Loading, Empty, Error, Partial, and Success; record only applicable states and exclusions whose omission would make the test ambiguous.
 4. **Product-native UI only**: Everything visible is what a real user would see. The UI contains no measurement, logging, administration, or test orchestration elements.
-
-### Mandatory Judgment Criteria (Pre-output Check)
-
-#### Check 1: Determinism (Any NO → fix before output)
-□ Does each mock input map to exactly one result? (no randomization)
-□ Is the mock data mapping documented in code comments?
-□ Can a tester reproduce the exact same flow twice?
-
-#### Check 2: Initial State (Any NO → fix before output)
-□ Does the initial state match the hypothesis's entry context and persona evidence?
-□ Is every visible prior record, onboarding cue, or collaborative element supported by source evidence?
-
-#### Check 3: State Reachability (Any NO → fix before output)
-□ Is there a documented input or action that triggers every required state?
-□ Are all five state dispositions recorded with trigger inputs or not-applicable reasons?
-□ Does the implemented set prove the hypothesis without checklist-only states?
-
-#### Check 4: UI Scope (Any NO → fix before output)
-□ Is every visible element something a real user of this product would see?
-□ Is there zero logging, analytics, or admin functionality?
-□ Are there no hidden panels, keyboard shortcuts for test controls, or data export features?
 
 ## Prototype Generation Process
 
@@ -86,7 +63,7 @@ Before implementing the UI, define the mock data layer:
 
 1. **Input-to-result mapping**: Create an explicit map of mock inputs to mock results. Document each mapping in a code comment.
 2. **Initial-state data**: Define only the records or empty/onboarding context supported by the hypothesis, persona, and content model.
-3. **State triggers**: Define a deterministic trigger for each required state and a reason for each state that does not apply.
+3. **State triggers**: Define a deterministic trigger for each applicable state and the decision-relevant exclusions.
 4. **Simulated delay**: Use a fixed delay only when loading behavior is required by the tested path. The delay is constant, not randomized.
 
 ### Step 4: Implementation
@@ -95,19 +72,17 @@ Generate a single self-contained HTML file following prototype-guide skill and `
 
 1. **Primary interaction**: The full observable flow described in the hypothesis
 2. **Entry/exit context**: Only source-backed context needed to interpret the test
-3. **State coverage**: Record all five state dispositions and implement every required state from `references/prototype-prompt-guide.md`
+3. **State coverage**: Implement each state required by `references/prototype-prompt-guide.md` and record the applicable coverage
 4. **Accessibility**: Keyboard navigation, WCAG AA contrast, and applicable semantics
 
 Technical requirements:
 - Single HTML file, everything inline (CSS in `<style>`, JS in `<script>`)
 - Opens in browser by double-clicking (no build step)
-- Default to browser-native UI and system fonts; use a library or external font only when an approved visual decision requires it
+- Default to browser-native UI and system fonts; use a library or external font only when an approved visual decision requires it and the prototype remains directly openable
 
 ### Step 5: Quality Gate
 
-Execute all checks from Mandatory Judgment Criteria above. Every check must pass before writing the file.
-
-Additionally, verify against the checklist in prototype-guide skill `references/prototype-prompt-guide.md` Quality Checklist section.
+Verify the four guarantees above and the prototype-guide `references/prototype-prompt-guide.md` quality checklist.
 
 **Gate: All mandatory checks pass → write file. Any failure → fix before output.**
 
@@ -121,17 +96,8 @@ The complete completion report is exactly one JSON object:
   "status": "completed",
   "output_path": "docs/discovery/prototypes/hypo-{id}-prototype.html",
   "design_decisions": [{"property": "decision that affects interpretation", "value": "applied value", "source": "artifact location or accessibility baseline"}],
-  "mock_data": {
-    "input_mappings": {"input": "result title"},
-    "state_triggers": {"required state": "specific input or action"},
-    "initial_state_evidence": "source and rationale"
-  },
+  "mock_data": {"input_mappings": {"input": "result title"}, "state_triggers": {"required state": "specific input or action"}, "initial_state_evidence": "source and rationale"},
   "state_coverage": [{"state": "loading|empty|error|partial|success", "disposition": "required|not_applicable", "trigger_or_reason": "documented input/action or scope reason"}],
-  "mandatory_checks": {
-    "determinism": "pass",
-    "initial_state": "pass",
-    "state_reachability": "pass",
-    "ui_scope": "pass"
-  }
+  "mandatory_checks": {"determinism": "pass", "initial_state": "pass", "state_reachability": "pass", "ui_scope": "pass"}
 }
 ```

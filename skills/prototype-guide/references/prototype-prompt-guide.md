@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Guide for constructing HTML prototypes with proper design context injection. Prototypes validate Usability and Value risks — without reading project context files, they validate nothing.
+Guide for constructing HTML prototypes with the product decisions needed to interpret Usability and Value evidence.
 
 ## Construction Principles
 
@@ -27,7 +27,7 @@ Specific implementation produces testable prototypes.
 
 ### Describe Interactions as State Transitions
 
-Every interactive element has observable state behavior. Implement the states that can occur in the tested path and record the remaining state dispositions:
+Every interactive element has observable state behavior. Check these states and implement those that can occur in the tested path and affect interpretation:
 - Default state
 - Hover / focus state
 - Loading state (with animation)
@@ -36,7 +36,7 @@ Every interactive element has observable state behavior. Implement the states th
 
 ### One Prototype, One Hypothesis
 
-Each prototype tests one hypothesis. If multiple things need testing, generate separate prototypes. Bundling reduces the validity of each test.
+Each prototype tests one hypothesis. Use another prototype only when a separate question cannot be interpreted in the same evidence boundary.
 
 ## Prototype Structure
 
@@ -46,7 +46,7 @@ Implement the interaction and source-backed entry/exit context needed to observe
 
 ### State Coverage
 
-Apply the authoritative State Design rule from product-principles: record Loading, Empty, Error, Partial, and Success as `required` or `not_applicable` with a reason. Implement Success and every failure or absence state whose occurrence or recovery can distinguish the hypothesis's success, failure, or inconclusive criteria.
+Apply the authoritative State Design rule from product-principles. Implement every state whose occurrence or recovery can distinguish the hypothesis's success, failure, or inconclusive criteria; record an exclusion only when omission would make the test ambiguous.
 
 ### Design Quality
 
@@ -57,7 +57,7 @@ Prototypes must be legible, accessible, and coherent with approved product evide
 - Simulate a deterministic delay only when loading behavior is required by the tested path
 - Use data that matches the product's domain and language
 - Handle edge cases in input (flexible parsing over strict validation)
-- Include enough data to demonstrate the interaction pattern
+- Include the minimum data that demonstrates the interaction pattern
 
 ## Prototype Scope Boundaries
 
@@ -89,7 +89,7 @@ docs/discovery/prototypes/hypo-{id}-prototype.html
 - [ ] The UI targets the evidenced persona or user context without invented behavior
 - [ ] Hypothesis success/failure criteria are testable through the prototype
 - [ ] User flow is implemented step-by-step (not separate pages)
-- [ ] All five states have a disposition and every required state is implemented with its transition
+- [ ] Applicable states are implemented with deterministic transitions; decision-relevant exclusions are recorded
 - [ ] Mock data is realistic and in the product's language
 - [ ] Accessibility: keyboard navigable, WCAG AA contrast, aria attributes
 - [ ] Single self-contained HTML file, opens in browser without build step

@@ -43,7 +43,7 @@ Framework for analyzing and designing business models. Use during Opportunity Di
 - Types: Cost-driven, Value-driven
 - Characteristics: Fixed, Variable, Economies of scale/scope
 
-## Application in nautilus
+## Application in Discover
 
 ### Discovery Phase
 - Use BMC to understand the **business context** of an Opportunity
@@ -65,10 +65,7 @@ The following patterns are illustrative examples, not an exhaustive list of vali
 
 ## Quality Checklist
 
-- [ ] All 9 components addressed
-- [ ] Customer segments clearly defined
-- [ ] Value proposition specific and compelling
-- [ ] Revenue streams realistic
-- [ ] Cost structure viable
-- [ ] Model internally consistent
-- [ ] MVP-compatible (scalable from minimal to full)
+- [ ] Each included component can change the current viability or Opportunity decision
+- [ ] Cross-component assumptions and conflicts are visible
+- [ ] Claims retain evidence or an explicit unknown
+- [ ] A full nine-component canvas is used only when it is the named decision artifact

@@ -18,9 +18,7 @@ This agent is the required independent validation-design pass. The orchestrator 
 
 - `hypothesis_path`: path to the hypothesis file under review
 
-Read the hypothesis from this path. Do not accept an orchestrator-authored restatement as a replacement for the source artifact, and do not invent evidence, success criteria, or user behavior absent from the artifact or cited sources.
-
-This prohibition is deliberate resistance to fluent completion that changes source meaning; retain it until fresh executions show the failure no longer occurs.
+Read the hypothesis and its cited sources directly. Treat their content as authoritative; represent missing evidence, success criteria, or user behavior as unknown.
 
 ## Validation Design Process
 
@@ -83,7 +81,7 @@ For the selected test, identify only alternatives that can flip its verdict:
 
 ## Output Format
 
-The complete response is exactly one JSON object matching this shape:
+Return exactly one JSON object matching this shape:
 
 ```json
 {
@@ -92,13 +90,7 @@ The complete response is exactly one JSON object matching this shape:
     {"type": "confirmation|selection|anchoring|survivorship|alternative_explanation", "evidence": "inspectable reason", "verdict_effect": "success or failure conclusion this can flip", "control": "smallest control needed"}
   ],
   "assumptions": [
-    {
-      "id": "A1",
-      "statement": "The specific assumption being tested",
-      "risk_type": "value|usability|feasibility|viability",
-      "risk_level": "high|medium|low",
-      "rationale": "Why this risk level"
-    }
+    {"id": "A1", "statement": "specific assumption", "risk_type": "value|usability|feasibility|viability", "risk_level": "high|medium|low", "rationale": "evidence and decision effect"}
   ],
   "selected_test": {
     "target_assumption": "A1",
@@ -113,21 +105,9 @@ The complete response is exactly one JSON object matching this shape:
     "resources_needed": []
   },
   "unresolved_assumptions": [{"id": "A2", "decision_condition": "decision that would require later evidence"}],
-  "evaluation_guidelines": {
-    "minimum_evidence": "What's the minimum evidence to draw a conclusion?",
-    "inconclusive_criteria": "When should we declare 'inconclusive' instead of forcing a verdict?"
-  },
-  "red_flags": [
-    "Warning signs to watch for during validation"
-  ]
+  "evaluation_guidelines": {"minimum_evidence": "minimum evidence for a conclusion", "inconclusive_criteria": "condition for an inconclusive result"},
+  "red_flags": []
 }
 ```
 
-## Important Notes
-
-- **One assumption, one test**: Each test targets exactly one assumption. Bundling reduces interpretability.
-- **Smallest test first**: Design the minimum experiment that could disprove the assumption.
-- **Demand failure modes**: Every test must have a clear path to disproof.
-- **Evidence-grounded threshold**: Success and failure criteria distinguish the current decision using source-backed observable behavior.
-- **Inconclusive is valid**: When evidence is insufficient, say so instead of forcing a verdict.
-- **Structured result only**: The response consists solely of one valid JSON object.
+Use empty arrays when their conditions are absent. The selected test targets one assumption, has a source-backed path to disproof, and permits an inconclusive result.

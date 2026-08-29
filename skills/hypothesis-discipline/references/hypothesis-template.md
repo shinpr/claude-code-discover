@@ -1,6 +1,3 @@
-# Hypothesis: [Hypothesis Statement]
-
-```yaml
 ---
 id: HYPO-NNN
 level: solution            # outcome / opportunity / solution / assumption
@@ -16,7 +13,8 @@ deadline: YYYY-MM-DD       # hard cutoff date
 created: YYYY-MM-DD
 validated:                 # filled on conclusion
 ---
-```
+
+# Hypothesis: [Hypothesis Statement]
 
 ## We believe that
 

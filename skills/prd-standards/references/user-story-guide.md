@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Guide for writing user stories with 4 Risks assessment and Confidence Meter integration. User stories are the **minimum unit of value** in nautilus.
+Guide for writing user stories with 4 Risks assessment and Confidence Meter integration. User stories are the **minimum unit of value** in Discover.
 
 ## User Story Format
 
@@ -14,7 +14,7 @@ So that [expected value/benefit]
 
 ### Writing Good User Stories
 
-- **User type**: Reference a specific persona from `docs/product/personas/`. Avoid generic "user"
+- **User type**: Reference an evidenced persona or explicit user context that distinguishes the behavior
 - **Goal/desire**: What the user wants to accomplish, not how the system works
 - **Value/benefit**: Why this matters to the user. Must connect to an Opportunity
 
@@ -66,25 +66,13 @@ Every user story must assess Cagan's 4 Risks:
 
 Not all stories need 8+ on every risk. The threshold depends on **cost x risk x reversibility**:
 
-| Condition | Required Confidence | Example |
+| Condition | Calibration Guide | Example |
 |-----------|--------------------|---------|
 | Low-cost, reversible | 3-4 on each risk | Feature flag experiment, UI tweak |
 | Medium cost | 5-7 on each risk | New feature requiring 1-2 sprints |
 | High-cost, irreversible | 8+ on each risk | Platform migration, pricing model change |
 
-### Decision Framework
-
-```
-For each user story:
-1. Assess current confidence per risk (0-10)
-2. Determine the cost/reversibility of implementation
-3. Compare confidence to threshold
-4. If any risk is below threshold:
-   a. Can we reduce cost/increase reversibility? (feature flag, gradual rollout)
-   b. If yes → lower the threshold
-   c. If no → validate further before including in PRD
-5. Document the rationale for "validated enough" or "needs more validation"
-```
+Use these ranges as calibration, not a fixed threshold. For each story, record current evidence and remaining uncertainty, reduce scope or increase reversibility where useful, and request further validation only when its result can change delivery readiness.
 
 ## User Story in PRD
 
@@ -108,12 +96,3 @@ So that [benefit]
 **Delivery readiness**: [validated enough / needs more validation]
 **Rationale**: [cost x risk x reversibility justification]
 ```
-
-## Common Anti-Patterns
-
-- **Solution-as-story**: "As a user, I want a dropdown menu" — this describes implementation, not value
-- **Epic disguised as story**: Too large to deliver independently. Split it
-- **Missing persona**: "As a user" instead of referencing a specific persona
-- **No evidence**: Confidence scores without backing evidence
-- **Perfectionism**: Waiting for all 8+ before proceeding when 3-4 would suffice
-- **Ignoring remaining risks**: Not documenting what's still uncertain

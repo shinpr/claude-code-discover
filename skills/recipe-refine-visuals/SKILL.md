@@ -15,21 +15,11 @@ disable-model-invocation: true
 
 **Execution Protocol**:
 1. **Follow the refinement flow** defined below
-2. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+2. **Approval gate**: At `[STOP — BLOCKING]`, present the token decision and resume after explicit user confirmation
 
-## Workflow Overview
+## Workflow
 
-```
-Input (brand-direction.md + named token consumer)
-    ↓
-1. Context Reading → Read brand direction + design principles + personas
-    ↓
-2. Token Review → Present only Concrete Tokens that affect the named consumer
-    ↓
-3. Expert Refinement → Expert retains or refines consumer-relevant values [Stop: User confirms result]
-    ↓
-Output: Updated Concrete Tokens in docs/product/design/brand-direction.md
-```
+Read the approved direction and named consumer → review affected tokens → confirm retain/refine decisions → update the shared brand direction when values change.
 
 ## Execution Decision Flow
 
@@ -80,7 +70,7 @@ For each override, record the expert's rationale in the Decisions Log.
 - Rationale for each change
 - Contrast and harmony validation results
 
-**CANNOT update the file until user explicitly confirms.**
+Update the file after explicit user confirmation.
 
 ### 4. File Update
 
@@ -98,10 +88,6 @@ After user approval:
 
 ## Completion Criteria
 
-- [ ] Brand direction and named token consumer inspected
-- [ ] Only consumer-relevant tokens reviewed with derivation context
-- [ ] Expert decisions recorded with rationale; an evidence-backed no-change result remains valid
-- [ ] Applicable accessibility and coherence checks pass for the selected token categories
-- [ ] User confirmed refined tokens
-- [ ] Changed Concrete Tokens carry `expert-refined` provenance in `Derived From`
-- [ ] Changed decisions are logged in `Decisions Log`
+- [ ] Reviewed tokens affect the named consumer and retain their derivation context
+- [ ] Applicable accessibility and coherence checks pass; an evidence-backed no-change result is valid
+- [ ] User-confirmed changes carry `expert-refined` provenance and appear in the Decisions Log

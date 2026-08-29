@@ -4,7 +4,7 @@
 
 ### Entity Overview
 
-List all content types the product manages.
+List the content types required by the confirmed IA and flows.
 
 | Entity | Description | Created By | Visible To | Linked Opportunity |
 |--------|-------------|-----------|------------|-------------------|

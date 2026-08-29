@@ -9,30 +9,14 @@ disable-model-invocation: true
 ## Orchestrator Definition
 
 **Execution Protocol**:
-1. **Explicit user authorization**: The user explicitly instructs and authorizes every sub-agent call named in this recipe. Invoke each named specialist whenever its stated condition applies; the orchestrator does not replace that call with its own analysis
-2. **Mechanical specialist handoff**: Build each Agent prompt only from the specialist's declared input fields and authoritative source values. Preserve those values unchanged; do not summarize, paraphrase, supplement, or turn them into narrative instructions
+1. **Required specialist execution**: Invoking this recipe is the user's explicit instruction and authorization to execute every named specialist whose condition applies. Execute each applicable Agent call with its declared `subagent_type` when its prerequisites are met and continue from its returned result; equivalent orchestrator work does not complete that step
+2. **Exact specialist handoff**: The complete Agent prompt consists of all and only the applicable canonical `field: value` entries declared by the specialist's Input Contract. Copy each value unchanged from its authoritative source; serialize path fields as path strings so the specialist reads referenced artifacts directly
 3. **Follow the discovery flow** defined below
-4. **Stop at every `[STOP — BLOCKING]` marker** — present findings and CANNOT proceed until user explicitly confirms
+4. **Approval gates**: At each `[STOP — BLOCKING]`, present the named decision and resume after explicit user confirmation
 
-The authorization and mechanical-handoff rules are intentional redundancy against model and system defaults that substitute orchestrator work or fluent restatements for an approved specialist call. Retain them until fresh execution evidence shows the failure no longer occurs.
+## Workflow
 
-## Workflow Overview
-
-```
-Input (user request / existing code / market opportunity)
-    ↓
-1. Context Assessment → Determine starting point
-    ↓
-2. Business Context Analysis → BMC/VPC/Market (if needed)
-    ↓
-3. User Context Analysis → Personas/JTBD/Journeys
-    ↓
-4. Opportunity Identification → [Stop: Opportunity confirmation]
-    ↓
-5. Hypothesis Generation → [Stop: Hypothesis review]
-    ↓
-Output: Opportunity files + Hypothesis files in docs/discovery/
-```
+Assess context → gather decision-relevant business and user evidence → confirm Opportunities → draft and approve hypotheses → write discovery artifacts.
 
 ## Execution Decision Flow
 
@@ -44,8 +28,8 @@ Input: $ARGUMENTS
 
 | Situation | Action |
 |-----------|--------|
-| Greenfield (no existing product) | Full business + user analysis |
-| Existing codebase | Invoke codebase-analyzer first with `analysis_mode: feature_discovery` and `governing_context: $ARGUMENTS` |
+| Greenfield (no existing product) | Gather the business and user evidence needed to frame the current Opportunity |
+| Existing codebase | Invoke codebase-analyzer first using Agent tool (`subagent_type: "discover:codebase-analyzer"`) with `analysis_mode: feature_discovery` and `governing_context: $ARGUMENTS` |
 | Specific market opportunity | Focus on market analysis + VPC |
 | User feedback / support tickets | Focus on user analysis + journey mapping |
 | Vision exists (`docs/product/vision.md`) | Align discovery with Product Outcomes |
@@ -77,13 +61,13 @@ Synthesize business and user analysis into Opportunities:
 3. Link Opportunities to Product Outcomes (if vision exists)
 4. Assess impact (frequency x severity x breadth)
 
-**[STOP — BLOCKING]** Present Opportunities to user for confirmation:
+**[STOP — BLOCKING]** Present Opportunities to the user for confirmation:
 - Opportunity summaries with impact assessment
 - Evidence supporting each Opportunity
 - Solution-framing evidence and any remaining ambiguity
 - Recommended priority order
 
-**CANNOT proceed to Step 5 until user explicitly confirms, modifies, or rejects Opportunities.**
+Resume Step 5 after the user confirms, modifies, or rejects the Opportunities.
 
 ### 5. Hypothesis Generation
 
@@ -100,7 +84,7 @@ For confirmed Opportunities, generate hypotheses:
 - Proposed validation methods and time budgets
 - Recommended validation priority
 
-**CANNOT write files to `docs/discovery/` until user explicitly approves.**
+Write the files after explicit user approval.
 
 ### 6. File Output
 
@@ -110,12 +94,6 @@ After user approval:
 - Create journey maps in `docs/discovery/journeys/` (if created)
 - Create or update `docs/discovery/INDEX.md`
 
-## Sub-agent Usage
-
-| Agent | When | Why (context separation benefit) |
-|-------|------|----------------------------------|
-| codebase-analyzer (via Agent tool, subagent_type: "discover:codebase-analyzer") | Existing codebase exists | Independent repository evidence without converting implementation into product claims |
-
 ## Scope Boundaries
 
 **Included**: Opportunity discovery, hypothesis generation, market research, journey mapping
@@ -123,10 +101,6 @@ After user approval:
 
 ## Completion Criteria
 
-- [ ] Starting context assessed
-- [ ] Business and/or user analysis completed (as appropriate)
-- [ ] Opportunity framing checked without manufacturing alternatives to meet a count
-- [ ] User confirmed Opportunities
-- [ ] Hypotheses generated with validation methods and time budgets
-- [ ] User reviewed hypotheses
-- [ ] Files written to `docs/discovery/`
+- [ ] Confirmed Opportunities retain their supporting evidence and solution-framing result
+- [ ] Approved hypotheses state the risk, validation method, and time boundary
+- [ ] Approved artifacts and the discovery index are written to `docs/discovery/`

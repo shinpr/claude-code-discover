@@ -32,7 +32,7 @@ Different approaches to the same underlying problem.
 
 ### Analysis Framework
 
-For each competitor, assess:
+For competitors whose evidence can change the current decision, assess the applicable dimensions:
 
 | Dimension | Assessment |
 |-----------|-----------|
@@ -67,12 +67,12 @@ Industry reports, government statistics, academic studies, competitor analysis
 ### Web Research
 Industry analysis, competitor websites, user reviews, technology developments
 
-## Application in nautilus
+## Application in Discover
 
 ### Connection to Risks
 - **TAM/SAM/SOM** → Viability risk (is the market large enough?)
 - **Competitive analysis** → Value risk (can we differentiate?)
-- **Market trends** → Feasibility risk (is the timing right?)
+- **Market trends** → the risk or timing decision their evidence can change
 - **Market gaps** → Opportunity identification (underserved needs)
 
 ### Red Flags
@@ -85,11 +85,7 @@ Industry analysis, competitor websites, user reviews, technology developments
 
 ## Quality Checklist
 
-- [ ] Market size estimated with cited data sources
-- [ ] Target segments clearly defined
-- [ ] Key competitors identified and analyzed
-- [ ] Market gaps identified
-- [ ] Competitive positioning clear
-- [ ] Market trends understood
-- [ ] Data sources are recent (within 1-2 years)
-- [ ] Findings cross-validated
+- [ ] Included claims can change the current Opportunity, risk, scope, or priority decision
+- [ ] Each material claim has a cited source and distinguishes observation from inference
+- [ ] Segment, competitor, sizing, gap, trend, and positioning analysis appear only when applicable
+- [ ] Freshness and corroboration are proportionate to the claim's consequence

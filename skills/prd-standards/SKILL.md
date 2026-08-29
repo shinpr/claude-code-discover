@@ -56,5 +56,5 @@ All functional requirements use EARS-format acceptance criteria. See `references
 Key rules:
 - Use When (event-driven), While (state-driven), or If-Then (conditional) patterns
 - Each AC is testable with a clear pass/fail
-- User-facing requirements record loading, empty, error, partial, and success as `required` or `not_applicable` with a reason; ACs cover every required state
+- User-facing requirements specify each applicable state; an excluded standard state gets a reason only when omission would leave behavior ambiguous
 - Accessibility ACs included for UI features

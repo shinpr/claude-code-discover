@@ -8,7 +8,7 @@ Guide for structured reflection at three levels: PRD unit, Opportunity unit, and
 
 - **Reflect on the artifact, not in a separate place**: Results are appended to the target file (hypothesis, Opportunity, vision.md)
 - **ADR-style lifecycle**: Each artifact carries its full history
-- **Every outcome is a learning**: Success and failure both generate knowledge
+- **Decision-relevant learning**: Preserve success or failure evidence when it can change an Opportunity, product rule, or future validation decision
 - **Distill outcomes**: Use knowledge-distiller to extract cross-result patterns and conditions
 
 ## Reflection Levels
@@ -20,7 +20,7 @@ Guide for structured reflection at three levels: PRD unit, Opportunity unit, and
 **Process**:
 1. Record the result with evidence in the hypothesis file
 2. Update confidence scores with final values
-3. Document what was learned regardless of outcome
+3. Document conclusions and evidence that can change a downstream decision
 4. Identify next actions
 5. Flag if this result changes understanding of the parent Opportunity
 
@@ -58,13 +58,8 @@ recipe-reflect updates `docs/discovery/INDEX.md` with:
 - Recent validation results
 - Tier 1 learning changes
 
-## Reflection Checklist
+## Reflection Check
 
-- [ ] Target artifact updated with results
-- [ ] Confidence scores updated with evidence
-- [ ] Learnings documented (not just outcomes)
-- [ ] knowledge-distiller invoked for pattern extraction (Level 2+)
-- [ ] Tier promotion criteria checked
-- [ ] Contradictions explicitly noted
-- [ ] INDEX.md updated
-- [ ] Freshness tags current on Tier 1 learnings
+- [ ] The target artifact and index preserve decision-relevant results and confidence evidence
+- [ ] Level 2+ patterns come from knowledge-distiller; contradictions retain their conditions
+- [ ] Promotions meet the tier criteria and modified Tier 1 learnings carry freshness tags

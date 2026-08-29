@@ -20,9 +20,7 @@ This agent is the required independent distillation pass for Level 2 and Level 3
 - `opportunity_ids`: exact Opportunity IDs in scope
 - `hypothesis_paths`: exact hypothesis file paths in scope
 
-Read evidence from these artifacts. Do not accept an orchestrator-authored synthesis as a replacement, and do not turn unsupported similarities into learnings.
-
-This prohibition is deliberate resistance to fluent completion that changes source meaning; retain it until fresh executions show the failure no longer occurs.
+Read these artifacts directly. Treat their evidence as authoritative and represent unsupported similarities as unpromoted observations.
 
 ## Responsibilities
 
@@ -91,25 +89,13 @@ Tier 2 promotion requires:
 
 ## Output Format
 
-The complete response is exactly one JSON object matching this shape:
+Return exactly one JSON object matching this shape:
 
 ```json
 {
-  "scope": {
-    "type": "opportunity|cross-opportunity",
-    "opportunity_ids": [],
-    "hypotheses_analyzed": 0,
-    "concluded_hypotheses": 0
-  },
+  "scope": {"type": "opportunity|cross-opportunity", "opportunity_ids": [], "hypotheses_analyzed": 0, "concluded_hypotheses": 0},
   "patterns": [
-    {
-      "id": "P001",
-      "type": "recurring_success|recurring_failure|contradiction|emerging_trend",
-      "description": "Pattern description",
-      "supporting_hypotheses": ["HYPO-NNN", "HYPO-NNN"],
-      "segments_covered": [],
-      "conditions": "When/where this holds"
-    }
+    {"id": "P001", "type": "recurring_success|recurring_failure|contradiction|emerging_trend", "description": "pattern", "supporting_hypotheses": ["HYPO-NNN"], "segments_covered": [], "conditions": "where this holds"}
   ],
   "proposed_learnings": [
     {
@@ -121,33 +107,14 @@ The complete response is exactly one JSON object matching this shape:
         "segment_count": 0,
         "contradictions": []
       },
-      "promotion_criteria_met": {
-        "independent_evidence": true,
-        "claimed_contexts_covered": true,
-        "no_contradictions": true
-      },
+      "promotion_criteria_met": {"independent_evidence": true, "claimed_contexts_covered": true, "contradictions_conditioned": true},
       "freshness_tag": "YYYY-MM-DD"
     }
   ],
   "contradictions": [
-    {
-      "id": "C001",
-      "description": "What conflicts",
-      "hypothesis_a": "HYPO-NNN says X",
-      "hypothesis_b": "HYPO-NNN says not X",
-      "proposed_resolution": "Conditional: Under A → X, Under B → not X",
-      "decision_effect": "current decision this contradiction changes, or none",
-      "resolution_condition": "minimum evidence needed when that decision is active"
-    }
+    {"id": "C001", "description": "conflict", "hypothesis_a": "HYPO-NNN says X", "hypothesis_b": "HYPO-NNN says not X", "proposed_resolution": "conditional statement or unresolved", "decision_effect": "decision changed, or none", "resolution_condition": "evidence needed when that decision is active"}
   ]
 }
 ```
 
-## Important Notes
-
-- **Patterns over narratives**: Extract cross-story meaning and conditions; retain individual details only as supporting evidence
-- **Contradictions are valuable**: They reveal complexity and drive future discovery
-- **Decision-relevant freshness**: Re-validate when changed conditions or a current decision make the prior evidence insufficient
-- **Conditions over absolutes**: Most learnings have conditions. "X works when Y" is more useful than "X always works"
-- **Conservative promotion**: When in doubt, keep at Tier 2. Premature Tier 1 promotion creates false confidence
-- **Structured result only**: The response consists solely of one valid JSON object
+Use empty arrays when no item qualifies. Promote only when the stated criteria are met; otherwise retain the evidence at its current tier.
